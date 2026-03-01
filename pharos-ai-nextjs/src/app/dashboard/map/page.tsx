@@ -25,6 +25,7 @@ import {
   type HeatPoint,
 } from '@/data/mapData';
 import { MAP_STORIES, type MapStory } from '@/data/mapStories';
+import StoryIcon from '@/components/dashboard/StoryIcon';
 
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 
@@ -90,7 +91,7 @@ function StoryCard({
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 0 }}>
-          <span style={{ fontSize: 18, marginRight: 10, flexShrink: 0, lineHeight: 1 }}>{story.icon}</span>
+          <StoryIcon iconName={story.iconName} category={story.category} size={15} boxSize={28} style={{ marginRight: 10 }} />
           <div style={{ flex: 1, minWidth: 0 }}>
             <div
               style={{
@@ -630,7 +631,7 @@ export default function FullMapPage() {
                       activeStory?.id === story.id ? '#252A31' : 'transparent';
                   }}
                 >
-                  {story.icon}
+                  <StoryIcon iconName={story.iconName} category={story.category} size={14} boxSize={32} />
                 </div>
               ))}
         </div>
@@ -672,7 +673,7 @@ export default function FullMapPage() {
               pointerEvents: 'auto',
             }}
           >
-            <span style={{ fontSize: 14 }}>{activeStory.icon}</span>
+            <StoryIcon iconName={activeStory.iconName} category={activeStory.category} size={12} boxSize={22} />
             <span style={{ fontSize: 11, fontFamily: 'monospace', color: '#E8E8E8', fontWeight: 700 }}>
               STORY: {activeStory.title.toUpperCase()}
             </span>

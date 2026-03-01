@@ -2,7 +2,7 @@ export interface MapStory {
   id: string;
   title: string;
   tagline: string;
-  icon: string; // single emoji
+  iconName: string; // lucide-react icon name
   category: 'STRIKE' | 'RETALIATION' | 'NAVAL' | 'INTEL' | 'DIPLOMATIC';
   narrative: string; // 2-3 sentence AI analysis
   highlightStrikeIds: string[]; // IDs from STRIKE_ARCS
@@ -23,7 +23,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'b2-sortie',
     title: 'The Long Arm: B-2 Spirit Sortie',
     tagline: 'Diego Garcia to Iranian heartland — 7,000km each way',
-    icon: '✈',
+    iconName: 'Plane',
     category: 'STRIKE',
     narrative:
       'Five B-2 Spirit stealth bombers launched from Diego Garcia (BIOT) carrying 14 GBU-57 Massive Ordnance Penetrators — the only conventional weapon capable of destroying hardened underground facilities like Fordow. The round-trip mission exceeded 14,000km, requiring multiple aerial refuelings over the Indian Ocean. This represents the longest combat strike mission in US Air Force history.',
@@ -44,7 +44,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'nuclear-kill-chain',
     title: 'Nuclear Kill Chain',
     tagline: "Iran's entire nuclear program neutralized in 4 hours",
-    icon: '☢',
+    iconName: 'Radiation',
     category: 'STRIKE',
     narrative:
       "In a coordinated 4-hour window, the United States and Israel systematically struck every significant node of Iran's nuclear program. Fordow's underground centrifuge halls — buried 80m under a mountain — were destroyed by GBU-57 MOPs. Natanz's A-hall, B-hall and advanced centrifuge workshops were obliterated. The Arak IR-40 heavy water reactor, Bushehr power plant, and Isfahan's UCF were simultaneously hit. IAEA Director General Rafael Grossi called it 'the most consequential event in nuclear non-proliferation history.'",
@@ -65,7 +65,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'hormuz-gambit',
     title: 'The Hormuz Gambit',
     tagline: '20% of global oil supply choked — markets in freefall',
-    icon: '⚓',
+    iconName: 'Anchor',
     category: 'NAVAL',
     narrative:
       "Within hours of the strikes, IRGC Navy forces moved to close the Strait of Hormuz — the chokepoint through which 20% of global oil supply transits daily. Over 200 vessels anchored at the strait's approaches as IRGC fast boats and sea mines created an exclusion zone. Brent crude surged 35% in pre-market trading. USS Gerald R. Ford's strike group responded with Tomahawk strikes on IRGC naval facilities at Bandar Abbas.",
@@ -86,7 +86,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'three-front-retaliation',
     title: 'Three-Front Retaliation',
     tagline: 'Iran strikes US bases across 5 Gulf nations simultaneously',
-    icon: '🎯',
+    iconName: 'Crosshair',
     category: 'RETALIATION',
     narrative:
       "Iran's retaliation was calibrated to maximize US casualties across multiple fronts simultaneously — a deliberate strategy to force American withdrawal from the region. Within 90 minutes of the initial strikes, IRGC ballistic missiles hit NSA Bahrain (2 US KIA), Al Udeid Qatar (1 US KIA), Al Dhafra UAE (wounded), Prince Sultan AB Saudi Arabia, and Ali Al Salem Kuwait. The coordinated salvo demonstrated Iran had pre-planned targeting packages for all US bases in theater.",
@@ -107,7 +107,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'carrier-corridor',
     title: 'Three-Carrier Corridor',
     tagline: 'Largest US naval concentration in the Gulf since 2003',
-    icon: '🚢',
+    iconName: 'Ship',
     category: 'NAVAL',
     narrative:
       'The United States positioned three carrier strike groups in a 3,000km arc from the Red Sea to the Arabian Sea — the largest US naval concentration in the Middle East since the 2003 Iraq invasion. USS Gerald R. Ford (CVN-78) in the Gulf of Oman provided the primary strike platform. USS Dwight D. Eisenhower (CVN-69) in the Red Sea provided ballistic missile defense coverage for Israel. USS Theodore Roosevelt (CVN-71) in the Arabian Sea served as the quick reaction force.',
@@ -128,7 +128,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'khamenei-last-hours',
     title: "Khamenei's Last Hours",
     tagline: 'Supreme Leader killed — regime decapitated in 90 minutes',
-    icon: '💀',
+    iconName: 'Skull',
     category: 'INTEL',
     narrative:
       "Intelligence suggests Khamenei was in his reinforced compound in northern Tehran when B-2-delivered bunker busters struck at 02:14 local time. Iranian state media initially denied his death, but IRGC commanders began communicating via emergency protocols within 20 minutes of the strike — a pattern consistent with loss of central command. At 06:47 local time, IRNA confirmed: 'The Supreme Leader has been martyred.' Iranians took to the streets of Tehran in celebration within hours.",
@@ -149,7 +149,7 @@ export const MAP_STORIES: MapStory[] = [
     id: 'idf-deep-strike',
     title: 'IDF Deep Strike Package',
     tagline: 'Israeli Air Force strikes deepest into Iran ever recorded',
-    icon: '⚡',
+    iconName: 'Zap',
     category: 'STRIKE',
     narrative:
       "The Israeli Air Force conducted the most ambitious strike package in its history, with F-35I Adir jets flying 1,800km into Iran to strike Tabriz missile production facilities in Iran's northwest — well beyond any previous IDF operation. Simultaneously, F-15I Ra'am aircraft hit Shahid Nojeh AFB and the Natanz/Isfahan/Fordow nuclear cluster. The operation, codenamed Operation Roaring Lion, was synchronized to the minute with US B-2 strikes to overwhelm Iranian air defenses.",
