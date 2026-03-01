@@ -74,7 +74,7 @@ export default function SignalsPage() {
           {breaking.length > 0 && (
             <div style={{ marginBottom: 20 }}>
               <SectionHeader label="BREAKING" count={breaking.length} color="var(--danger)" />
-              {breaking.map(p => <XPostCard key={p.id} post={p as import('@/data/mockXPosts').XPost} />)}
+              {breaking.map(p => <XPostCard key={p.id} post={p as import('@/data/iranXPosts').XPost} />)}
             </div>
           )}
 
@@ -82,7 +82,7 @@ export default function SignalsPage() {
           {high.length > 0 && (
             <div style={{ marginBottom: 20 }}>
               <SectionHeader label="HIGH SIGNIFICANCE" count={high.length} color="var(--warning)" />
-              {high.map(p => <XPostCard key={p.id} post={p as import('@/data/mockXPosts').XPost} />)}
+              {high.map(p => <XPostCard key={p.id} post={p as import('@/data/iranXPosts').XPost} />)}
             </div>
           )}
 
@@ -90,7 +90,7 @@ export default function SignalsPage() {
           {standard.length > 0 && (
             <div style={{ marginBottom: 20 }}>
               <SectionHeader label="STANDARD" count={standard.length} color="var(--info)" />
-              {standard.map(p => <XPostCard key={p.id} post={p as import('@/data/mockXPosts').XPost} />)}
+              {standard.map(p => <XPostCard key={p.id} post={p as import('@/data/iranXPosts').XPost} />)}
             </div>
           )}
 

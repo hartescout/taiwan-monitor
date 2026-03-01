@@ -231,7 +231,7 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
                 <div style={{ marginBottom: 10 }}>
                   <span className="label" style={{ fontSize: 8 }}>{xPosts.length} POSTS · PHAROS-CURATED · {actor.name.toUpperCase()}</span>
                 </div>
-                {xPosts.map(p => <XPostCard key={p.id} post={p as import('@/data/mockXPosts').XPost} />)}
+                {xPosts.map(p => <XPostCard key={p.id} post={p as import('@/data/iranXPosts').XPost} />)}
               </>
             )}
           </div>

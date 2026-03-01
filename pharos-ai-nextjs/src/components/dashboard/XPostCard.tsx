@@ -1,6 +1,6 @@
 'use client';
 import { AlertTriangle, CheckCircle, ExternalLink, Eye, Heart, Repeat2 } from 'lucide-react';
-import { type XPost, fmt } from '@/data/mockXPosts';
+import { type XPost, fmt } from '@/data/iranXPosts';
 
 /* ── Account type colours ── */
 const ACCT_C: Record<string, { bg: string; text: string; label: string }> = {
@@ -156,7 +156,7 @@ export default function XPostCard({ post, compact }: Props) {
             gap: 3,
             marginTop: 10,
           }}>
-            {post.images.map(img => (
+            {post.images.map((img: string) => (
               <div key={img} style={{
                 height: post.images!.length === 1 ? 130 : 80,
                 background: IMG_BG[img] ?? '#1C2127',

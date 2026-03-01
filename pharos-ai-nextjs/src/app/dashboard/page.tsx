@@ -250,7 +250,7 @@ export default function OverviewPage() {
             </div>
             <div style={{ flex: 1, overflowY: 'auto', padding: 10 }}>
               {breakingPosts.map(p => (
-                <XPostCard key={p.id} post={p as import('@/data/mockXPosts').XPost} compact />
+                <XPostCard key={p.id} post={p as import('@/data/iranXPosts').XPost} compact />
               ))}
             </div>
           </div>
