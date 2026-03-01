@@ -8,7 +8,7 @@ import { EVENTS, SEV_STYLE, type Severity, type IntelEvent } from '@/data/mockEv
 import { getPostsForEvent }  from '@/data/mockXPosts';
 import XPostCard             from '@/components/dashboard/XPostCard';
 
-const SEV: Record<string, string> = { CRITICAL: 'var(--crit)', HIGH: 'var(--high)', STANDARD: 'var(--elev)' };
+const SEV: Record<string, string> = { CRITICAL: 'var(--danger)', HIGH: 'var(--warning)', STANDARD: 'var(--info)' };
 const TIER_C: Record<number, string> = { 1: '#22c55e', 2: '#f59e0b', 3: '#4e6d87' };
 const TIER_L: Record<number, string> = { 1: 'T1', 2: 'T2', 3: 'T3' };
 const STANCE_C: Record<string, string> = { SUPPORTING: '#22c55e', OPPOSING: '#ef4444', NEUTRAL: '#4e6d87', UNKNOWN: '#27404f' };
@@ -61,8 +61,8 @@ function IntelFeedInner() {
 
       {/* ── FILTER RAIL ── 160px ── */}
       <div style={{ width: 160, minWidth: 160, flexShrink: 0, borderRight: '1px solid var(--b)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        <div className="pane-hdr">
-          <span className="hd">Filters</span>
+        <div className="panel-header">
+          <span className="section-title">Filters</span>
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto' }}>
@@ -78,7 +78,7 @@ function IntelFeedInner() {
           </FilterBlock>
 
           <FilterBlock label="VERIFIED">
-            <CRow label="ONLY VERIFIED" color="var(--mon)" checked={verOnly} onChange={setVerOnly} />
+            <CRow label="ONLY VERIFIED" color="var(--success)" checked={verOnly} onChange={setVerOnly} />
           </FilterBlock>
         </div>
 
@@ -89,30 +89,30 @@ function IntelFeedInner() {
 
       {/* ── EVENT LOG ── 300px ── */}
       <div style={{ width: 300, minWidth: 300, flexShrink: 0, borderRight: '1px solid var(--b)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-        <div className="pane-hdr" style={{ justifyContent: 'space-between' }}>
-          <span className="hd">{cfFilter === 'all' ? 'All Conflicts' : CONFLICTS.find(c => c.id === cfFilter)?.shortName}</span>
-          <span className="lbl">{filtered.length}</span>
+        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+          <span className="section-title">{cfFilter === 'all' ? 'All Conflicts' : CONFLICTS.find(c => c.id === cfFilter)?.shortName}</span>
+          <span className="label">{filtered.length}</span>
         </div>
 
         {/* Col headers */}
-        <div style={{ display: 'grid', gridTemplateColumns: '40px 50px 1fr 24px', padding: '4px 12px', borderBottom: '1px solid var(--b)', background: 'var(--p2)' }}>
-          {['TIME', 'SEV', 'TITLE', ''].map(h => <span key={h} className="lbl" style={{ fontSize: 8 }}>{h}</span>)}
+        <div style={{ display: 'grid', gridTemplateColumns: '40px 50px 1fr 24px', padding: '4px 12px', borderBottom: '1px solid var(--b)', background: 'var(--bg-2)' }}>
+          {['TIME', 'SEV', 'TITLE', ''].map(h => <span key={h} className="label" style={{ fontSize: 8 }}>{h}</span>)}
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto' }}>
           {filtered.length === 0 && (
             <div style={{ padding: 24, textAlign: 'center' }}>
-              <span className="lbl">No results</span>
+              <span className="label">No results</span>
             </div>
           )}
           {Object.entries(grouped).map(([date, events]) => (
             <div key={date}>
-              <div style={{ padding: '4px 12px', background: 'var(--p2)', borderBottom: '1px solid var(--b)' }}>
+              <div style={{ padding: '4px 12px', background: 'var(--bg-2)', borderBottom: '1px solid var(--b)' }}>
                 <span className="mono" style={{ fontSize: 9, color: 'var(--t3)' }}>{date}</span>
               </div>
               {events.map(evt => {
                 const isOn = selId === evt.id;
-                const sc   = SEV[evt.severity] ?? 'var(--elev)';
+                const sc   = SEV[evt.severity] ?? 'var(--info)';
                 const xc   = getPostsForEvent(evt.id).length;
                 return (
                   <button key={evt.id} onClick={() => { setSelId(isOn ? null : evt.id); setTab('report'); }}
@@ -122,7 +122,7 @@ function IntelFeedInner() {
                       padding: '6px 12px',
                       borderBottom: '1px solid var(--bs)',
                       borderLeft: `3px solid ${isOn ? sc : 'transparent'}`,
-                      background: isOn ? 'var(--p4)' : 'transparent',
+                      background: isOn ? 'var(--bg-sel)' : 'transparent',
                     }}
                   >
                     <span className="mono" style={{ fontSize: 9, color: 'var(--t3)', alignSelf: 'center' }}>{ts(evt.timestamp)}</span>
@@ -154,7 +154,7 @@ function IntelFeedInner() {
         {!selected ? (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
             <FileText size={32} style={{ color: 'var(--t3)' }} strokeWidth={1} />
-            <span className="lbl" style={{ color: 'var(--t3)' }}>Select an event</span>
+            <span className="label" style={{ color: 'var(--t3)' }}>Select an event</span>
           </div>
         ) : (
           <EventDetail event={selected} tab={tab} setTab={setTab} />
@@ -165,29 +165,29 @@ function IntelFeedInner() {
 }
 
 function EventDetail({ event, tab, setTab }: { event: IntelEvent; tab: 'report' | 'signals'; setTab: (t: 'report' | 'signals') => void }) {
-  const sc      = SEV[event.severity] ?? 'var(--elev)';
+  const sc      = SEV[event.severity] ?? 'var(--info)';
   const conflict = CONFLICTS.find(c => c.id === event.conflictId);
   const xPosts   = getPostsForEvent(event.id);
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       {/* Classification header */}
-      <div style={{ padding: '10px 20px', borderBottom: '1px solid var(--b)', background: 'var(--p2)', flexShrink: 0 }}>
+      <div style={{ padding: '10px 20px', borderBottom: '1px solid var(--b)', background: 'var(--bg-2)', flexShrink: 0 }}>
         <div style={{ display: 'flex', gap: 8, marginBottom: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '2px 8px', border: `1px solid ${sc}`, background: sc + '18' }}>
             <div style={{ width: 5, height: 5, borderRadius: '50%', background: sc }} />
             <span style={{ fontSize: 9, fontWeight: 700, color: sc, letterSpacing: '0.08em', fontFamily: 'system-ui' }}>{event.severity}</span>
           </div>
-          <span className="lbl" style={{ color: 'var(--t3)', fontSize: 8 }}>{event.type}</span>
+          <span className="label" style={{ color: 'var(--t3)', fontSize: 8 }}>{event.type}</span>
           {event.verified && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-              <CheckCircle size={9} style={{ color: 'var(--mon)' }} strokeWidth={2} />
-              <span className="lbl" style={{ fontSize: 8, color: 'var(--mon)' }}>VERIFIED</span>
+              <CheckCircle size={9} style={{ color: 'var(--success)' }} strokeWidth={2} />
+              <span className="label" style={{ fontSize: 8, color: 'var(--success)' }}>VERIFIED</span>
             </div>
           )}
           {conflict && (
             <Link href={`/dashboard/conflicts/${conflict.id}`} style={{ textDecoration: 'none', marginLeft: 'auto' }}>
-              <span className="lbl" style={{ fontSize: 8, color: 'var(--acc)' }}>↗ {conflict.shortName}</span>
+              <span className="label" style={{ fontSize: 8, color: 'var(--blue)' }}>↗ {conflict.shortName}</span>
             </Link>
           )}
         </div>
@@ -204,14 +204,14 @@ function EventDetail({ event, tab, setTab }: { event: IntelEvent; tab: 'report' 
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--b)', flexShrink: 0, background: 'var(--p2)' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--b)', flexShrink: 0, background: 'var(--bg-2)' }}>
         {(['report', 'signals'] as const).map(t => (
           <button key={t} onClick={() => setTab(t)} className="row-btn" style={{
             padding: '8px 18px', width: 'auto',
             fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
             color: tab === t ? 'var(--t1)' : 'var(--t2)',
-            borderBottom: tab === t ? '2px solid var(--acc)' : '2px solid transparent',
-            background: tab === t ? 'var(--p1)' : 'transparent',
+            borderBottom: tab === t ? '2px solid var(--blue)' : '2px solid transparent',
+            background: tab === t ? 'var(--bg-1)' : 'transparent',
           }}>
             {t === 'signals' ? `𝕏 SIGNALS${xPosts.length > 0 ? ` (${xPosts.length})` : ''}` : 'INTEL REPORT'}
           </button>
@@ -266,13 +266,13 @@ function EventDetail({ event, tab, setTab }: { event: IntelEvent; tab: 'report' 
                     return (
                       <Link key={i} href={`/dashboard/actors?actor=${r.actorId}`} style={{ textDecoration: 'none' }}>
                         <div style={{ padding: '8px 12px', border: '1px solid var(--b)', borderLeft: `3px solid ${sc}`, cursor: 'pointer' }}
-                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--p3)'}
+                          onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-3)'}
                           onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
                         >
                           <div style={{ display: 'flex', gap: 8, marginBottom: 4 }}>
                             <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)', fontFamily: 'system-ui' }}>{r.actorName}</span>
                             <span style={{ fontSize: 8, padding: '1px 5px', background: sc + '18', color: sc, fontFamily: 'system-ui', fontWeight: 700, letterSpacing: '.05em' }}>{r.stance}</span>
-                            <span className="lbl" style={{ fontSize: 8, marginLeft: 'auto', color: 'var(--t3)' }}>{r.type}</span>
+                            <span className="label" style={{ fontSize: 8, marginLeft: 'auto', color: 'var(--t3)' }}>{r.type}</span>
                             <ArrowRight size={9} style={{ color: 'var(--t3)' }} strokeWidth={1.5} />
                           </div>
                           <p style={{ fontSize: 11.5, color: 'var(--t2)', fontFamily: 'system-ui', lineHeight: 1.5, fontStyle: 'italic' }}>"{r.statement}"</p>
@@ -289,12 +289,12 @@ function EventDetail({ event, tab, setTab }: { event: IntelEvent; tab: 'report' 
             {xPosts.length === 0 ? (
               <div style={{ padding: 48, textAlign: 'center' }}>
                 <span style={{ fontSize: 20, color: 'var(--t3)' }}>𝕏</span>
-                <p className="lbl" style={{ color: 'var(--t3)', marginTop: 8 }}>No signals indexed for this event</p>
+                <p className="label" style={{ color: 'var(--t3)', marginTop: 8 }}>No signals indexed for this event</p>
               </div>
             ) : (
               <>
                 <div style={{ marginBottom: 10 }}>
-                  <span className="lbl" style={{ fontSize: 8 }}>{xPosts.length} POSTS · PHAROS-CURATED · CHRONOLOGICAL</span>
+                  <span className="label" style={{ fontSize: 8 }}>{xPosts.length} POSTS · PHAROS-CURATED · CHRONOLOGICAL</span>
                 </div>
                 {xPosts.map(p => <XPostCard key={p.id} post={p} />)}
               </>
@@ -309,7 +309,7 @@ function EventDetail({ event, tab, setTab }: { event: IntelEvent; tab: 'report' 
 function MetaChip({ label, val }: { label: string; val: string }) {
   return (
     <div>
-      <div className="lbl" style={{ fontSize: 8, marginBottom: 1 }}>{label}</div>
+      <div className="label" style={{ fontSize: 8, marginBottom: 1 }}>{label}</div>
       <span className="mono" style={{ fontSize: 10, color: 'var(--t1)' }}>{val}</span>
     </div>
   );
@@ -319,7 +319,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
   return (
     <div style={{ marginBottom: 22 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-        <span className="lbl" style={{ fontSize: 8 }}>{label}</span>
+        <span className="label" style={{ fontSize: 8 }}>{label}</span>
         <div style={{ flex: 1, height: 1, background: 'var(--bs)' }} />
       </div>
       {children}
@@ -330,7 +330,7 @@ function Section({ label, children }: { label: string; children: React.ReactNode
 function FilterBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div style={{ padding: '10px 0', borderBottom: '1px solid var(--bs)' }}>
-      <div className="lbl" style={{ padding: '0 12px', marginBottom: 4, fontSize: 8 }}>{label}</div>
+      <div className="label" style={{ padding: '0 12px', marginBottom: 4, fontSize: 8 }}>{label}</div>
       {children}
     </div>
   );
@@ -340,8 +340,8 @@ function FRow({ active, onClick, label }: { active: boolean; onClick: () => void
   return (
     <button onClick={onClick} className="row-btn" style={{
       padding: '5px 12px',
-      background: active ? 'var(--p4)' : 'transparent',
-      borderLeft: `3px solid ${active ? 'var(--acc)' : 'transparent'}`,
+      background: active ? 'var(--bg-sel)' : 'transparent',
+      borderLeft: `3px solid ${active ? 'var(--blue)' : 'transparent'}`,
     }}>
       <span style={{ fontSize: 10, fontWeight: active ? 700 : 400, color: active ? 'var(--t1)' : 'var(--t2)', fontFamily: 'system-ui, sans-serif' }}>
         {label}
@@ -359,7 +359,7 @@ function CRow({ label, color, checked, onChange }: { label: string; color: strin
         background: checked ? color : 'transparent',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        {checked && <div style={{ width: 5, height: 5, background: 'var(--p0)' }} />}
+        {checked && <div style={{ width: 5, height: 5, background: 'var(--bg-app)' }} />}
       </div>
       <span style={{ fontSize: 10, color: checked ? 'var(--t1)' : 'var(--t2)', fontFamily: 'system-ui, sans-serif' }}>{label}</span>
     </button>
@@ -368,7 +368,7 @@ function CRow({ label, color, checked, onChange }: { label: string; color: strin
 
 export default function IntelFeedPage() {
   return (
-    <Suspense fallback={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span className="lbl">Loading…</span></div>}>
+    <Suspense fallback={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span className="label">Loading…</span></div>}>
       <IntelFeedInner />
     </Suspense>
   );

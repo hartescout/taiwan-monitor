@@ -8,9 +8,9 @@ import { ACTORS }                from '@/data/mockActors';
 import { getPostsForConflict }   from '@/data/mockXPosts';
 import XPostCard                 from '@/components/dashboard/XPostCard';
 
-const SEV_C: Record<string, string>  = { CRITICAL: 'var(--crit)', HIGH: 'var(--high)', STANDARD: 'var(--elev)' };
-const ACT_C: Record<string, string>  = { HIGH: 'var(--crit)', ELEVATED: 'var(--high)', MODERATE: 'var(--elev)', LOW: 'var(--t2)' };
-const STATUS_C: Record<string, string> = { CRITICAL: 'var(--crit)', ESCALATING: 'var(--crit)', ELEVATED: 'var(--elev)', MONITORING: 'var(--mon)', 'DE-ESCALATING': 'var(--mon)' };
+const SEV_C: Record<string, string>  = { CRITICAL: 'var(--danger)', HIGH: 'var(--warning)', STANDARD: 'var(--info)' };
+const ACT_C: Record<string, string>  = { HIGH: 'var(--danger)', ELEVATED: 'var(--warning)', MODERATE: 'var(--info)', LOW: 'var(--t2)' };
+const STATUS_C: Record<string, string> = { CRITICAL: 'var(--danger)', ESCALATING: 'var(--danger)', ELEVATED: 'var(--info)', MONITORING: 'var(--success)', 'DE-ESCALATING': 'var(--success)' };
 
 function fmtTs(ts: string) { return new Date(ts).toISOString().slice(11, 16); }
 function ago(ts: string) {
@@ -25,7 +25,7 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
 
   if (!conflict) return (
     <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-      <span className="lbl" style={{ color: 'var(--t3)' }}>Conflict not found</span>
+      <span className="label" style={{ color: 'var(--t3)' }}>Conflict not found</span>
     </div>
   );
 
@@ -38,15 +38,15 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
 
       {/* ── Header ──────────────────────────────────── */}
-      <div style={{ padding: '10px 20px', borderBottom: '1px solid var(--b)', background: 'var(--p2)', flexShrink: 0 }}>
+      <div style={{ padding: '10px 20px', borderBottom: '1px solid var(--b)', background: 'var(--bg-2)', flexShrink: 0 }}>
         <Link href="/dashboard" style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 5, marginBottom: 8 }}>
           <ArrowLeft size={11} strokeWidth={2} style={{ color: 'var(--t3)' }} />
-          <span className="lbl" style={{ fontSize: 8, color: 'var(--t3)' }}>SITUATION ROOM</span>
+          <span className="label" style={{ fontSize: 8, color: 'var(--t3)' }}>SITUATION ROOM</span>
         </Link>
 
         <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           <div>
-            <div className="lbl" style={{ fontSize: 8, color: 'var(--t3)', marginBottom: 4 }}>
+            <div className="label" style={{ fontSize: 8, color: 'var(--t3)', marginBottom: 4 }}>
               CONFLICT ASSESSMENT // PHAROS INTELLIGENCE
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 6 }}>
@@ -69,13 +69,13 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
           <div style={{ display: 'flex', gap: 20, flexShrink: 0 }}>
             {[
               { label: 'ESCALATION',  val: `${conflict.escalationScore}%`, color: sc },
-              { label: 'CRITICAL',    val: String(conflict.criticalToday),  color: 'var(--crit)' },
-              { label: 'HIGH',        val: String(conflict.highToday),      color: 'var(--high)' },
+              { label: 'CRITICAL',    val: String(conflict.criticalToday),  color: 'var(--danger)' },
+              { label: 'HIGH',        val: String(conflict.highToday),      color: 'var(--warning)' },
               { label: 'TOTAL EVT',   val: String(events.length),           color: 'var(--t2)' },
             ].map(m => (
               <div key={m.label} style={{ textAlign: 'right' }}>
                 <div className="mono" style={{ fontSize: 22, color: m.color, lineHeight: 1 }}>{m.val}</div>
-                <div className="lbl" style={{ fontSize: 8, marginTop: 2 }}>{m.label}</div>
+                <div className="label" style={{ fontSize: 8, marginTop: 2 }}>{m.label}</div>
               </div>
             ))}
           </div>
@@ -83,7 +83,7 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
 
         {/* Escalation bar + CTAs */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginTop: 12 }}>
-          <div className="lbl" style={{ fontSize: 8, minWidth: 70 }}>ESCALATION</div>
+          <div className="label" style={{ fontSize: 8, minWidth: 70 }}>ESCALATION</div>
           <div style={{ flex: 1, height: 4, background: 'var(--b)' }}>
             <div style={{ width: `${conflict.escalationScore}%`, height: '100%', background: sc }} />
           </div>
@@ -99,17 +99,17 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
 
         {/* Event timeline */}
         <div style={{ flex: 1, borderRight: '1px solid var(--b)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          <div className="pane-hdr">
-            <span className="hd">Event Timeline</span>
-            <span className="lbl" style={{ marginLeft: 'auto' }}>{events.length}</span>
+          <div className="panel-header">
+            <span className="section-title">Event Timeline</span>
+            <span className="label" style={{ marginLeft: 'auto' }}>{events.length}</span>
           </div>
           {/* Col headers */}
-          <div style={{ display: 'grid', gridTemplateColumns: '44px 50px 1fr 30px', padding: '4px 12px', borderBottom: '1px solid var(--b)', background: 'var(--p2)' }}>
-            {['TIME', 'SEV', 'EVENT', 'SRC'].map(h => <span key={h} className="lbl" style={{ fontSize: 8 }}>{h}</span>)}
+          <div style={{ display: 'grid', gridTemplateColumns: '44px 50px 1fr 30px', padding: '4px 12px', borderBottom: '1px solid var(--b)', background: 'var(--bg-2)' }}>
+            {['TIME', 'SEV', 'EVENT', 'SRC'].map(h => <span key={h} className="label" style={{ fontSize: 8 }}>{h}</span>)}
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
             {events.map((evt, i) => {
-              const sc = SEV_C[evt.severity] ?? 'var(--elev)';
+              const sc = SEV_C[evt.severity] ?? 'var(--info)';
               return (
                 <Link key={evt.id} href={`/dashboard/feed?event=${evt.id}`} style={{ textDecoration: 'none' }}>
                   <div style={{
@@ -117,7 +117,7 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
                     padding: '7px 12px', borderBottom: i < events.length - 1 ? '1px solid var(--bs)' : 'none',
                     cursor: 'pointer',
                   }}
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--p3)'}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-3)'}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
                   >
                     <span className="mono" style={{ fontSize: 9, color: 'var(--t3)', alignSelf: 'flex-start', paddingTop: 2 }}>{fmtTs(evt.timestamp)}</span>
@@ -125,8 +125,8 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
                     <div>
                       <p style={{ fontSize: 11.5, color: 'var(--t1)', fontFamily: 'system-ui, sans-serif', lineHeight: 1.3, marginBottom: 2 }}>{evt.title}</p>
                       <div style={{ display: 'flex', gap: 6 }}>
-                        <span className="lbl" style={{ fontSize: 8, color: 'var(--t3)' }}>{evt.type}</span>
-                        {evt.verified && <CheckCircle size={8} style={{ color: 'var(--mon)' }} strokeWidth={2} />}
+                        <span className="label" style={{ fontSize: 8, color: 'var(--t3)' }}>{evt.type}</span>
+                        {evt.verified && <CheckCircle size={8} style={{ color: 'var(--success)' }} strokeWidth={2} />}
                       </div>
                     </div>
                     <span className="mono" style={{ fontSize: 10, color: 'var(--t3)', textAlign: 'right' }}>{evt.sources.length}</span>
@@ -139,14 +139,14 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
 
         {/* Actors */}
         <div style={{ width: 300, minWidth: 300, borderRight: '1px solid var(--b)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          <div className="pane-hdr">
-            <span className="hd">Key Actors</span>
-            <span className="lbl" style={{ marginLeft: 'auto' }}>{actors.length}</span>
+          <div className="panel-header">
+            <span className="section-title">Key Actors</span>
+            <span className="label" style={{ marginLeft: 'auto' }}>{actors.length}</span>
           </div>
           <div style={{ flex: 1, overflowY: 'auto' }}>
             {actors.map((actor, i) => {
               const ac  = ACT_C[actor.activityLevel] ?? 'var(--t2)';
-              const stc: Record<string, string> = { AGGRESSIVE: 'var(--crit)', OPPOSING: 'var(--high)', NEUTRAL: 'var(--t2)', SUPPORTING: 'var(--mon)', DEFENSIVE: 'var(--elev)' };
+              const stc: Record<string, string> = { AGGRESSIVE: 'var(--danger)', OPPOSING: 'var(--warning)', NEUTRAL: 'var(--t2)', SUPPORTING: 'var(--success)', DEFENSIVE: 'var(--info)' };
               return (
                 <Link key={actor.id} href={`/dashboard/actors?actor=${actor.id}`} style={{ textDecoration: 'none' }}>
                   <div style={{
@@ -154,7 +154,7 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
                     borderBottom: i < actors.length - 1 ? '1px solid var(--bs)' : 'none',
                     cursor: 'pointer', borderLeft: `3px solid ${ac}`,
                   }}
-                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--p3)'}
+                    onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-3)'}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
@@ -168,7 +168,7 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
                       "{actor.saying.slice(0, 100)}…"
                     </p>
                     <div>
-                      <span className="lbl" style={{ fontSize: 8, marginRight: 6 }}>DOING:</span>
+                      <span className="label" style={{ fontSize: 8, marginRight: 6 }}>DOING:</span>
                       <span style={{ fontSize: 10, color: 'var(--t2)', fontFamily: 'system-ui' }}>{actor.doing[0]}</span>
                     </div>
                     <div style={{ display: 'flex', gap: 8, marginTop: 6 }}>
@@ -186,15 +186,15 @@ export default function ConflictPage({ params }: { params: Promise<{ id: string 
 
         {/* X posts */}
         <div style={{ width: 280, minWidth: 280, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-          <div className="pane-hdr">
+          <div className="panel-header">
             <span style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1 }}>𝕏</span>
-            <span className="hd" style={{ marginLeft: 2 }}>Field Signals</span>
-            <span className="lbl" style={{ marginLeft: 'auto' }}>{xPosts.length}</span>
+            <span className="section-title" style={{ marginLeft: 2 }}>Field Signals</span>
+            <span className="label" style={{ marginLeft: 'auto' }}>{xPosts.length}</span>
           </div>
           <div style={{ flex: 1, overflowY: 'auto', padding: '8px' }}>
             {xPosts.length === 0 ? (
               <div style={{ padding: 24, textAlign: 'center' }}>
-                <span className="lbl" style={{ color: 'var(--t3)' }}>No signals</span>
+                <span className="label" style={{ color: 'var(--t3)' }}>No signals</span>
               </div>
             ) : (
               xPosts.map(post => <XPostCard key={post.id} post={post} compact />)
@@ -210,11 +210,11 @@ function NavBtn({ href, label }: { href: string; label: string }) {
   return (
     <Link href={href} style={{ textDecoration: 'none' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 4, padding: '4px 12px', border: '1px solid var(--b)', cursor: 'pointer' }}
-        onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--p3)'}
+        onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-3)'}
         onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
       >
-        <span className="lbl" style={{ fontSize: 8, color: 'var(--acc)' }}>{label}</span>
-        <ArrowRight size={9} strokeWidth={1.5} style={{ color: 'var(--acc)' }} />
+        <span className="label" style={{ fontSize: 8, color: 'var(--blue)' }}>{label}</span>
+        <ArrowRight size={9} strokeWidth={1.5} style={{ color: 'var(--blue)' }} />
       </div>
     </Link>
   );

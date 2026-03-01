@@ -8,9 +8,9 @@ import { ACTORS, ACTIVITY_STYLE, STANCE_STYLE, type Actor } from '@/data/mockAct
 import { getPostsForActor }              from '@/data/mockXPosts';
 import XPostCard                         from '@/components/dashboard/XPostCard';
 
-const ACT_C: Record<string, string> = { HIGH: 'var(--crit)', ELEVATED: 'var(--high)', MODERATE: 'var(--elev)', LOW: 'var(--t2)' };
-const STA_C: Record<string, string> = { AGGRESSIVE: 'var(--crit)', OPPOSING: 'var(--high)', NEUTRAL: 'var(--t2)', SUPPORTING: 'var(--mon)', DEFENSIVE: 'var(--elev)' };
-const ACT_TYPE_C: Record<string, string> = { MILITARY: 'var(--crit)', DIPLOMATIC: 'var(--elev)', POLITICAL: '#a78bfa', ECONOMIC: 'var(--high)', CYBER: 'var(--mon)', INTELLIGENCE: 'var(--t2)' };
+const ACT_C: Record<string, string> = { HIGH: 'var(--danger)', ELEVATED: 'var(--warning)', MODERATE: 'var(--info)', LOW: 'var(--t2)' };
+const STA_C: Record<string, string> = { AGGRESSIVE: 'var(--danger)', OPPOSING: 'var(--warning)', NEUTRAL: 'var(--t2)', SUPPORTING: 'var(--success)', DEFENSIVE: 'var(--info)' };
+const ACT_TYPE_C: Record<string, string> = { MILITARY: 'var(--danger)', DIPLOMATIC: 'var(--info)', POLITICAL: '#a78bfa', ECONOMIC: 'var(--warning)', CYBER: 'var(--success)', INTELLIGENCE: 'var(--t2)' };
 
 function ActorsInner() {
   const searchParams = useSearchParams();
@@ -31,8 +31,8 @@ function ActorsInner() {
 
       {/* ── CONFLICT FILTER ── 160px ── */}
       <div style={{ width: 160, minWidth: 160, flexShrink: 0, borderRight: '1px solid var(--b)', display: 'flex', flexDirection: 'column' }}>
-        <div className="pane-hdr">
-          <span className="hd">Conflict</span>
+        <div className="panel-header">
+          <span className="section-title">Conflict</span>
         </div>
         <div style={{ flex: 1, overflowY: 'auto', padding: '8px 0' }}>
           {['all', ...CONFLICTS.map(c => c.id)].map(id => {
@@ -43,8 +43,8 @@ function ActorsInner() {
                 className="row-btn"
                 style={{
                   padding: '6px 14px',
-                  borderLeft: `3px solid ${active ? 'var(--acc)' : 'transparent'}`,
-                  background: active ? 'var(--p4)' : 'transparent',
+                  borderLeft: `3px solid ${active ? 'var(--blue)' : 'transparent'}`,
+                  background: active ? 'var(--bg-sel)' : 'transparent',
                   display: 'flex', alignItems: 'center', gap: 7,
                 }}
               >
@@ -59,14 +59,14 @@ function ActorsInner() {
 
       {/* ── ACTOR LIST ── 240px ── */}
       <div style={{ width: 240, minWidth: 240, flexShrink: 0, borderRight: '1px solid var(--b)', display: 'flex', flexDirection: 'column' }}>
-        <div className="pane-hdr" style={{ justifyContent: 'space-between' }}>
-          <span className="hd">Actors</span>
-          <span className="lbl">{filtered.length}</span>
+        <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+          <span className="section-title">Actors</span>
+          <span className="label">{filtered.length}</span>
         </div>
 
         {/* Column headers */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 60px 30px', padding: '4px 12px', borderBottom: '1px solid var(--b)', background: 'var(--p2)' }}>
-          {['ACTOR', 'ACTIVITY', ''].map(h => <span key={h} className="lbl" style={{ fontSize: 8 }}>{h}</span>)}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 60px 30px', padding: '4px 12px', borderBottom: '1px solid var(--b)', background: 'var(--bg-2)' }}>
+          {['ACTOR', 'ACTIVITY', ''].map(h => <span key={h} className="label" style={{ fontSize: 8 }}>{h}</span>)}
         </div>
 
         <div style={{ flex: 1, overflowY: 'auto' }}>
@@ -82,7 +82,7 @@ function ActorsInner() {
                   padding: '8px 12px',
                   borderBottom: '1px solid var(--bs)',
                   borderLeft: `3px solid ${isOn ? actC : 'transparent'}`,
-                  background: isOn ? 'var(--p4)' : 'transparent',
+                  background: isOn ? 'var(--bg-sel)' : 'transparent',
                 }}
               >
                 <div>
@@ -113,7 +113,7 @@ function ActorsInner() {
         {!selected ? (
           <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
             <Users size={32} style={{ color: 'var(--t3)' }} strokeWidth={1} />
-            <span className="lbl" style={{ color: 'var(--t3)' }}>Select an actor</span>
+            <span className="label" style={{ color: 'var(--t3)' }}>Select an actor</span>
           </div>
         ) : (
           <ActorDossier actor={selected} tab={tab} setTab={setTab} />
@@ -131,9 +131,9 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       {/* Dossier header */}
-      <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--b)', background: 'var(--p2)', flexShrink: 0 }}>
+      <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--b)', background: 'var(--bg-2)', flexShrink: 0 }}>
         {/* Classification */}
-        <div className="lbl" style={{ fontSize: 8, color: 'var(--t3)', marginBottom: 8 }}>
+        <div className="label" style={{ fontSize: 8, color: 'var(--t3)', marginBottom: 8 }}>
           ACTOR INTELLIGENCE DOSSIER // PHAROS THREAT ANALYSIS
         </div>
 
@@ -152,7 +152,7 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
               </span>
             </div>
             <span className="mono" style={{ fontSize: 10, color: 'var(--t2)' }}>{actor.fullName}</span>
-            <span className="lbl" style={{ marginLeft: 10, fontSize: 8, color: 'var(--t3)' }}>{actor.type}</span>
+            <span className="label" style={{ marginLeft: 10, fontSize: 8, color: 'var(--t3)' }}>{actor.type}</span>
           </div>
           <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
             <div style={{ height: 6, width: 80, background: 'var(--b)' }}>
@@ -164,14 +164,14 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
       </div>
 
       {/* Tabs */}
-      <div style={{ display: 'flex', borderBottom: '1px solid var(--b)', flexShrink: 0, background: 'var(--p2)' }}>
+      <div style={{ display: 'flex', borderBottom: '1px solid var(--b)', flexShrink: 0, background: 'var(--bg-2)' }}>
         {(['intel', 'signals'] as const).map(t => (
           <button key={t} onClick={() => setTab(t)} className="row-btn" style={{
             padding: '8px 18px', width: 'auto',
             fontSize: 10, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase',
             color: tab === t ? 'var(--t1)' : 'var(--t2)',
-            borderBottom: tab === t ? '2px solid var(--acc)' : '2px solid transparent',
-            background: tab === t ? 'var(--p1)' : 'transparent',
+            borderBottom: tab === t ? '2px solid var(--blue)' : '2px solid transparent',
+            background: tab === t ? 'var(--bg-1)' : 'transparent',
           }}>
             {t === 'signals' ? `𝕏 SIGNALS${xPosts.length > 0 ? ` (${xPosts.length})` : ''}` : 'ACTOR INTELLIGENCE'}
           </button>
@@ -205,7 +205,7 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
 
             {/* Assessment */}
             <DocSection label="PHAROS ASSESSMENT">
-              <div style={{ borderLeft: '3px solid var(--acc)', paddingLeft: 12 }}>
+              <div style={{ borderLeft: '3px solid var(--blue)', paddingLeft: 12 }}>
                 <p style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.7, fontFamily: 'system-ui, sans-serif' }}>
                   {actor.assessment}
                 </p>
@@ -223,7 +223,7 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
                         <span style={{ fontSize: 8, fontWeight: 700, padding: '1px 5px', background: ac + '18', color: ac, fontFamily: 'system-ui', letterSpacing: '.04em' }}>{action.type}</span>
                         <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-                          {action.verified && <CheckCircle size={8} style={{ color: 'var(--mon)' }} strokeWidth={2} />}
+                          {action.verified && <CheckCircle size={8} style={{ color: 'var(--success)' }} strokeWidth={2} />}
                           <span className="mono" style={{ fontSize: 8, color: 'var(--t3)' }}>{action.sourceCount}src</span>
                         </div>
                       </div>
@@ -245,11 +245,11 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
                   return (
                     <Link key={cid} href={`/dashboard/conflicts/${cid}`} style={{ textDecoration: 'none' }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '3px 10px', border: '1px solid var(--b)', cursor: 'pointer' }}
-                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--p3)'}
+                        onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-3)'}
                         onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
                       >
-                        <span className="lbl" style={{ fontSize: 9, color: 'var(--acc)' }}>{c.shortName}</span>
-                        <ArrowRight size={9} strokeWidth={1.5} style={{ color: 'var(--acc)' }} />
+                        <span className="label" style={{ fontSize: 9, color: 'var(--blue)' }}>{c.shortName}</span>
+                        <ArrowRight size={9} strokeWidth={1.5} style={{ color: 'var(--blue)' }} />
                       </div>
                     </Link>
                   );
@@ -262,12 +262,12 @@ function ActorDossier({ actor, tab, setTab }: { actor: Actor; tab: 'intel' | 'si
             {xPosts.length === 0 ? (
               <div style={{ padding: 48, textAlign: 'center' }}>
                 <span style={{ fontSize: 20, color: 'var(--t3)' }}>𝕏</span>
-                <p className="lbl" style={{ color: 'var(--t3)', marginTop: 8 }}>No signals indexed for this actor</p>
+                <p className="label" style={{ color: 'var(--t3)', marginTop: 8 }}>No signals indexed for this actor</p>
               </div>
             ) : (
               <>
                 <div style={{ marginBottom: 10 }}>
-                  <span className="lbl" style={{ fontSize: 8 }}>{xPosts.length} POSTS · PHAROS-CURATED · {actor.name.toUpperCase()}</span>
+                  <span className="label" style={{ fontSize: 8 }}>{xPosts.length} POSTS · PHAROS-CURATED · {actor.name.toUpperCase()}</span>
                 </div>
                 {xPosts.map(p => <XPostCard key={p.id} post={p} />)}
               </>
@@ -283,7 +283,7 @@ function DocSection({ label, children }: { label: string; children: React.ReactN
   return (
     <div style={{ marginBottom: 20 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-        <span className="lbl" style={{ fontSize: 8 }}>{label}</span>
+        <span className="label" style={{ fontSize: 8 }}>{label}</span>
         <div style={{ flex: 1, height: 1, background: 'var(--bs)' }} />
       </div>
       {children}
@@ -293,7 +293,7 @@ function DocSection({ label, children }: { label: string; children: React.ReactN
 
 export default function ActorsPage() {
   return (
-    <Suspense fallback={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span className="lbl">Loading…</span></div>}>
+    <Suspense fallback={<div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><span className="label">Loading…</span></div>}>
       <ActorsInner />
     </Suspense>
   );

@@ -1,34 +1,43 @@
 'use client';
-import { AlertTriangle, CheckCircle } from 'lucide-react';
-import { type XPost, ACCOUNT_TYPE_STYLE, fmt } from '@/data/mockXPosts';
+import { AlertTriangle, CheckCircle, ExternalLink, Eye, Heart, Repeat2 } from 'lucide-react';
+import { type XPost, fmt } from '@/data/mockXPosts';
 
-const IMAGE_BG: Record<string, string>    = {
-  'strike-aerial-1':          '#0d1f0d',
-  'osint-thermal-1':          '#1a0a0a',
-  'osint-map-1':              '#0a0d1a',
-  'iran-missile-1':           '#1a0a0a',
-  'ukraine-column-geo-1':     '#0d150d',
-  'ukraine-column-geo-2':     '#0d1510',
-  'taiwan-radar-track-1':     '#0a0d1a',
-  'uss-reagan-philippine-sea':'#040d18',
-};
-const IMAGE_LABEL: Record<string, string> = {
-  'strike-aerial-1':          'Aerial · Northern Gaza',
-  'osint-thermal-1':          'Thermal OSINT · strike signature',
-  'osint-map-1':              'Geolocation · map overlay',
-  'iran-missile-1':           'State media · IRGC launch',
-  'ukraine-column-geo-1':     'Satellite · armor column',
-  'ukraine-column-geo-2':     'Satellite · vehicle ID',
-  'taiwan-radar-track-1':     'ADIZ track · PLAAF',
-  'uss-reagan-philippine-sea':'USN · Philippine Sea',
+/* ── Account type colours ── */
+const ACCT_C: Record<string, { bg: string; text: string; label: string }> = {
+  military:   { bg: 'rgba(231,106,110,.15)', text: '#E76A6E', label: 'MILITARY'   },
+  government: { bg: 'rgba(35,162,109,.15)',  text: '#23A26D', label: 'GOVT'       },
+  official:   { bg: 'rgba(45,114,210,.15)',  text: '#4C90F0', label: 'OFFICIAL'   },
+  journalist: { bg: 'rgba(162,139,224,.15)', text: '#A28BE0', label: 'PRESS'      },
+  analyst:    { bg: 'rgba(76,144,240,.15)',  text: '#4C90F0', label: 'ANALYST'    },
 };
 
-const ACCT_C: Record<string, string> = {
-  official:   '#3b82f6',
-  journalist: '#a78bfa',
-  analyst:    '#06b6d4',
-  military:   '#ef4444',
-  government: '#22c55e',
+/* ── Significance left-border colours ── */
+const SIG_BORDER: Record<string, string> = {
+  BREAKING: '#E76A6E',
+  HIGH:     '#EC9A3C',
+  STANDARD: '#383E47',
+};
+
+/* ── Image labels / bg colours ── */
+const IMG_BG: Record<string, string>  = {
+  'strike-aerial-1':          '#0e1a0e',
+  'osint-thermal-1':          '#1a0e0e',
+  'osint-map-1':              '#0e0e1a',
+  'iran-missile-1':           '#1a0e0e',
+  'ukraine-column-geo-1':     '#0e140e',
+  'ukraine-column-geo-2':     '#0e1410',
+  'taiwan-radar-track-1':     '#0e0e1a',
+  'uss-reagan-philippine-sea':'#06101a',
+};
+const IMG_LBL: Record<string, string> = {
+  'strike-aerial-1':          'AERIAL · N.GAZA',
+  'osint-thermal-1':          'THERMAL · STRIKE SIG.',
+  'osint-map-1':              'GEOLOC · MAP OVERLAY',
+  'iran-missile-1':           'STATE MEDIA · IRGC LAUNCH',
+  'ukraine-column-geo-1':     'SAT · ARMOR COLUMN',
+  'ukraine-column-geo-2':     'SAT · VEHICLE ID',
+  'taiwan-radar-track-1':     'ADIZ · PLAAF TRACK',
+  'uss-reagan-philippine-sea':'USN · PHILIPPINE SEA',
 };
 
 function ago(ts: string) {
@@ -42,56 +51,99 @@ interface Props { post: XPost; compact?: boolean }
 
 export default function XPostCard({ post, compact }: Props) {
   const isBreaking = post.significance === 'BREAKING';
-  const ac = ACCT_C[post.accountType] ?? '#4e6d87';
+  const isHigh     = post.significance === 'HIGH';
+  const acct       = ACCT_C[post.accountType] ?? ACCT_C.analyst;
+  const border     = SIG_BORDER[post.significance] ?? SIG_BORDER.STANDARD;
 
   return (
     <div style={{
-      background: isBreaking ? 'rgba(239,68,68,0.04)' : 'var(--p1)',
-      border: `1px solid ${isBreaking ? 'rgba(239,68,68,0.18)' : 'var(--bs)'}`,
-      borderLeft: `3px solid ${isBreaking ? 'var(--crit)' : 'var(--b)'}`,
-      marginBottom: 6,
+      background: 'var(--bg-2)',
+      border: '1px solid var(--bd)',
+      borderLeft: `3px solid ${border}`,
+      marginBottom: 8,
     }}>
+      {/* ── BREAKING banner ── */}
       {isBreaking && (
-        <div style={{ padding: '3px 10px', background: 'var(--crit)', display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div style={{
+          padding: '3px 12px',
+          background: 'var(--danger)',
+          display: 'flex', alignItems: 'center', gap: 6,
+        }}>
           <div style={{ width: 5, height: 5, borderRadius: '50%', background: 'white' }} />
-          <span style={{ fontSize: 8, color: 'white', fontWeight: 700, letterSpacing: '0.08em', fontFamily: 'system-ui' }}>BREAKING</span>
+          <span style={{ fontSize: 9, fontWeight: 700, color: 'white', letterSpacing: '0.10em', textTransform: 'uppercase' }}>
+            Breaking
+          </span>
+        </div>
+      )}
+      {isHigh && !isBreaking && (
+        <div style={{ padding: '2px 12px', background: 'rgba(236,154,60,0.15)', borderBottom: '1px solid rgba(236,154,60,0.2)' }}>
+          <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--warning)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            High Significance
+          </span>
         </div>
       )}
 
-      <div style={{ padding: compact ? '8px 10px' : '12px 14px' }}>
-        {/* Header */}
-        <div style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
-          {/* Avatar */}
-          <div style={{
-            width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-            background: post.avatarColor,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 9, fontWeight: 700, color: 'white', fontFamily: 'system-ui',
-          }}>
-            {post.avatar.slice(0, 2)}
-          </div>
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 5, flexWrap: 'wrap', marginBottom: 1 }}>
-              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)', fontFamily: 'system-ui', lineHeight: 1 }}>{post.displayName}</span>
-              {post.verified && <CheckCircle size={10} style={{ color: ac, flexShrink: 0 }} strokeWidth={2.5} />}
-              <span style={{ marginLeft: 'auto', fontSize: 8, color: 'var(--t3)', fontFamily: 'SFMono-Regular, monospace', flexShrink: 0 }}>{ago(post.timestamp)}</span>
-            </div>
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-              <span style={{ fontSize: 8, color: 'var(--t3)', fontFamily: 'SFMono-Regular, monospace' }}>{post.handle}</span>
-              <span style={{ fontSize: 8, padding: '1px 4px', background: ac + '18', color: ac, fontFamily: 'system-ui', fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-                {post.accountType}
-              </span>
-            </div>
-          </div>
+      {/* ── HEADER: avatar · name · handle · type · time ── */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 10,
+        padding: '9px 12px',
+        borderBottom: '1px solid var(--bd-s)',
+        background: 'rgba(0,0,0,0.15)',
+      }}>
+        {/* Avatar */}
+        <div style={{
+          width: 32, height: 32, borderRadius: '50%', flexShrink: 0,
+          background: post.avatarColor,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 10, fontWeight: 700, color: 'white',
+        }}>
+          {post.avatar.slice(0, 2)}
         </div>
 
-        {/* Content */}
+        {/* Name + handle */}
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', lineHeight: 1 }}>
+              {post.displayName}
+            </span>
+            {post.verified && (
+              <CheckCircle size={11} style={{ color: 'var(--blue-l)', flexShrink: 0 }} strokeWidth={2.5} />
+            )}
+          </div>
+          <span style={{ fontSize: 10, color: 'var(--t4)', fontFamily: 'SFMono-Regular, monospace' }}>
+            {post.handle}
+          </span>
+        </div>
+
+        {/* Account type badge */}
+        <span style={{
+          fontSize: 9, fontWeight: 700, padding: '2px 6px',
+          background: acct.bg, color: acct.text,
+          letterSpacing: '0.05em', textTransform: 'uppercase',
+          flexShrink: 0,
+        }}>
+          {acct.label}
+        </span>
+
+        {/* Timestamp */}
+        <span style={{ fontSize: 10, color: 'var(--t4)', flexShrink: 0, fontFamily: 'SFMono-Regular, monospace' }}>
+          {ago(post.timestamp)}
+        </span>
+      </div>
+
+      {/* ── BODY: post text ── */}
+      <div style={{ padding: '10px 12px' }}>
         <p style={{
-          fontSize: compact ? 11 : 12,
-          color: 'var(--t1)', lineHeight: 1.55,
-          fontFamily: 'system-ui, sans-serif',
-          marginBottom: 8, whiteSpace: 'pre-wrap',
-          ...(compact ? { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } : {}),
+          fontSize: compact ? 11.5 : 12.5,
+          color: 'var(--t1)',
+          lineHeight: 1.6,
+          whiteSpace: 'pre-wrap',
+          ...(compact ? {
+            display: '-webkit-box',
+            WebkitLineClamp: 3,
+            WebkitBoxOrient: 'vertical',
+            overflow: 'hidden',
+          } : {}),
         }}>
           {post.content}
         </p>
@@ -101,18 +153,24 @@ export default function XPostCard({ post, compact }: Props) {
           <div style={{
             display: 'grid',
             gridTemplateColumns: post.images.length === 1 ? '1fr' : '1fr 1fr',
-            gap: 3, marginBottom: 8,
+            gap: 3,
+            marginTop: 10,
           }}>
             {post.images.map(img => (
               <div key={img} style={{
-                height: post.images!.length === 1 ? 140 : 80,
-                background: IMAGE_BG[img] ?? '#060e1a',
+                height: post.images!.length === 1 ? 130 : 80,
+                background: IMG_BG[img] ?? '#1C2127',
+                border: '1px solid var(--bd)',
+                position: 'relative', overflow: 'hidden',
                 display: 'flex', alignItems: 'flex-end', padding: 6,
-                position: 'relative', border: '1px solid var(--b)',
               }}>
-                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.6))' }} />
-                <span style={{ position: 'relative', fontSize: 9, color: 'rgba(255,255,255,0.5)', fontFamily: 'SFMono-Regular, monospace', lineHeight: 1.3 }}>
-                  {IMAGE_LABEL[img] ?? img}
+                <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.65))' }} />
+                <span style={{
+                  position: 'relative', fontSize: 8, fontWeight: 700,
+                  color: 'rgba(255,255,255,0.55)', letterSpacing: '0.06em',
+                  fontFamily: 'SFMono-Regular, monospace', textTransform: 'uppercase',
+                }}>
+                  {IMG_LBL[img] ?? img}
                 </span>
               </div>
             ))}
@@ -121,48 +179,75 @@ export default function XPostCard({ post, compact }: Props) {
 
         {/* Video */}
         {!compact && post.videoThumb && (
-          <div style={{ height: 100, background: 'var(--p2)', border: '1px solid var(--b)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8, position: 'relative' }}>
-            <div style={{ width: 32, height: 32, border: '1px solid var(--b)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <div style={{ width: 0, height: 0, borderTop: '6px solid transparent', borderBottom: '6px solid transparent', borderLeft: '10px solid var(--t2)', marginLeft: 2 }} />
-            </div>
-            <span style={{ position: 'absolute', bottom: 6, left: 10, fontSize: 9, color: 'var(--t3)', fontFamily: 'SFMono-Regular, monospace' }}>VIDEO</span>
-          </div>
-        )}
-
-        {/* Engagement */}
-        <div style={{ display: 'flex', gap: 12, marginBottom: compact ? 0 : (post.pharosNote ? 8 : 0) }}>
-          <Metric icon="♥" val={fmt(post.likes)} />
-          <Metric icon="🔁" val={fmt(post.retweets)} />
-          <Metric icon="👁" val={fmt(post.views)} />
-        </div>
-
-        {/* Pharos note */}
-        {!compact && post.pharosNote && (
           <div style={{
-            marginTop: 8, padding: '6px 8px',
-            background: post.pharosNote.startsWith('⚠️') ? 'rgba(245,158,11,0.06)' : 'rgba(34,197,94,0.06)',
-            border: `1px solid ${post.pharosNote.startsWith('⚠️') ? 'rgba(245,158,11,0.2)' : 'rgba(34,197,94,0.2)'}`,
-            display: 'flex', gap: 6, alignItems: 'flex-start',
+            height: 90, background: 'var(--bg-app)', border: '1px solid var(--bd)',
+            marginTop: 10,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            position: 'relative',
           }}>
-            {post.pharosNote.startsWith('⚠️')
-              ? <AlertTriangle size={10} style={{ color: 'var(--high)', flexShrink: 0, marginTop: 1 }} strokeWidth={2} />
-              : <CheckCircle  size={10} style={{ color: 'var(--mon)',  flexShrink: 0, marginTop: 1 }} strokeWidth={2} />
-            }
-            <p style={{ fontSize: 10, color: 'var(--t2)', lineHeight: 1.5, fontFamily: 'system-ui, sans-serif' }}>
-              <span style={{ fontSize: 8, fontWeight: 700, color: 'var(--t3)', letterSpacing: '0.05em', fontFamily: 'system-ui' }}>PHAROS · </span>
-              {post.pharosNote.replace('⚠️ ', '')}
-            </p>
+            <div style={{
+              width: 36, height: 36, border: '1px solid var(--bd)',
+              background: 'rgba(255,255,255,0.06)',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+            }}>
+              <div style={{ width: 0, height: 0, borderTop: '7px solid transparent', borderBottom: '7px solid transparent', borderLeft: '12px solid var(--t3)', marginLeft: 2 }} />
+            </div>
+            <span style={{ position: 'absolute', bottom: 8, left: 12, fontSize: 9, color: 'var(--t4)', fontFamily: 'monospace', textTransform: 'uppercase', letterSpacing: '.06em' }}>
+              VIDEO
+            </span>
           </div>
         )}
       </div>
+
+      {/* ── FOOTER: engagement metrics ── */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 16,
+        padding: '6px 12px',
+        borderTop: '1px solid var(--bd-s)',
+        background: 'rgba(0,0,0,0.12)',
+      }}>
+        <EngStat icon={<Heart size={10} strokeWidth={1.5} />} val={fmt(post.likes)} />
+        <EngStat icon={<Repeat2 size={10} strokeWidth={1.5} />} val={fmt(post.retweets)} />
+        <EngStat icon={<Eye size={10} strokeWidth={1.5} />} val={fmt(post.views)} />
+        <div style={{ marginLeft: 'auto' }}>
+          <ExternalLink size={11} style={{ color: 'var(--t4)', cursor: 'pointer' }} strokeWidth={1.5} />
+        </div>
+      </div>
+
+      {/* ── PHAROS NOTE (full view only) ── */}
+      {!compact && post.pharosNote && (
+        <div style={{
+          margin: '0 12px 10px',
+          padding: '8px 10px',
+          background: post.pharosNote.startsWith('⚠️') ? 'var(--warning-dim)' : 'var(--success-dim)',
+          border: `1px solid ${post.pharosNote.startsWith('⚠️') ? 'rgba(236,154,60,.25)' : 'rgba(35,162,109,.25)'}`,
+          borderLeft: `3px solid ${post.pharosNote.startsWith('⚠️') ? 'var(--warning)' : 'var(--success)'}`,
+        }}>
+          <div style={{ display: 'flex', gap: 7, alignItems: 'flex-start' }}>
+            {post.pharosNote.startsWith('⚠️')
+              ? <AlertTriangle size={11} style={{ color: 'var(--warning)', flexShrink: 0, marginTop: 1 }} strokeWidth={2} />
+              : <CheckCircle  size={11} style={{ color: 'var(--success)', flexShrink: 0, marginTop: 1 }} strokeWidth={2} />
+            }
+            <div>
+              <div style={{ fontSize: 8, fontWeight: 700, color: 'var(--t4)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>
+                Pharos Analyst Note
+              </div>
+              <p style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.5 }}>
+                {post.pharosNote.replace('⚠️ ', '')}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function Metric({ icon, val }: { icon: string; val: string }) {
+function EngStat({ icon, val }: { icon: React.ReactNode; val: string }) {
   return (
-    <span style={{ display: 'flex', alignItems: 'center', gap: 3, fontSize: 10, color: 'var(--t3)', fontFamily: 'SFMono-Regular, monospace' }}>
-      <span>{icon}</span> {val}
-    </span>
+    <div style={{ display: 'flex', alignItems: 'center', gap: 4, color: 'var(--t4)' }}>
+      {icon}
+      <span style={{ fontSize: 10, fontFamily: 'SFMono-Regular, monospace' }}>{val}</span>
+    </div>
   );
 }
