@@ -19,6 +19,10 @@ This document exists because AI tools produce working code that drifts over time
 7. [State & Logic Location](#7-state--logic-location)
 8. [Naming Conventions](#8-naming-conventions)
 9. [Import Order](#9-import-order)
+10. [Comments](#10-comments)
+11. [Hover styles](#11-hover-styles)
+12. [Types](#12-types)
+13. [Inline components](#13-inline-components)
 
 ---
 
@@ -599,6 +603,63 @@ import { MARKET_GROUPS } from '@/data/predictionGroups';
 // 8. Types (always last, always `import type`)
 import type { IntelEvent } from '@/data/iranEvents';
 import type { PredictionMarket } from '@/app/api/polymarket/route';
+```
+
+---
+
+## 10. Comments
+
+**Rule:** Write comments only to explain non-obvious intent, tricky algorithms, or CODEX exceptions (e.g. SVG font).
+Never write comments that restate what the code does.
+
+```tsx
+// ❌ Wrong — restates code
+// Map over actors and render each one
+{ACTORS.map(actor => <ActorRow key={actor.id} actor={actor} />)}
+
+// ✅ Correct — only comment when explaining WHY, not WHAT
+// probColor() uses log scale so low probabilities still show meaningful colour
+const color = probColor(prob);
+```
+
+---
+
+## 11. Hover styles
+
+**Rule:** Use Tailwind `hover:` classes for hover effects. Never use `onMouseEnter`/`onMouseLeave` to mutate `.style` directly.
+
+```tsx
+// ❌ Wrong — JS hover
+<div
+  onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'var(--bg-3)'}
+  onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
+>
+
+// ✅ Correct — Tailwind hover
+<div className="hover:bg-[var(--bg-3)] transition-colors">
+```
+
+---
+
+## 12. Types
+
+**Rule:** All domain types and interfaces live in `src/types/domain.ts`. Data files (`src/data/`) contain only data — no `export type` or `export interface`. Component files never define domain types.
+
+Exception: local-only prop interfaces (e.g. `interface Props { ... }`) stay in the component file.
+
+---
+
+## 13. Inline components
+
+**Rule:** Never define a named function component inside a page file. Extract it to a named file in the relevant feature folder.
+
+```tsx
+// ❌ Wrong — component defined inside page
+function CasChip({ label, val, color }: ...) { ... }
+export default function OverviewPage() { ... }
+
+// ✅ Correct — CasChip lives in src/components/overview/CasChip.tsx
+import { CasChip } from '@/components/overview/CasChip';
 ```
 
 ---
