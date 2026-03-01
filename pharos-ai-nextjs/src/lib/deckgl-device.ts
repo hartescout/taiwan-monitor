@@ -10,23 +10,35 @@
  *
  * Import this at the top of any file that renders a DeckGL component.
  * Gated on typeof window — safe to import in SSR.
+ *
+ * Also guarded against double-initialization: Next.js Turbopack (HMR) can
+ * re-evaluate this module during dev, which would trigger "luma.gl has
+ * already been initialized". A window-level flag prevents that.
  */
 
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { luma } = require('@luma.gl/core') as {
-    luma: {
-      registerAdapters: (adapters: unknown[]) => void;
-      enforceWebGL2: () => void;
-    };
-  };
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { webgl2Adapter } = require('@luma.gl/webgl') as {
-    webgl2Adapter: unknown;
-  };
+type WindowWithLuma = Window & { __lumaGlInitialized?: boolean };
 
-  luma.registerAdapters([webgl2Adapter]);
-  luma.enforceWebGL2();
+if (typeof window !== 'undefined') {
+  const win = window as WindowWithLuma;
+
+  if (!win.__lumaGlInitialized) {
+    win.__lumaGlInitialized = true;
+
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { luma } = require('@luma.gl/core') as {
+      luma: {
+        registerAdapters: (adapters: unknown[]) => void;
+        enforceWebGL2: () => void;
+      };
+    };
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { webgl2Adapter } = require('@luma.gl/webgl') as {
+      webgl2Adapter: unknown;
+    };
+
+    luma.registerAdapters([webgl2Adapter]);
+    luma.enforceWebGL2();
+  }
 }
 
 export {};
