@@ -346,7 +346,7 @@ export default function IntelMap() {
           getTooltip={getTooltip as (info: PickingInfo) => ReturnType<typeof getTooltip>}
           style={{ width: '100%', height: '100%' }}
         >
-          <Map mapStyle={MAP_STYLE} />
+          <Map mapStyle={MAP_STYLE} attributionControl={false} />
         </DeckGL>
 
         {/* Legend */}
