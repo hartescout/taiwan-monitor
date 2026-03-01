@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 /** Labelled group of filter rows. */
 export function FilterBlock({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div style={{ padding: '10px 0', borderBottom: '1px solid var(--bd-s)' }}>
+    <div className="py-2.5 border-b border-[var(--bd-s)]">
       <div className="label px-3 mb-1">{label}</div>
       {children}
     </div>
@@ -28,7 +28,12 @@ export function CheckboxRow({
           backgroundColor: checked ? color : 'transparent',
         }}
       />
-      <span style={{ fontSize: 10, color: checked ? 'var(--t1)' : 'var(--t2)' }}>{label}</span>
+      <span
+        className="text-[10px]"
+        style={{ color: checked ? 'var(--t1)' : 'var(--t2)' }}
+      >
+        {label}
+      </span>
     </label>
   );
 }
@@ -41,13 +46,14 @@ export function ToggleRow({
     <Button
       variant="ghost"
       onClick={() => onChange(!checked)}
-      style={{
-        width: '100%', height: 'auto', borderRadius: 0,
-        display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-        padding: '7px 12px',
-      }}
+      className="w-full h-auto rounded-none flex justify-between items-center px-3 py-[7px]"
     >
-      <span style={{ fontSize: 10, color: checked ? 'var(--t1)' : 'var(--t2)' }}>{label}</span>
+      <span
+        className="text-[10px]"
+        style={{ color: checked ? 'var(--t1)' : 'var(--t2)' }}
+      >
+        {label}
+      </span>
       <Switch
         checked={checked}
         onCheckedChange={onChange}

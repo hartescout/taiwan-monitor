@@ -54,65 +54,96 @@ export default function XPostCard({ post, compact }: Props) {
   const border     = SIG_BORDER[post.significance] ?? SIG_BORDER.STANDARD;
 
   return (
-    <div className="card" style={{ borderLeft: `3px solid ${border}`, marginBottom: 8 }}>
+    <div className="card mb-2" style={{ borderLeft: `3px solid ${border}` }}>
 
       {/* ── BREAKING banner ── */}
       {isBreaking && (
-        <div className="flex items-center gap-2" style={{ padding: '3px 12px', background: 'var(--danger)' }}>
+        <div className="flex items-center gap-2 px-3 py-[3px]" style={{ background: 'var(--danger)' }}>
           <div className="dot" style={{ background: 'white' }} />
-          <span style={{ fontSize: 9, fontWeight: 700, color: 'white', letterSpacing: '0.10em', textTransform: 'uppercase' }}>Breaking</span>
+          <span className="text-[9px] font-bold text-white tracking-[0.10em] uppercase">Breaking</span>
         </div>
       )}
       {isHigh && !isBreaking && (
-        <div style={{ padding: '2px 12px', background: 'var(--warning-dim)', borderBottom: '1px solid rgba(236,154,60,0.2)' }}>
-          <span style={{ fontSize: 9, fontWeight: 700, color: 'var(--warning)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>High Significance</span>
+        <div
+          className="px-3 py-0.5 border-b"
+          style={{ background: 'var(--warning-dim)', borderColor: 'rgba(236,154,60,0.2)' }}
+        >
+          <span className="text-[9px] font-bold tracking-[0.08em] uppercase text-[var(--warning)]">
+            High Significance
+          </span>
         </div>
       )}
 
       {/* ── HEADER ── */}
-      <div className="card-header" style={{ padding: '9px 12px' }}>
-        <Avatar style={{ width: 32, height: 32, flexShrink: 0, background: post.avatarColor }}>
-          <AvatarFallback style={{ background: post.avatarColor, fontSize: 10, fontWeight: 700, color: 'white', borderRadius: '50%' }}>
+      <div className="card-header px-3 py-[9px]">
+        <Avatar
+          className="shrink-0"
+          style={{ width: 32, height: 32, background: post.avatarColor }}
+        >
+          <AvatarFallback
+            className="text-[10px] font-bold text-white rounded-full"
+            style={{ background: post.avatarColor }}
+          >
             {post.avatar.slice(0, 2)}
           </AvatarFallback>
         </Avatar>
 
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1">
-            <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--t1)', lineHeight: 1 }}>{post.displayName}</span>
-            {post.verified && <CheckCircle size={11} strokeWidth={2.5} style={{ color: 'var(--blue-l)', flexShrink: 0 }} />}
+            <span className="text-xs font-bold text-[var(--t1)] leading-none">{post.displayName}</span>
+            {post.verified && (
+              <CheckCircle size={11} strokeWidth={2.5} className="text-[var(--blue-l)] shrink-0" />
+            )}
           </div>
-          <span className="mono" style={{ color: 'var(--t4)' }}>{post.handle}</span>
+          <span className="mono text-[var(--t4)]">{post.handle}</span>
         </div>
 
-        <Badge variant="outline" style={{ fontSize: 9, padding: '2px 6px', background: acct.bg, color: acct.text, borderColor: 'transparent', letterSpacing: '0.05em', flexShrink: 0, borderRadius: 2 }}>
+        <Badge
+          variant="outline"
+          className="text-[9px] px-[6px] py-0.5 rounded-sm shrink-0 border-transparent tracking-[0.05em]"
+          style={{ background: acct.bg, color: acct.text }}
+        >
           {acct.label}
         </Badge>
 
-        <span className="mono" style={{ color: 'var(--t4)', flexShrink: 0 }}>{ago(post.timestamp)}</span>
+        <span className="mono text-[var(--t4)] shrink-0">{ago(post.timestamp)}</span>
       </div>
 
       {/* ── BODY ── */}
       <div className="card-body">
-        <p style={{
-          fontSize: compact ? 11.5 : 12.5,
-          color: 'var(--t1)', lineHeight: 1.6, whiteSpace: 'pre-wrap',
-          ...(compact ? { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } : {}),
-        }}>
+        <p
+          className="leading-snug whitespace-pre-wrap text-[var(--t1)]"
+          style={{
+            fontSize: compact ? 11.5 : 12.5,
+            ...(compact ? { display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' } : {}),
+          }}
+        >
           {post.content}
         </p>
 
         {/* Images */}
         {!compact && post.images && post.images.length > 0 && (
-          <div style={{ display: 'grid', gap: 3, marginTop: 10, gridTemplateColumns: post.images.length === 1 ? '1fr' : '1fr 1fr' }}>
+          <div
+            className="mt-2.5 gap-[3px]"
+            style={{
+              display: 'grid',
+              gridTemplateColumns: post.images.length === 1 ? '1fr' : '1fr 1fr',
+            }}
+          >
             {post.images.map((img: string) => (
               <div
                 key={img}
-                className="relative overflow-hidden flex items-end p-1.5"
-                style={{ height: post.images!.length === 1 ? 130 : 80, background: IMG_BG[img] ?? 'var(--bg-app)', border: '1px solid var(--bd)' }}
+                className="relative overflow-hidden flex items-end p-1.5 border border-[var(--bd)]"
+                style={{
+                  height: post.images!.length === 1 ? 130 : 80,
+                  background: IMG_BG[img] ?? 'var(--bg-app)',
+                }}
               >
-                <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.65))' }} />
-                <span className="label relative" style={{ color: 'rgba(255,255,255,0.55)', textTransform: 'uppercase' }}>
+                <div
+                  className="absolute inset-0"
+                  style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.65))' }}
+                />
+                <span className="label relative uppercase text-[rgba(255,255,255,0.55)]">
                   {IMG_LBL[img] ?? img}
                 </span>
               </div>
@@ -122,9 +153,22 @@ export default function XPostCard({ post, compact }: Props) {
 
         {/* Video placeholder */}
         {!compact && post.videoThumb && (
-          <div className="flex items-center justify-center relative mt-3" style={{ height: 90, background: 'var(--bg-app)', border: '1px solid var(--bd)' }}>
-            <div className="flex items-center justify-center" style={{ width: 36, height: 36, border: '1px solid var(--bd)', background: 'rgba(255,255,255,0.06)' }}>
-              <div style={{ width: 0, height: 0, borderTop: '7px solid transparent', borderBottom: '7px solid transparent', borderLeft: '12px solid var(--t3)', marginLeft: 2 }} />
+          <div
+            className="flex items-center justify-center relative mt-3 h-[90px] border border-[var(--bd)] bg-[var(--bg-app)]"
+          >
+            <div
+              className="flex items-center justify-center border border-[var(--bd)]"
+              style={{ width: 36, height: 36, background: 'rgba(255,255,255,0.06)' }}
+            >
+              <div
+                style={{
+                  width: 0, height: 0,
+                  borderTop: '7px solid transparent',
+                  borderBottom: '7px solid transparent',
+                  borderLeft: '12px solid var(--t3)',
+                  marginLeft: 2,
+                }}
+              />
             </div>
             <span className="label absolute bottom-2 left-3">VIDEO</span>
           </div>
@@ -138,7 +182,7 @@ export default function XPostCard({ post, compact }: Props) {
         <EngStat icon={<Repeat2 size={10} strokeWidth={1.5} />} val={fmt(post.retweets)} />
         <EngStat icon={<Eye     size={10} strokeWidth={1.5} />} val={fmt(post.views)}    />
         <div className="ml-auto">
-          <ExternalLink size={11} style={{ color: 'var(--t4)', cursor: 'pointer' }} strokeWidth={1.5} />
+          <ExternalLink size={11} className="text-[var(--t4)] cursor-pointer" strokeWidth={1.5} />
         </div>
       </div>
 
@@ -154,7 +198,7 @@ export default function XPostCard({ post, compact }: Props) {
 
 function EngStat({ icon, val }: { icon: React.ReactNode; val: string }) {
   return (
-    <div className="flex items-center gap-1" style={{ color: 'var(--t4)' }}>
+    <div className="flex items-center gap-1 text-[var(--t4)]">
       {icon}
       <span className="mono">{val}</span>
     </div>
@@ -170,12 +214,15 @@ function PharosNote({ note }: { note: string }) {
   const Icon      = isWarning ? AlertTriangle : CheckCircle;
 
   return (
-    <div className="mx-3 mb-2.5" style={{ padding: '8px 10px', background: bg, border: `1px solid ${border}`, borderLeft: `3px solid ${color}` }}>
-      <div style={{ display: 'flex', gap: 7, alignItems: 'flex-start' }}>
-        <Icon size={11} strokeWidth={2} style={{ color, flexShrink: 0, marginTop: 1 }} />
+    <div
+      className="mx-3 mb-2.5 px-[10px] py-2"
+      style={{ background: bg, border: `1px solid ${border}`, borderLeft: `3px solid ${color}` }}
+    >
+      <div className="flex gap-[7px] items-start">
+        <Icon size={11} strokeWidth={2} className="shrink-0 mt-px" style={{ color }} />
         <div>
-          <div className="label" style={{ marginBottom: 2 }}>Pharos Analyst Note</div>
-          <p style={{ fontSize: 11.5, color: 'var(--t2)', lineHeight: 1.5 }}>{text}</p>
+          <div className="label mb-0.5">Pharos Analyst Note</div>
+          <p className="text-[11.5px] text-[var(--t2)] leading-normal">{text}</p>
         </div>
       </div>
     </div>

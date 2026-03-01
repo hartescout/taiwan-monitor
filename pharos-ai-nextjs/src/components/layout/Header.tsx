@@ -19,70 +19,35 @@ export function Header() {
 
   return (
     <header
-      style={{
-        height: 44,
-        background: 'var(--bg-app)',
-        borderBottom: '1px solid var(--bd)',
-        display: 'flex',
-        alignItems: 'stretch',
-        flexShrink: 0,
-        zIndex: 50,
-        // Make entire header draggable for Electron window movement
-        WebkitAppRegion: 'drag',
-      } as React.CSSProperties}
+      className="h-11 bg-[var(--bg-app)] border-b border-[var(--bd)] flex items-stretch shrink-0 z-50"
+      style={{ WebkitAppRegion: 'drag' } as React.CSSProperties}
     >
       {/* ── Traffic light spacer (macOS hiddenInset — 80px) ── */}
-      <div style={{ width: 80, flexShrink: 0 }} />
+      <div className="w-20 shrink-0" />
 
       {/* ── Wordmark ── */}
       <Link
         href="/dashboard"
-        style={{
-          textDecoration: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10,
-          padding: '0 16px 0 4px',
-          borderRight: '1px solid var(--bd)',
-          flexShrink: 0,
-          // Links must opt out of drag so they're clickable
-          WebkitAppRegion: 'no-drag',
-        } as React.CSSProperties}
+        className="no-underline flex items-center gap-2.5 pr-4 pl-1 border-r border-[var(--bd)] shrink-0"
+        style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
       >
-        <span className="mono" style={{ fontSize: 13, fontWeight: 700, color: 'var(--t1)', letterSpacing: '0.18em' }}>
+        <span className="mono text-[13px] font-bold text-[var(--t1)] tracking-[0.18em]">
           PHAROS
         </span>
 
         {/* Thin accent rule */}
-        <div
-          style={{
-            width: 1,
-            height: 16,
-            background: 'var(--bd)',
-          }}
-        />
+        <div className="w-px h-4 bg-[var(--bd)]" />
 
-        <span className="mono" style={{ fontSize: 9, fontWeight: 700, color: 'var(--t4)', letterSpacing: '0.08em' }}>
+        <span className="mono text-[9px] font-bold text-[var(--t4)] tracking-[0.08em]">
           EPIC FURY
         </span>
 
         {/* ONGOING badge */}
         <div
-          style={{
-            padding: '2px 7px',
-            background: 'var(--danger-dim)',
-            border: '1px solid rgba(231,106,110,.35)',
-          }}
+          className="px-[7px] py-0.5 bg-[var(--danger-dim)]"
+          style={{ border: '1px solid rgba(231,106,110,.35)' }}
         >
-          <span
-            style={{
-              fontSize: 8,
-              fontWeight: 700,
-              color: 'var(--danger)',
-              letterSpacing: '0.08em',
-              fontFamily: 'system-ui',
-            }}
-          >
+          <span className="text-[8px] font-bold text-[var(--danger)] tracking-[0.08em] uppercase">
             ONGOING
           </span>
         </div>
@@ -90,14 +55,8 @@ export function Header() {
 
       {/* ── Nav tabs ── */}
       <nav
-        style={{
-          display: 'flex',
-          alignItems: 'stretch',
-          height: '100%',
-          flex: 1,
-          // Nav items are clickable — opt out of drag
-          WebkitAppRegion: 'no-drag',
-        } as React.CSSProperties}
+        className="flex items-stretch h-full flex-1"
+        style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
       >
         {NAV.map(item => {
           const active = isActive(item.href);
@@ -105,7 +64,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
-              style={{ textDecoration: 'none', display: 'flex', alignItems: 'stretch' }}
+              className="no-underline flex items-stretch"
             >
               <div className={`nav-item${active ? ' active' : ''}`}>{item.label}</div>
             </Link>
@@ -115,58 +74,29 @@ export function Header() {
 
       {/* ── Right side ── */}
       <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 14,
-          padding: '0 18px',
-          borderLeft: '1px solid var(--bd)',
-          flexShrink: 0,
-          WebkitAppRegion: 'no-drag',
-        } as React.CSSProperties}
+        className="flex items-center gap-3.5 px-[18px] border-l border-[var(--bd)] shrink-0"
+        style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
       >
         {/* LIVE indicator */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+        <div className="flex items-center gap-[5px]">
           <div className="dot dot-live" />
-          <span className="mono" style={{ fontSize: 10, fontWeight: 700, color: 'var(--danger)', letterSpacing: '0.06em' }}>
+          <span className="mono text-[10px] font-bold text-[var(--danger)] tracking-[0.06em]">
             LIVE
           </span>
         </div>
 
         {/* UTC clock */}
-        <span className="mono" style={{ fontSize: 10, color: 'var(--t4)', letterSpacing: '0.02em' }}>
+        <span className="mono text-[10px] text-[var(--t4)] tracking-[0.02em]">
           2026-03-01 · UTC
         </span>
 
         {/* KIA badge */}
         <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 5,
-            padding: '3px 9px',
-            background: 'var(--danger-dim)',
-            border: '1px solid rgba(231,106,110,.35)',
-          }}
+          className="flex items-center gap-[5px] px-[9px] py-[3px] bg-[var(--danger-dim)]"
+          style={{ border: '1px solid rgba(231,106,110,.35)' }}
         >
-          <div
-            style={{
-              width: 5,
-              height: 5,
-              borderRadius: '50%',
-              background: 'var(--danger)',
-              flexShrink: 0,
-            }}
-          />
-          <span
-            style={{
-              fontSize: 9,
-              fontWeight: 700,
-              color: 'var(--danger)',
-              letterSpacing: '0.08em',
-              fontFamily: 'system-ui',
-            }}
-          >
+          <div className="w-[5px] h-[5px] rounded-full bg-[var(--danger)] shrink-0" />
+          <span className="text-[9px] font-bold text-[var(--danger)] tracking-[0.08em] uppercase">
             3 US KIA
           </span>
         </div>

@@ -30,96 +30,106 @@ export function ActorDossier({ actor, tab, onTabChange }: Props) {
   ];
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+    <div className="flex-1 flex flex-col overflow-hidden">
       {/* Header */}
-      <div style={{ padding: '12px 20px', borderBottom: '1px solid var(--bd)', background: 'var(--bg-2)', flexShrink: 0 }}>
-        <div className="label" style={{ fontSize: 8, color: 'var(--t3)', marginBottom: 8 }}>
+      <div className="px-5 py-3 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0">
+        <div className="label text-[8px] text-[var(--t3)] mb-2">
           ACTOR INTELLIGENCE DOSSIER // PHAROS THREAT ANALYSIS // OPERATION EPIC FURY
         </div>
-        <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14, marginBottom: 10 }}>
+        <div className="flex items-start gap-3.5 mb-2.5">
           {actor.countryCode && <Flag code={actor.countryCode} size={36} />}
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-              <h1 style={{ fontSize: 16, fontWeight: 700, color: 'var(--t1)', lineHeight: 1.1 }}>
+          <div className="flex-1">
+            <div className="flex items-center gap-2.5 mb-1">
+              <h1 className="text-base font-bold text-[var(--t1)] leading-[1.1]">
                 {actor.name.toUpperCase()}
               </h1>
-              <span style={{ fontSize: 8, padding: '2px 8px', border: `1px solid ${actC}`, color: actC, fontWeight: 700, letterSpacing: '.06em' }}>
+              <span
+                className="text-[8px] font-bold tracking-[0.06em] px-2 py-0.5"
+                style={{ border: `1px solid ${actC}`, color: actC }}
+              >
                 {actor.activityLevel}
               </span>
-              <span style={{ fontSize: 8, padding: '2px 8px', border: `1px solid ${staC}`, color: staC, fontWeight: 700, letterSpacing: '.06em' }}>
+              <span
+                className="text-[8px] font-bold tracking-[0.06em] px-2 py-0.5"
+                style={{ border: `1px solid ${staC}`, color: staC }}
+              >
                 {actor.stance}
               </span>
             </div>
-            <span className="mono" style={{ fontSize: 10, color: 'var(--t2)' }}>{actor.fullName}</span>
-            <span className="label" style={{ marginLeft: 10, fontSize: 8, color: 'var(--t3)' }}>{actor.type}</span>
+            <span className="mono text-[10px] text-[var(--t2)]">{actor.fullName}</span>
+            <span className="label ml-2.5 text-[8px] text-[var(--t3)]">{actor.type}</span>
           </div>
-          <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 6 }}>
-            <div style={{ height: 6, width: 80, background: 'var(--bd)' }}>
+          <div className="shrink-0 flex items-center gap-1.5">
+            <div className="h-1.5 w-20 bg-[var(--bd)]">
               <div style={{ width: `${actor.activityScore}%`, height: '100%', background: actC }} />
             </div>
-            <span className="mono" style={{ fontSize: 11, color: actC }}>{actor.activityScore}%</span>
+            <span className="mono text-[11px]" style={{ color: actC }}>{actor.activityScore}%</span>
           </div>
         </div>
       </div>
 
       {/* Tabs */}
       <IntelTabBar value={tab} onValueChange={onTabChange} tabs={tabs}>
-        <TabsContent value="intel" style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-          <ScrollArea style={{ height: '100%' }}>
-            <div style={{ padding: '18px 22px' }}>
-              <div style={{ marginBottom: 20 }}>
+        <TabsContent value="intel" className="flex-1 min-h-0 overflow-hidden">
+          <ScrollArea className="h-full">
+            <div className="px-[22px] py-[18px]">
+              <div className="mb-5">
                 <SectionDivider label="SAYING — OFFICIAL POSITION" />
-                <div style={{ borderLeft: `3px solid ${staC}`, paddingLeft: 12 }}>
-                  <p style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.7, fontStyle: 'italic' }}>
+                <div className="pl-3" style={{ borderLeft: `3px solid ${staC}` }}>
+                  <p className="text-[12.5px] text-[var(--t1)] leading-relaxed italic">
                     {actor.saying}
                   </p>
                 </div>
               </div>
 
-              <div style={{ marginBottom: 20 }}>
+              <div className="mb-5">
                 <SectionDivider label="DOING — VERIFIED ACTIONS" />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <div className="flex flex-col gap-1">
                   {actor.doing.map((action, i) => (
-                    <div key={i} style={{ display: 'flex', gap: 10, padding: '6px 10px', border: '1px solid var(--bd)' }}>
-                      <span style={{ color: actC, fontSize: 12, flexShrink: 0, marginTop: 1 }}>▸</span>
-                      <span style={{ fontSize: 12, color: 'var(--t1)', lineHeight: 1.4 }}>{action}</span>
+                    <div key={i} className="flex gap-2.5 px-2.5 py-1.5 border border-[var(--bd)]">
+                      <span className="text-xs shrink-0 mt-px" style={{ color: actC }}>▸</span>
+                      <span className="text-xs text-[var(--t1)] leading-snug">{action}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div style={{ marginBottom: 20 }}>
+              <div className="mb-5">
                 <SectionDivider label="PHAROS ASSESSMENT" />
-                <div style={{ borderLeft: '3px solid var(--blue)', paddingLeft: 12 }}>
-                  <p style={{ fontSize: 12.5, color: 'var(--t1)', lineHeight: 1.7 }}>{actor.assessment}</p>
+                <div className="border-l-[3px] border-[var(--blue)] pl-3">
+                  <p className="text-[12.5px] text-[var(--t1)] leading-relaxed">{actor.assessment}</p>
                 </div>
               </div>
 
-              <div style={{ marginBottom: 20 }}>
+              <div className="mb-5">
                 <SectionDivider label={`RECENT ACTIONS (${actor.recentActions.length})`} />
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                <div className="flex flex-col gap-1">
                   {actor.recentActions.map((action, i) => {
                     const ac = TYPE_C[action.type] ?? 'var(--t2)';
                     return (
-                      <div key={i} style={{
-                        display: 'grid', gridTemplateColumns: '86px 64px 1fr',
-                        padding: '6px 0', borderBottom: '1px solid var(--bd-s)',
-                      }}>
-                        <span className="mono" style={{ fontSize: 10, color: 'var(--t3)', alignSelf: 'flex-start', paddingTop: 1 }}>
+                      <div
+                        key={i}
+                        className="grid py-1.5 border-b border-[var(--bd-s)]"
+                        style={{ gridTemplateColumns: '86px 64px 1fr' }}
+                      >
+                        <span className="mono text-[10px] text-[var(--t3)] self-start pt-px">
                           {action.date}
                         </span>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-                          <span style={{ fontSize: 8, fontWeight: 700, padding: '1px 5px', background: ac + '18', color: ac, letterSpacing: '.04em' }}>
+                        <div className="flex flex-col gap-[3px]">
+                          <span
+                            className="text-[8px] font-bold px-[5px] py-px tracking-[0.04em]"
+                            style={{ background: ac + '18', color: ac }}
+                          >
                             {action.type}
                           </span>
-                          <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+                          <div className="flex gap-1 items-center">
                             {action.verified
-                              ? <CheckCircle size={8} style={{ color: 'var(--success)' }} strokeWidth={2} />
-                              : <span className="mono" style={{ fontSize: 8, color: 'var(--t4)' }}>UNCFMD</span>
+                              ? <CheckCircle size={8} className="text-[var(--success)]" strokeWidth={2} />
+                              : <span className="mono text-[8px] text-[var(--t4)]">UNCFMD</span>
                             }
                           </div>
                         </div>
-                        <p style={{ fontSize: 11.5, color: 'var(--t1)', lineHeight: 1.4, paddingLeft: 4 }}>
+                        <p className="text-[11.5px] text-[var(--t1)] leading-snug pl-1">
                           {action.description}
                         </p>
                       </div>
@@ -128,12 +138,12 @@ export function ActorDossier({ actor, tab, onTabChange }: Props) {
                 </div>
               </div>
 
-              <div style={{ marginBottom: 20 }}>
+              <div className="mb-5">
                 <SectionDivider label="KEY FIGURES" />
-                <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                <div className="flex gap-1.5 flex-wrap">
                   {actor.keyFigures.map((fig, i) => (
-                    <div key={i} style={{ padding: '3px 10px', border: '1px solid var(--bd)', background: 'var(--bg-2)' }}>
-                      <span style={{ fontSize: 10, color: 'var(--t2)' }}>{fig}</span>
+                    <div key={i} className="px-2.5 py-[3px] border border-[var(--bd)] bg-[var(--bg-2)]">
+                      <span className="text-[10px] text-[var(--t2)]">{fig}</span>
                     </div>
                   ))}
                 </div>
@@ -142,20 +152,20 @@ export function ActorDossier({ actor, tab, onTabChange }: Props) {
           </ScrollArea>
         </TabsContent>
 
-        <TabsContent value="signals" style={{ flex: 1, minHeight: 0, overflow: 'hidden' }}>
-          <ScrollArea style={{ height: '100%' }}>
-            <div style={{ padding: '12px 16px' }}>
+        <TabsContent value="signals" className="flex-1 min-h-0 overflow-hidden">
+          <ScrollArea className="h-full">
+            <div className="px-4 py-3">
               {xPosts.length === 0 ? (
-                <div style={{ padding: 48, textAlign: 'center' }}>
-                  <span style={{ fontSize: 20, color: 'var(--t3)' }}>𝕏</span>
-                  <p className="label" style={{ color: 'var(--t3)', marginTop: 8 }}>
+                <div className="p-12 text-center">
+                  <span className="text-xl text-[var(--t3)]">𝕏</span>
+                  <p className="label text-[var(--t3)] mt-2">
                     No signals indexed for this actor
                   </p>
                 </div>
               ) : (
                 <>
-                  <div style={{ marginBottom: 10 }}>
-                    <span className="label" style={{ fontSize: 8 }}>
+                  <div className="mb-2.5">
+                    <span className="label text-[8px]">
                       {xPosts.length} POSTS · PHAROS-CURATED · {actor.name.toUpperCase()}
                     </span>
                   </div>

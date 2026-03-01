@@ -6,18 +6,29 @@ interface Props { label: string; count: number; color: string }
 /** Coloured section divider used in the signals feed (BREAKING / HIGH / STANDARD). */
 export function SectionHeader({ label, count, color }: Props) {
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10, padding: '4px 0' }}>
-      <div style={{ width: 6, height: 6, borderRadius: '50%', background: color, flexShrink: 0 }} />
-      <span style={{ fontSize: 10, fontWeight: 700, color, letterSpacing: '0.08em', textTransform: 'uppercase', flexShrink: 0 }}>
+    <div className="flex items-center gap-2.5 mb-2.5 py-1">
+      <div
+        className="w-1.5 h-1.5 rounded-full shrink-0"
+        style={{ background: color }}
+      />
+      <span
+        className="text-[10px] font-bold uppercase tracking-[0.08em] shrink-0"
+        style={{ color }}
+      >
         {label}
       </span>
       <Badge
         variant="outline"
-        style={{ fontSize: 8, padding: '1px 5px', color, borderColor: `${color}60`, background: `${color}20`, borderRadius: 2, flexShrink: 0 }}
+        className="text-[8px] px-[5px] py-px rounded-sm shrink-0"
+        style={{
+          color,
+          borderColor: `${color}60`,
+          background: `${color}20`,
+        }}
       >
         {count}
       </Badge>
-      <Separator style={{ flex: 1, background: `${color}30` }} />
+      <Separator className="flex-1" style={{ background: `${color}30` }} />
     </div>
   );
 }

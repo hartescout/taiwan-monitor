@@ -14,8 +14,6 @@ const SEV_BG: Record<string, string> = {
   CRITICAL: 'rgba(231,106,110,0.12)', HIGH: 'rgba(236,154,60,0.12)', STANDARD: 'rgba(76,144,240,0.1)',
 };
 
-
-
 function groupByDate(events: IntelEvent[]) {
   const groups: Record<string, IntelEvent[]> = {};
   events.forEach(e => {
@@ -36,27 +34,30 @@ export function EventLog({ events, selectedId, onSelect }: Props) {
   const grouped = groupByDate(events);
 
   return (
-    <div style={{ width: 300, minWidth: 300, flexShrink: 0, borderRight: '1px solid var(--bd)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+    <div className="w-[300px] min-w-[300px] shrink-0 border-r border-[var(--bd)] flex flex-col overflow-hidden">
+      <div className="panel-header justify-between">
         <span className="section-title">Operation Epic Fury</span>
-        <Badge variant="outline" style={{ fontSize: 9, color: 'var(--t4)', borderColor: 'var(--bd)' }}>{events.length}</Badge>
+        <Badge variant="outline" className="text-[9px] text-[var(--t4)] border-[var(--bd)]">{events.length}</Badge>
       </div>
 
       {/* Column headers */}
-      <div style={{ display: 'grid', gridTemplateColumns: '40px 50px 1fr 24px', padding: '4px 12px', borderBottom: '1px solid var(--bd)', background: 'var(--bg-2)', flexShrink: 0 }}>
-        {['TIME', 'SEV', 'TITLE', ''].map(h => <span key={h} className="label" style={{ fontSize: 8 }}>{h}</span>)}
+      <div
+        className="grid px-3 py-1 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0"
+        style={{ gridTemplateColumns: '40px 50px 1fr 24px' }}
+      >
+        {['TIME', 'SEV', 'TITLE', ''].map(h => <span key={h} className="label text-[8px]">{h}</span>)}
       </div>
 
-      <ScrollArea style={{ flex: 1 }}>
+      <ScrollArea className="flex-1">
         {events.length === 0 && (
-          <div style={{ padding: 24, textAlign: 'center' }}>
+          <div className="p-6 text-center">
             <span className="label">No results</span>
           </div>
         )}
         {Object.entries(grouped).map(([date, dayEvents]) => (
           <div key={date}>
-            <div style={{ padding: '4px 12px', background: 'var(--bg-2)', borderBottom: '1px solid var(--bd)' }}>
-              <span className="mono" style={{ fontSize: 9, color: 'var(--t3)' }}>{date}</span>
+            <div className="px-3 py-1 bg-[var(--bg-2)] border-b border-[var(--bd)]">
+              <span className="mono text-[9px] text-[var(--t3)]">{date}</span>
             </div>
             {dayEvents.map(evt => {
               const isOn = selectedId === evt.id;
@@ -68,40 +69,39 @@ export function EventLog({ events, selectedId, onSelect }: Props) {
                   key={evt.id}
                   variant="ghost"
                   onClick={() => onSelect(isOn ? null : evt.id)}
+                  className="grid gap-0 w-full h-auto px-3 py-1.5 rounded-none justify-start items-start border-b border-[var(--bd-s)]"
                   style={{
-                    display: 'grid', gridTemplateColumns: '40px 50px 1fr 24px', gap: 0,
-                    width: '100%', height: 'auto', padding: '6px 12px',
-                    borderRadius: 0, justifyContent: 'start', alignItems: 'start',
-                    borderBottom: '1px solid var(--bd-s)',
+                    gridTemplateColumns: '40px 50px 1fr 24px',
                     borderLeft: `3px solid ${isOn ? sc : 'transparent'}`,
                     background: isOn ? 'var(--bg-sel)' : 'transparent',
                   }}
                 >
-                  <span className="mono" style={{ fontSize: 9, color: 'var(--t3)', alignSelf: 'center' }}>
+                  <span className="mono text-[9px] text-[var(--t3)] self-center">
                     {fmtTime(evt.timestamp)}
                   </span>
 
-                  <div style={{ alignSelf: 'center' }}>
+                  <div className="self-center">
                     <Badge
                       variant="outline"
-                      style={{ fontSize: 7, padding: '1px 4px', color: sc, borderColor: sc, background: sbg, letterSpacing: '0.06em', borderRadius: 2 }}
+                      className="text-[7px] px-1 py-px tracking-[0.06em] rounded-sm"
+                      style={{ color: sc, borderColor: sc, background: sbg }}
                     >
                       {evt.severity.slice(0, 4)}
                     </Badge>
                   </div>
 
                   <div>
-                    <p style={{ fontSize: 11, color: 'var(--t1)', lineHeight: 1.3, textAlign: 'left', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                    <p className="text-[11px] text-[var(--t1)] leading-[1.3] text-left line-clamp-2">
                       {evt.title}
                     </p>
-                    <div style={{ display: 'flex', gap: 6, marginTop: 2 }}>
-                      <span className="mono" style={{ fontSize: 8, color: 'var(--t3)' }}>{evt.sources.length}src</span>
-                      {xc > 0 && <span className="mono" style={{ fontSize: 8, color: 'var(--t2)' }}>𝕏{xc}</span>}
-                      {evt.verified && <CheckCircle size={8} style={{ color: 'var(--success)' }} strokeWidth={2} />}
+                    <div className="flex gap-1.5 mt-0.5">
+                      <span className="mono text-[8px] text-[var(--t3)]">{evt.sources.length}src</span>
+                      {xc > 0 && <span className="mono text-[8px] text-[var(--t2)]">𝕏{xc}</span>}
+                      {evt.verified && <CheckCircle size={8} className="text-[var(--success)]" strokeWidth={2} />}
                     </div>
                   </div>
 
-                  <ArrowRight size={9} style={{ color: 'var(--t3)', alignSelf: 'center' }} strokeWidth={1.5} />
+                  <ArrowRight size={9} className="text-[var(--t3)] self-center" strokeWidth={1.5} />
                 </Button>
               );
             })}

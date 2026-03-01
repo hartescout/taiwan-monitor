@@ -15,18 +15,21 @@ interface Props {
 
 export function ActorList({ selectedId, onSelect }: Props) {
   return (
-    <div style={{ width: 240, minWidth: 240, flexShrink: 0, borderRight: '1px solid var(--bd)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <div className="panel-header" style={{ justifyContent: 'space-between' }}>
+    <div className="w-60 min-w-60 shrink-0 border-r border-[var(--bd)] flex flex-col overflow-hidden">
+      <div className="panel-header justify-between">
         <span className="section-title">Actors</span>
-        <Badge variant="outline" style={{ fontSize: 9, color: 'var(--t4)', borderColor: 'var(--bd)' }}>{ACTORS.length}</Badge>
+        <Badge variant="outline" className="text-[9px] text-[var(--t4)] border-[var(--bd)]">{ACTORS.length}</Badge>
       </div>
 
       {/* Column headers */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 60px 30px', padding: '4px 12px', borderBottom: '1px solid var(--bd)', background: 'var(--bg-2)', flexShrink: 0 }}>
-        {['ACTOR', 'ACTIVITY', ''].map(h => <span key={h} className="label" style={{ fontSize: 8 }}>{h}</span>)}
+      <div
+        className="grid px-3 py-1 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0"
+        style={{ gridTemplateColumns: '1fr 60px 30px' }}
+      >
+        {['ACTOR', 'ACTIVITY', ''].map(h => <span key={h} className="label text-[8px]">{h}</span>)}
       </div>
 
-      <ScrollArea style={{ flex: 1 }}>
+      <ScrollArea className="flex-1">
         {ACTORS.map((actor: Actor) => {
           const isOn   = selectedId === actor.id;
           const actC   = ACT_C[actor.activityLevel] ?? 'var(--t2)';
@@ -37,42 +40,45 @@ export function ActorList({ selectedId, onSelect }: Props) {
               key={actor.id}
               variant="ghost"
               onClick={() => onSelect(isOn ? null : actor.id)}
+              className="grid w-full h-auto px-3 py-2 rounded-none justify-start items-center border-b border-[var(--bd-s)]"
               style={{
-                display: 'grid', gridTemplateColumns: '1fr 60px 30px', gap: 0,
-                width: '100%', height: 'auto', padding: '8px 12px',
-                borderRadius: 0, justifyContent: 'start', alignItems: 'center',
-                borderBottom: '1px solid var(--bd-s)',
+                gridTemplateColumns: '1fr 60px 30px',
+                gap: 0,
                 borderLeft: `3px solid ${isOn ? actC : 'transparent'}`,
                 background: isOn ? 'var(--bg-sel)' : 'transparent',
               }}
             >
               {/* Name + flag + stance */}
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 3 }}>
+                <div className="flex items-center gap-[5px] mb-[3px]">
                   {actor.countryCode && <Flag code={actor.countryCode} size={18} />}
-                  <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--t1)', textAlign: 'left' }}>
+                  <span className="text-[11px] font-bold text-[var(--t1)] text-left">
                     {actor.name}
                   </span>
                 </div>
-                <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-                  <Badge variant="outline" style={{ fontSize: 7, padding: '1px 4px', color: staC, borderColor: staC, background: `${staC}15`, letterSpacing: '0.04em', borderRadius: 2 }}>
+                <div className="flex gap-1.5 items-center">
+                  <Badge
+                    variant="outline"
+                    className="text-[7px] px-1 py-px tracking-[0.04em] rounded-sm"
+                    style={{ color: staC, borderColor: staC, background: `${staC}15` }}
+                  >
                     {actor.stance}
                   </Badge>
-                  {xCount > 0 && <span className="mono" style={{ fontSize: 8, color: 'var(--t3)' }}>𝕏{xCount}</span>}
+                  {xCount > 0 && <span className="mono text-[8px] text-[var(--t3)]">𝕏{xCount}</span>}
                 </div>
               </div>
 
               {/* Activity progress bar */}
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 3 }}>
+              <div className="flex flex-col justify-center gap-[3px]">
                 <Progress
                   value={actor.activityScore}
                   style={{ height: 3, borderRadius: 1, background: 'var(--bd)' }}
                   indicatorStyle={{ background: actC }}
                 />
-                <span className="mono" style={{ fontSize: 8, color: actC }}>{actor.activityScore}</span>
+                <span className="mono text-[8px]" style={{ color: actC }}>{actor.activityScore}</span>
               </div>
 
-              <ArrowRight size={9} style={{ color: 'var(--t3)', alignSelf: 'center' }} strokeWidth={1.5} />
+              <ArrowRight size={9} className="text-[var(--t3)] self-center" strokeWidth={1.5} />
             </Button>
           );
         })}

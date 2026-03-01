@@ -9,26 +9,30 @@ const CHIPS = [
 
 export function SummaryBar() {
   return (
-    <div className="flex items-center gap-1.5 px-4 flex-shrink-0 overflow-x-auto" style={{ height: 36, background: 'var(--bg-app)', borderBottom: '1px solid var(--bd)' }}>
-      <span className="label flex-shrink-0" style={{ fontSize: 8, color: 'var(--t4)' }}>KEY FACTS</span>
-      <div className="flex-shrink-0" style={{ width: 1, height: 14, background: 'var(--bd)' }} />
+    <div
+      className="flex items-center gap-1.5 px-4 shrink-0 overflow-x-auto h-9 bg-[var(--bg-app)] border-b border-[var(--bd)]"
+    >
+      <span className="label shrink-0 text-[8px] text-[var(--t4)]">KEY FACTS</span>
+      <div className="shrink-0 w-px h-3.5 bg-[var(--bd)]" />
       {CHIPS.map(chip => (
         <div
           key={chip.label}
-          className="flex items-center flex-shrink-0"
+          className="flex items-center shrink-0 px-2 py-0.5"
           style={{
-            padding: '2px 8px',
             background: chip.danger ? 'var(--danger-dim)' : 'var(--bg-2)',
             border: `1px solid ${chip.danger ? 'rgba(231,106,110,.3)' : 'var(--bd)'}`,
           }}
         >
-          <span className="mono" style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.06em', color: chip.danger ? 'var(--danger)' : 'var(--t2)' }}>
+          <span
+            className="mono text-[9px] font-bold tracking-[0.06em]"
+            style={{ color: chip.danger ? 'var(--danger)' : 'var(--t2)' }}
+          >
             {chip.label}
           </span>
         </div>
       ))}
-      <div className="ml-auto flex-shrink-0">
-        <span className="mono" style={{ fontSize: 9, color: 'var(--t4)' }}>
+      <div className="ml-auto shrink-0">
+        <span className="mono text-[9px] text-[var(--t4)]">
           Feb 28 – Mar 1, 2026 · OPERATIONS ONGOING
         </span>
       </div>

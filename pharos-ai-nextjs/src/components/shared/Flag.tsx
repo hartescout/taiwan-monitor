@@ -10,15 +10,8 @@ interface FlagProps {
 export default function Flag({ code, size = 20, style }: FlagProps) {
   return (
     <span
-      className={`fi fi-${code.toLowerCase()}`}
-      style={{
-        fontSize: size,
-        lineHeight: 1,
-        borderRadius: 2,
-        flexShrink: 0,
-        display: 'inline-block',
-        ...style,
-      }}
+      className={`fi fi-${code.toLowerCase()} inline-block rounded-sm shrink-0 leading-none`}
+      style={{ fontSize: size, ...style }}
     />
   );
 }

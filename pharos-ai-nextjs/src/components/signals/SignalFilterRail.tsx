@@ -27,16 +27,12 @@ export function SignalFilterRail({
   onSigChange, onAcctChange, onPharosOnly,
 }: Props) {
   return (
-    <div style={{
-      width: 240, minWidth: 240, flexShrink: 0,
-      borderRight: '1px solid var(--bd)',
-      display: 'flex', flexDirection: 'column', overflow: 'hidden',
-    }}>
+    <div className="w-60 min-w-[240px] shrink-0 border-r border-[var(--bd)] flex flex-col overflow-hidden">
       <div className="panel-header">
-        <span style={{ fontSize: 13, color: 'var(--t1)', lineHeight: 1 }}>𝕏</span>
+        <span className="text-[13px] text-[var(--t1)] leading-none">𝕏</span>
         <span className="section-title">Signal Filters</span>
       </div>
-      <ScrollArea style={{ flex: 1 }}>
+      <ScrollArea className="flex-1">
         <FilterBlock label="SIGNIFICANCE">
           {SIG_LABELS.map(s => (
             <CheckboxRow key={s} label={s} color={SIG_C[s]}
@@ -53,8 +49,8 @@ export function SignalFilterRail({
           <ToggleRow label="Pharos notes only" checked={pharosOnly} onChange={onPharosOnly} />
         </FilterBlock>
       </ScrollArea>
-      <div style={{ padding: '8px 12px', borderTop: '1px solid var(--bd)', flexShrink: 0 }}>
-        <span className="mono" style={{ fontSize: 9, color: 'var(--t3)' }}>
+      <div className="px-3 py-2 border-t border-[var(--bd)] shrink-0">
+        <span className="mono text-[9px] text-[var(--t3)]">
           {totalShown} / {totalAll} SIGNALS
         </span>
       </div>
