@@ -342,9 +342,9 @@ export default function FullMapPage() {
     const strikeColor = (d: StrikeArc): [number, number, number, number] => {
       if (dimActive && !activeStory!.highlightStrikeIds.includes(d.id))
         return [45, 114, 210, 40];
-      return d.type === 'NAVAL'
+      return d.type === 'NAVAL_STRIKE'
         ? [50, 200, 200, activeAlpha]
-        : d.type === 'ISRAEL_STRIKE'
+        : d.actor === 'ISRAEL'
         ? [50, 200, 120, activeAlpha]
         : [45, 114, 210, activeAlpha];
     };
@@ -358,7 +358,7 @@ export default function FullMapPage() {
     const missileTargetColor = (d: MissileTrack): [number, number, number, number] => {
       if (dimActive && !activeStory!.highlightMissileIds.includes(d.id))
         return [210, 50, 50, 30];
-      return d.intercepted ? [255, 200, 0, activeAlpha] : [255, 50, 50, activeAlpha];
+      return d.status === 'INTERCEPTED' ? [255, 200, 0, activeAlpha] : [255, 50, 50, activeAlpha];
     };
 
     const targetFillColor = (d: Target): [number, number, number, number] => {
@@ -373,8 +373,8 @@ export default function FullMapPage() {
 
     const assetFillColor = (d: Asset): [number, number, number, number] => {
       const base: [number, number, number, number] =
-        d.nation === 'US'   ? [45, 114, 210, activeAlpha]
-        : d.nation === 'NATO' ? [160, 100, 220, activeAlpha]
+        d.actor === 'US'   ? [45, 114, 210, activeAlpha]
+        : d.actor === 'NATO' ? [160, 100, 220, activeAlpha]
         : [50, 200, 200, activeAlpha];
       if (dimActive && !activeStory!.highlightAssetIds.includes(d.id))
         return [base[0], base[1], base[2], 40];
@@ -553,8 +553,8 @@ export default function FullMapPage() {
 
     if (layerId === 'strikes') {
       const d = object as StrikeArc;
-      const typeLabel = d.type === 'NAVAL' ? 'NAVAL STRIKE' : d.type === 'ISRAEL_STRIKE' ? 'IDF STRIKE' : 'US STRIKE';
-      const typeColor = d.type === 'NAVAL' ? '#32C8C8' : d.type === 'ISRAEL_STRIKE' ? '#32C878' : '#4C9BE8';
+      const typeLabel = d.type === 'NAVAL_STRIKE' ? 'NAVAL STRIKE' : d.actor === 'ISRAEL' ? 'IDF STRIKE' : 'US STRIKE';
+      const typeColor = d.type === 'NAVAL_STRIKE' ? '#32C8C8' : d.actor === 'ISRAEL' ? '#32C878' : '#4C9BE8';
       html = `
         <div style="font-weight:700;font-size:11px;color:#E8E8E8;margin-bottom:6px">${d.label}</div>
         <div style="color:${typeColor};font-size:10px;margin-bottom:2px">TYPE: ${typeLabel}</div>
@@ -566,13 +566,13 @@ export default function FullMapPage() {
         <div style="font-weight:700;font-size:11px;color:#E84C4C;margin-bottom:6px">${d.label}</div>
         <div style="color:#E84C4C;font-size:10px;margin-bottom:2px">TYPE: IRGC BALLISTIC MISSILE</div>
         <div style="color:${d.severity === 'CRITICAL' ? '#E84C4C' : '#E8A84C'};font-size:10px;margin-bottom:2px">SEVERITY: ${d.severity}</div>
-        <div style="color:${d.intercepted ? '#FFC800' : '#E84C4C'};font-size:10px">STATUS: ${d.intercepted ? '✓ INTERCEPTED' : '⚠ IMPACT CONFIRMED'}</div>
+        <div style="color:${d.status === 'INTERCEPTED' ? '#FFC800' : '#E84C4C'};font-size:10px">STATUS: ${d.status === 'INTERCEPTED' ? '✓ INTERCEPTED' : '⚠ IMPACT CONFIRMED'}</div>
       `;
     } else if (layerId === 'targets') {
       const d = object as Target;
       const statusColor = d.status === 'DESTROYED' ? '#E84C4C' : d.status === 'DAMAGED' ? '#E8A84C' : '#E8E84C';
       const typeColor =
-        d.type === 'NUCLEAR' ? '#B84CE8' : d.type === 'MILITARY' ? '#E84C4C' : d.type === 'NAVAL' ? '#4C9BE8' : '#8F99A8';
+        d.type === 'NUCLEAR_SITE' ? '#B84CE8' : d.type === 'COMMAND' ? '#E84C4C' : d.type === 'NAVAL_BASE' ? '#4C9BE8' : '#8F99A8';
       html = `
         <div style="font-weight:700;font-size:12px;color:#E8E8E8;margin-bottom:6px">${d.name}</div>
         <div style="display:flex;gap:4px;margin-bottom:6px">
@@ -583,7 +583,7 @@ export default function FullMapPage() {
       `;
     } else if (layerId === 'assets') {
       const d = object as Asset;
-      const nationColor = d.nation === 'US' ? '#4C9BE8' : d.nation === 'NATO' ? '#B47AE8' : '#32C8C8';
+      const nationColor = d.actor === 'US' ? '#4C9BE8' : d.actor === 'NATO' ? '#B47AE8' : '#32C8C8';
       let extraLine = '';
       if (d.type === 'CARRIER') {
         extraLine = `<div style="color:#E8E84C;font-size:10px;margin-top:4px;font-weight:700">▶ CARRIER STRIKE GROUP</div>`;
@@ -591,7 +591,7 @@ export default function FullMapPage() {
       html = `
         <div style="font-weight:700;font-size:12px;color:#E8E8E8;margin-bottom:6px">${d.name}</div>
         <div style="display:flex;gap:4px;margin-bottom:4px">
-          <span style="background:${nationColor}22;border:1px solid ${nationColor};color:${nationColor};font-size:8px;padding:1px 5px;border-radius:2px">${d.nation}</span>
+          <span style="background:${nationColor}22;border:1px solid ${nationColor};color:${nationColor};font-size:8px;padding:1px 5px;border-radius:2px">${d.actor}</span>
           <span style="background:#2A2F38;border:1px solid #404854;color:#8F99A8;font-size:8px;padding:1px 5px;border-radius:2px">${d.type}</span>
         </div>
         ${d.description ? `<div style="color:#C0C8D4;font-size:10px;line-height:1.5;margin-top:4px">${d.description}</div>` : ''}

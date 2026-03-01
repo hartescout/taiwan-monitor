@@ -177,8 +177,8 @@ function StrikeContent({
   onSelectItem: (item: SelectedItem) => void;
   onActivateStory: (story: MapStory) => void;
 }) {
-  const typeLabel = d.type === 'NAVAL' ? 'NAVAL STRIKE' : d.type === 'ISRAEL_STRIKE' ? 'IDF STRIKE' : 'US STRIKE';
-  const typeColor = d.type === 'NAVAL' ? '#32C8C8' : d.type === 'ISRAEL_STRIKE' ? '#32C878' : '#4C9BE8';
+  const typeLabel = d.type === 'NAVAL_STRIKE' ? 'NAVAL STRIKE' : d.actor === 'ISRAEL' ? 'IDF STRIKE' : 'US STRIKE';
+  const typeColor = d.type === 'NAVAL_STRIKE' ? '#32C8C8' : d.actor === 'ISRAEL' ? '#32C878' : '#4C9BE8';
   const sevColor = d.severity === 'CRITICAL' ? '#E84C4C' : '#E8A84C';
   const relatedTarget = getTargetForStrike(d);
   const relatedStories = storiesFor([d.id], 'highlightStrikeIds');
@@ -258,9 +258,9 @@ function MissileContent({
     <>
       <div style={{ display: 'flex', gap: 6, marginBottom: 14, flexWrap: 'wrap' }}>
         <Badge
-          label={d.intercepted ? '✓ INTERCEPTED' : '⚠ IMPACT CONFIRMED'}
-          color={d.intercepted ? '#FFC800' : '#E84C4C'}
-          bg={d.intercepted ? '#FFC80018' : '#E84C4C18'}
+          label={d.status === 'INTERCEPTED' ? '✓ INTERCEPTED' : '⚠ IMPACT CONFIRMED'}
+          color={d.status === 'INTERCEPTED' ? '#FFC800' : '#E84C4C'}
+          bg={d.status === 'INTERCEPTED' ? '#FFC80018' : '#E84C4C18'}
         />
         <Badge
           label={d.severity}
@@ -273,7 +273,7 @@ function MissileContent({
       <Row label="IMPACT POINT" value={`[${d.to[1].toFixed(2)}°N, ${d.to[0].toFixed(2)}°E]`} />
       <Row label="TYPE" value="IRGC BALLISTIC MISSILE" color="#E84C4C" />
 
-      {d.intercepted ? (
+      {d.status === 'INTERCEPTED' ? (
         <>
           <Divider />
           <div
@@ -330,11 +330,11 @@ function TargetContent({
   const statusColor =
     d.status === 'DESTROYED' ? '#E84C4C' : d.status === 'DAMAGED' ? '#E8A84C' : '#E8E84C';
   const typeColor =
-    d.type === 'NUCLEAR'
+    d.type === 'NUCLEAR_SITE'
       ? '#B84CE8'
-      : d.type === 'MILITARY'
+      : d.type === 'COMMAND'
       ? '#E84C4C'
-      : d.type === 'NAVAL'
+      : d.type === 'NAVAL_BASE'
       ? '#4C9BE8'
       : '#8F99A8';
 
@@ -362,9 +362,9 @@ function TargetContent({
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {incomingStrikes.map(strike => {
               const sc =
-                strike.type === 'NAVAL'
+                strike.type === 'NAVAL_STRIKE'
                   ? '#32C8C8'
-                  : strike.type === 'ISRAEL_STRIKE'
+                  : strike.actor === 'ISRAEL'
                   ? '#32C878'
                   : '#4C9BE8';
               return (
@@ -400,7 +400,7 @@ function TargetContent({
                       {strike.label}
                     </div>
                     <div style={{ fontSize: 9, color: sc, fontFamily: 'monospace', marginTop: 1 }}>
-                      {strike.type === 'NAVAL' ? 'NAVAL' : strike.type === 'ISRAEL_STRIKE' ? 'IDF' : 'US'} ·{' '}
+                      {strike.type === 'NAVAL_STRIKE' ? 'NAVAL' : strike.actor === 'ISRAEL' ? 'IDF' : 'US'} ·{' '}
                       {strike.severity}
                     </div>
                   </div>
@@ -424,13 +424,13 @@ function AssetContent({
   d: Asset;
   onActivateStory: (story: MapStory) => void;
 }) {
-  const nationColor = d.nation === 'US' ? '#4C9BE8' : '#32C8C8';
+  const nationColor = d.actor === 'US' ? '#4C9BE8' : '#32C8C8';
   const relatedStories = storiesFor([d.id], 'highlightAssetIds');
 
   return (
     <>
       <div style={{ display: 'flex', gap: 6, marginBottom: 12, flexWrap: 'wrap' }}>
-        <Badge label={d.nation} color={nationColor} bg={nationColor + '18'} />
+        <Badge label={d.actor} color={nationColor} bg={nationColor + '18'} />
         <Badge label={d.type.replace('_', ' ')} color="#8F99A8" bg="#2A2F38" />
         {d.type === 'CARRIER' && (
           <Badge label="CARRIER STRIKE GROUP" color="#E8E84C" bg="#E8E84C18" />
@@ -447,7 +447,7 @@ function AssetContent({
         label="COORDINATES"
         value={`${d.position[1].toFixed(2)}°N, ${d.position[0].toFixed(2)}°E`}
       />
-      <Row label="NATION" value={d.nation === 'US' ? 'United States' : 'Israel'} color={nationColor} />
+      <Row label="NATION" value={d.actor === 'US' ? 'United States' : 'Israel'} color={nationColor} />
 
       <RelatedStories stories={relatedStories} onActivate={onActivateStory} />
     </>
@@ -477,7 +477,7 @@ function ZoneContent({ d }: { d: ThreatZone }) {
       description:
         'Iranian-declared no-fly zone. Uncleared aircraft risk engagement by air defense systems and interceptors.',
     },
-    THREAT: {
+    THREAT_CORRIDOR: {
       color: '#E84C4C',
       label: 'THREAT CORRIDOR',
       description:

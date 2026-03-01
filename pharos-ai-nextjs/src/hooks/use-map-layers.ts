@@ -89,7 +89,7 @@ export function useMapLayers({ filtered, activeStory, isSatellite }: Props): any
       id: 'zones',
       data: filtered.zones,
       getPolygon:    (d: ThreatZone): [number, number][] => d.coordinates,
-      getFillColor:  (d: ThreatZone): RGBA => dimActive ? withAlpha(d.color, 20) : d.color,
+      getFillColor:  (d: ThreatZone): RGBA => dimActive ? [d.color[0], d.color[1], d.color[2], 20] : d.color,
       getLineColor:  (d: ThreatZone): RGBA => dimActive
         ? [d.color[0], d.color[1], d.color[2], 40]
         : [d.color[0], d.color[1], d.color[2], 200],

@@ -102,9 +102,9 @@ export default function IntelMap() {
         getSourcePosition: (d: StrikeArc): [number, number] => d.from,
         getTargetPosition: (d: StrikeArc): [number, number] => d.to,
         getSourceColor: (d: StrikeArc): [number, number, number, number] =>
-          d.type === 'NAVAL'
+          d.type === 'NAVAL_STRIKE'
             ? [50, 200, 200, 220]
-            : d.type === 'ISRAEL_STRIKE'
+            : d.actor === 'ISRAEL'
             ? [50, 200, 120, 220]
             : [45, 114, 210, 220],
         getTargetColor: (): [number, number, number, number] => [255, 255, 255, 180],
@@ -126,7 +126,7 @@ export default function IntelMap() {
         getTargetPosition: (d: MissileTrack): [number, number] => d.to,
         getSourceColor: (): [number, number, number, number] => [210, 50, 50, 220],
         getTargetColor: (d: MissileTrack): [number, number, number, number] =>
-          d.intercepted ? [255, 200, 0, 200] : [255, 50, 50, 220],
+          d.status === 'INTERCEPTED' ? [255, 200, 0, 200] : [255, 50, 50, 220],
         getWidth: (d: MissileTrack): number => (d.severity === 'CRITICAL' ? 3 : 2),
         widthUnits: 'pixels',
         pickable: true,
@@ -168,7 +168,7 @@ export default function IntelMap() {
         getPosition: (d: Asset): [number, number] => d.position,
         getRadius: (d: Asset): number => (d.type === 'CARRIER' ? 20000 : 14000),
         getFillColor: (d: Asset): [number, number, number, number] =>
-          d.nation === 'US' ? [45, 114, 210, 220] : [50, 200, 200, 220],
+          d.actor === 'US' ? [45, 114, 210, 220] : [50, 200, 200, 220],
         stroked: true,
         getLineColor: (): [number, number, number, number] => [255, 255, 255, 150],
         lineWidthMinPixels: 1,
@@ -219,8 +219,8 @@ export default function IntelMap() {
 
     if (layerId === 'strikes') {
       const d = object as StrikeArc;
-      const typeLabel = d.type === 'NAVAL' ? 'NAVAL STRIKE' : d.type === 'ISRAEL_STRIKE' ? 'IDF STRIKE' : 'US STRIKE';
-      const typeColor = d.type === 'NAVAL' ? '#32C8C8' : d.type === 'ISRAEL_STRIKE' ? '#32C878' : '#4C9BE8';
+      const typeLabel = d.type === 'NAVAL_STRIKE' ? 'NAVAL STRIKE' : d.actor === 'ISRAEL' ? 'IDF STRIKE' : 'US STRIKE';
+      const typeColor = d.type === 'NAVAL_STRIKE' ? '#32C8C8' : d.actor === 'ISRAEL' ? '#32C878' : '#4C9BE8';
       html = `
         <div style="font-weight:700;font-size:11px;color:#E8E8E8;margin-bottom:6px">${d.label}</div>
         <div style="color:${typeColor};font-size:10px;margin-bottom:2px">TYPE: ${typeLabel}</div>
@@ -232,12 +232,12 @@ export default function IntelMap() {
         <div style="font-weight:700;font-size:11px;color:#E84C4C;margin-bottom:6px">${d.label}</div>
         <div style="color:#E84C4C;font-size:10px;margin-bottom:2px">TYPE: IRGC BALLISTIC MISSILE</div>
         <div style="color:${d.severity === 'CRITICAL' ? '#E84C4C' : '#E8A84C'};font-size:10px;margin-bottom:2px">SEVERITY: ${d.severity}</div>
-        <div style="color:${d.intercepted ? '#FFC800' : '#E84C4C'};font-size:10px">STATUS: ${d.intercepted ? '✓ INTERCEPTED' : '⚠ IMPACT CONFIRMED'}</div>
+        <div style="color:${d.status === 'INTERCEPTED' ? '#FFC800' : '#E84C4C'};font-size:10px">STATUS: ${d.status === 'INTERCEPTED' ? '✓ INTERCEPTED' : '⚠ IMPACT CONFIRMED'}</div>
       `;
     } else if (layerId === 'targets') {
       const d = object as Target;
       const statusColor = d.status === 'DESTROYED' ? '#E84C4C' : d.status === 'DAMAGED' ? '#E8A84C' : '#E8E84C';
-      const typeColor = d.type === 'NUCLEAR' ? '#B84CE8' : d.type === 'MILITARY' ? '#E84C4C' : d.type === 'NAVAL' ? '#4C9BE8' : '#8F99A8';
+      const typeColor = d.type === 'NUCLEAR_SITE' ? '#B84CE8' : d.type === 'COMMAND' ? '#E84C4C' : d.type === 'NAVAL_BASE' ? '#4C9BE8' : '#8F99A8';
       html = `
         <div style="font-weight:700;font-size:12px;color:#E8E8E8;margin-bottom:6px">${d.name}</div>
         <div style="display:flex;gap:4px;margin-bottom:6px">
@@ -248,7 +248,7 @@ export default function IntelMap() {
       `;
     } else if (layerId === 'assets') {
       const d = object as Asset;
-      const nationColor = d.nation === 'US' ? '#4C9BE8' : '#32C8C8';
+      const nationColor = d.actor === 'US' ? '#4C9BE8' : '#32C8C8';
       let extraLine = '';
       if (d.type === 'CARRIER') {
         extraLine = `<div style="color:#E8E84C;font-size:10px;margin-top:4px;font-weight:700">▶ CARRIER STRIKE GROUP</div>`;
@@ -256,7 +256,7 @@ export default function IntelMap() {
       html = `
         <div style="font-weight:700;font-size:12px;color:#E8E8E8;margin-bottom:6px">${d.name}</div>
         <div style="display:flex;gap:4px;margin-bottom:4px">
-          <span style="background:${nationColor}22;border:1px solid ${nationColor};color:${nationColor};font-size:8px;padding:1px 5px;border-radius:2px">${d.nation}</span>
+          <span style="background:${nationColor}22;border:1px solid ${nationColor};color:${nationColor};font-size:8px;padding:1px 5px;border-radius:2px">${d.actor}</span>
           <span style="background:#2A2F38;border:1px solid #404854;color:#8F99A8;font-size:8px;padding:1px 5px;border-radius:2px">${d.type}</span>
         </div>
         ${d.description ? `<div style="color:#C0C8D4;font-size:10px;line-height:1.5;margin-top:4px">${d.description}</div>` : ''}
