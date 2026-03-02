@@ -2,8 +2,18 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import type { PredictionMarket } from '@/app/api/polymarket/route';
+import type { ProbPoint } from '@/app/api/polymarket/history/route';
 import type { MarketGroup } from '@/types/domain';
 import { getLeadProb, probColor, fmtVol, fmtMarketDate, statusLabel, spreadColor } from './utils';
+import { ProbChart } from './ProbChart';
+
+const RANGES = [
+  { key: '1d',  label: '1D'  },
+  { key: '7d',  label: '7D'  },
+  { key: '1mo', label: '1M'  },
+  { key: '3mo', label: '3M'  },
+  { key: 'max', label: 'ALL' },
+] as const;
 
 interface FocusedMarketProps {
   market: PredictionMarket;
@@ -12,7 +22,11 @@ interface FocusedMarketProps {
 }
 
 export function FocusedMarket({ market, group, onClose }: FocusedMarketProps) {
-  const [open, setOpen] = useState(false);
+  const [open,         setOpen]         = useState(false);
+  const [rangeIdx,     setRangeIdx]     = useState(1); // default 7D
+  const [history,      setHistory]      = useState<ProbPoint[]>([]);
+  const [chartLoading, setChartLoading] = useState(true);
+  const [crosshairPct, setCrosshairPct] = useState<number | null>(null);
 
   const prob   = getLeadProb(market);
   const pColor = probColor(prob);
@@ -26,6 +40,27 @@ export function FocusedMarket({ market, group, onClose }: FocusedMarketProps) {
     const raf = requestAnimationFrame(() => setOpen(true));
     return () => cancelAnimationFrame(raf);
   }, []);
+
+  // Fetch history when range changes
+  const fetchHistory = useCallback(async (idx: number) => {
+    if (!market.yesTokenId) { setChartLoading(false); return; }
+    setChartLoading(true);
+    try {
+      const r = RANGES[idx];
+      const res = await fetch(`/api/polymarket/history?tokenId=${encodeURIComponent(market.yesTokenId)}&range=${r.key}`);
+      const d = await res.json();
+      setHistory(d.history ?? []);
+    } catch {}
+    finally { setChartLoading(false); }
+  }, [market.yesTokenId]);
+
+  useEffect(() => { fetchHistory(rangeIdx); }, []);
+
+  useEffect(() => {
+    fetchHistory(rangeIdx);
+    setCrosshairPct(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rangeIdx]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -143,6 +178,62 @@ export function FocusedMarket({ market, group, onClose }: FocusedMarketProps) {
           >
             ↗ POLYMARKET
           </a>
+        </div>
+
+        {/* ── Probability chart ── */}
+        <div className="shrink-0 border-b border-[var(--bd)]">
+          {/* Chart header: range selector + live crosshair value */}
+          <div className="flex items-center gap-2 px-5 py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
+            <span className="mono text-[8px] text-[var(--t4)] tracking-widest">PROBABILITY HISTORY</span>
+            <div className="flex gap-1 ml-3">
+              {RANGES.map((r, i) => (
+                <button
+                  key={r.key}
+                  onClick={() => setRangeIdx(i)}
+                  disabled={chartLoading}
+                  className={`px-2 py-1 rounded text-[8px] mono font-bold tracking-wider transition-all disabled:opacity-40 ${
+                    i === rangeIdx
+                      ? 'bg-white/12 text-white border border-white/25'
+                      : 'text-[var(--t4)] hover:text-[var(--t2)] border border-transparent hover:bg-white/5'
+                  }`}
+                >
+                  {r.label}
+                </button>
+              ))}
+              {chartLoading && (
+                <div className="w-3.5 h-3.5 border-[1.5px] border-white/10 border-t-white/50 rounded-full animate-spin ml-1 self-center" />
+              )}
+            </div>
+            {crosshairPct !== null && (
+              <span
+                className="ml-auto mono text-[11px] font-bold px-2 py-0.5 rounded"
+                style={{ color: probColor(crosshairPct), background: `${probColor(crosshairPct)}18` }}
+              >
+                {(crosshairPct * 100).toFixed(2)}%
+              </span>
+            )}
+          </div>
+
+          {/* Chart body */}
+          <div style={{ height: '200px' }}>
+            {chartLoading ? (
+              <div className="h-full flex items-center justify-center">
+                <div className="w-5 h-5 border-2 border-white/10 border-t-white/30 rounded-full animate-spin" />
+              </div>
+            ) : history.length > 2 ? (
+              <ProbChart
+                data={history}
+                color={group.color}
+                height={200}
+                interactive
+                onCrosshair={setCrosshairPct}
+              />
+            ) : (
+              <div className="h-full flex items-center justify-center">
+                <span className="mono text-[10px] text-[var(--t4)]">NO HISTORY AVAILABLE</span>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Sub-markets table */}
