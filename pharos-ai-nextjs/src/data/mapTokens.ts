@@ -8,29 +8,27 @@
 
 // ─── Level 1: Actor ───────────────────────────────────────────────────────────
 
-export type Actor = 'US' | 'ISRAEL' | 'NATO' | 'IRAN' | 'IRGC' | 'HOUTHI';
+export type Actor = string;
 export type Affiliation = 'FRIENDLY' | 'HOSTILE';
 
-type ActorMeta = {
+export type ActorMeta = {
   label: string;
   cssVar: string;                    // CSS variable — used in React components
   rgb: [number, number, number];     // Raw RGB — used in deck.gl layer accessors
   affiliation: Affiliation;
-  group: 'Coalition' | 'Adversary';
+  group: string;
 };
 
-export const ACTOR_META: Record<Actor, ActorMeta> = {
-  US:     { label: 'United States', cssVar: 'var(--blue)',    rgb: [45,  114, 210], affiliation: 'FRIENDLY', group: 'Coalition' },
-  ISRAEL: { label: 'Israel (IDF)',  cssVar: 'var(--teal)',    rgb: [50,  200, 200], affiliation: 'FRIENDLY', group: 'Coalition' },
-  NATO:   { label: 'NATO',          cssVar: 'var(--cyber)',   rgb: [160, 100, 220], affiliation: 'FRIENDLY', group: 'Coalition' },
-  IRAN:   { label: 'Iran',          cssVar: 'var(--danger)',  rgb: [231, 106, 110], affiliation: 'HOSTILE',  group: 'Adversary' },
-  IRGC:   { label: 'IRGC',         cssVar: 'var(--danger)',  rgb: [200,  50,  50], affiliation: 'HOSTILE',  group: 'Adversary' },
-  HOUTHI: { label: 'Houthi',        cssVar: 'var(--warning)', rgb: [236, 154,  60], affiliation: 'HOSTILE',  group: 'Adversary' },
+export const ACTOR_META: Record<string, ActorMeta> = {
+  US:        { label: 'United States', cssVar: 'var(--blue)',    rgb: [45,  114, 210], affiliation: 'FRIENDLY', group: 'Coalition' },
+  ISRAEL:    { label: 'Israel (IDF)',  cssVar: 'var(--teal)',    rgb: [50,  200, 200], affiliation: 'FRIENDLY', group: 'Coalition' },
+  NATO:      { label: 'NATO',          cssVar: 'var(--cyber)',   rgb: [160, 100, 220], affiliation: 'FRIENDLY', group: 'Coalition' },
+  IRAN:      { label: 'Iran',          cssVar: 'var(--danger)',  rgb: [231, 106, 110], affiliation: 'HOSTILE',  group: 'Adversary' },
+  IRGC:      { label: 'IRGC',         cssVar: 'var(--danger)',  rgb: [200,  50,  50], affiliation: 'HOSTILE',  group: 'Adversary' },
+  HOUTHI:    { label: 'Houthi',        cssVar: 'var(--warning)', rgb: [236, 154,  60], affiliation: 'HOSTILE',  group: 'Adversary' },
+  HEZBOLLAH: { label: 'Hezbollah',     cssVar: 'var(--danger)',  rgb: [180,  40,  40], affiliation: 'HOSTILE',  group: 'Adversary' },
+  PMF:       { label: 'Iraqi PMF',     cssVar: 'var(--warning)', rgb: [200, 120,  40], affiliation: 'HOSTILE',  group: 'Adversary' },
 };
-
-export const FRIENDLY_ACTORS: Actor[] = ['US', 'ISRAEL', 'NATO'];
-export const HOSTILE_ACTORS:  Actor[] = ['IRAN', 'IRGC', 'HOUTHI'];
-export const ALL_ACTORS:      Actor[] = [...FRIENDLY_ACTORS, ...HOSTILE_ACTORS];
 
 // ─── Level 2: Category ────────────────────────────────────────────────────────
 
@@ -49,6 +47,27 @@ export const ALL_CATEGORIES: MarkerCategory[] = ['KINETIC', 'INSTALLATION', 'ZON
 export type KineticType      = 'AIRSTRIKE' | 'NAVAL_STRIKE' | 'BALLISTIC' | 'CRUISE' | 'DRONE';
 export type InstallationType = 'CARRIER' | 'AIR_BASE' | 'NAVAL_BASE' | 'ARMY_BASE' | 'NUCLEAR_SITE' | 'COMMAND' | 'INFRASTRUCTURE';
 export type ZoneType         = 'CLOSURE' | 'PATROL' | 'NFZ' | 'THREAT_CORRIDOR';
+
+export type MarkerType = KineticType | InstallationType | ZoneType;
+
+export const TYPE_META: Record<string, { label: string; category: MarkerCategory }> = {
+  AIRSTRIKE:        { label: 'Airstrike',        category: 'KINETIC' },
+  NAVAL_STRIKE:     { label: 'Naval Strike',     category: 'KINETIC' },
+  BALLISTIC:        { label: 'Ballistic',        category: 'KINETIC' },
+  CRUISE:           { label: 'Cruise',           category: 'KINETIC' },
+  DRONE:            { label: 'Drone',            category: 'KINETIC' },
+  CARRIER:          { label: 'Carrier',          category: 'INSTALLATION' },
+  AIR_BASE:         { label: 'Air Base',         category: 'INSTALLATION' },
+  NAVAL_BASE:       { label: 'Naval Base',       category: 'INSTALLATION' },
+  ARMY_BASE:        { label: 'Army Base',        category: 'INSTALLATION' },
+  NUCLEAR_SITE:     { label: 'Nuclear Site',     category: 'INSTALLATION' },
+  COMMAND:          { label: 'Command',          category: 'INSTALLATION' },
+  INFRASTRUCTURE:   { label: 'Infrastructure',   category: 'INSTALLATION' },
+  CLOSURE:          { label: 'Closure',          category: 'ZONE' },
+  PATROL:           { label: 'Patrol',           category: 'ZONE' },
+  NFZ:              { label: 'NFZ',              category: 'ZONE' },
+  THREAT_CORRIDOR:  { label: 'Threat Corridor',  category: 'ZONE' },
+};
 
 // Naval strikes use teal regardless of actor (visual convention: teal = maritime)
 export const NAVAL_RGB: [number, number, number] = [50, 200, 200];

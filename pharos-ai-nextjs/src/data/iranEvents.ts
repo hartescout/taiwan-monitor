@@ -319,37 +319,50 @@ US 5th Fleet confirmed CENTCOM was "re-assessing Houthi threat posture" but no i
     timestamp: '2026-03-01T06:00:00Z',
     severity:  'HIGH',
     type:      'MILITARY',
-    title:     'IDF continues strikes — Isfahan nuclear complex, IRGC Navy assets targeted',
-    location:  'Isfahan / Chabahar, Iran',
-    summary:   'The IDF confirmed continued strikes into Day 2, targeting the Isfahan nuclear complex (above-ground research buildings), IRGC Navy frigate IRIS Jamaran, and the IRGC Navy Imam Ali base in Chabahar. Nuclear-related missile production sites in Parchin also reportedly struck. Netanyahu: "Strikes against sites linked to the nuclear program will continue in the coming days."',
-    fullContent: `As Operation Epic Fury / Roaring Lion entered its second day, the IDF confirmed continued strike operations against a range of Iranian military and nuclear-related targets.
+    title:     'IDF Day 2 strikes — "dozens" of IRGC command centers targeted across Tehran',
+    location:  'Tehran / Isfahan / Parchin, Iran',
+    summary:   'Israel launched a new wave of strikes into Day 2, targeting "dozens" of IRGC command centers in central Tehran including intelligence HQ, internal security HQ, and Thar-Allah operational command. Explosions rocked Shahrak-e Gharb district and areas near the Intelligence Ministry. CSIS confirmed unverified reports of additional strikes on Isfahan nuclear complex, Parchin, and Iran Atomic Energy Agency HQ. Netanyahu confirmed strikes had killed "several leaders of the Iranian nuclear programme." The IDF also struck IDF intercepted F-4 and F-5 fighter jets as they prepared for takeoff from an Iranian runway.',
+    fullContent: `As Operation Roaring Lion entered its second day, Israel launched a new wave of strikes focusing on IRGC command and control infrastructure in central Tehran.
 
-IDF confirmed targets on Day 2 (as of 06:00 UTC March 1):
+IDF statement: "The strikes were directed at command centers in which IDF intelligence had identified active operational presence of Iranian regime personnel responsible for managing combat operations and planning terror campaigns against the State of Israel and regional countries."
+
+Confirmed targets on Day 2:
+
+IRGC command infrastructure (Tehran):
+• "Dozens" of IRGC command centers across Tehran — IDF official statement.
+• Intelligence headquarters struck — explosions reported near Gandhi Street area.
+• Internal security headquarters targeted.
+• Thar-Allah operational command facilities.
+• Explosions rocked Shahrak-e Gharb district (upscale residential area with apartment complexes and shopping centers).
+• Massive explosions heard near Azadi Stadium, Azadi Square, and the Milad Tower area.
 
 Nuclear-related:
-• Isfahan nuclear complex — above-ground administration and research buildings. Separate from the underground enrichment facility struck Day 1.
-• Parchin military complex — explosive research and testing facility. CSIS confirmed unverified reports of strikes at Parchin.
-• Iran Atomic Energy Agency headquarters, Tehran — secondary administrative strike.
+• Isfahan nuclear complex — above-ground administration and research buildings.
+• Parchin military complex — explosive research and testing facility (CSIS reports).
+• Iran Atomic Energy Agency headquarters, Tehran (unverified per CSIS).
 
 Military:
-• IRGC Navy frigate IRIS Jamaran — struck at berth in Bandar Abbas. Unconfirmed destruction status per ISW/CTP.
-• IRGC Navy Imam Ali Naval Base, Chabahar — unverified reports of strikes.
-• Additional Shahab-3 and Kheibar Shekan missile launcher sites in western Iran.
+• IRGC Navy frigate struck — CENTCOM confirmed an Iranian Jamaran-class corvette was struck and was "sinking to the bottom of the Gulf of Oman."
+• IDF confirmed striking Iranian F-4 and F-5 fighter jets as they prepared for takeoff from a runway.
+• HQ-9B air defense systems around Tehran inactivated.
+
+Israeli strikes also hit a hospital in Tehran's Gandhi Street area — two witnesses told Reuters the hospital was badly damaged and patients were being taken out. Video verified by NBC News showed extensive damage with windows blown out and debris littering streets.
 
 PM Netanyahu statement: "Israeli strikes have also killed several leaders involved in the Iranian nuclear programme and that strikes against sites linked to the programme would continue in the coming days."
 
-CSIS analysis: "Initial reports suggest targets have included administrative hubs and dual-use scientific research facilities. There are unconfirmed reports that the United States has struck the Iran Atomic Energy Agency headquarters in Tehran and the explosive research testing facility at Parchin, as well as conducted further strikes at the Isfahan nuclear complex."`,
+CSIS analysis: "Initial reports suggest targets have included administrative hubs and dual-use scientific research facilities."`,
     verified: true,
     sources: [
-      { name: 'IDF Spokesperson', tier: 1, reliability: 90 },
-      { name: 'CSIS analysis',    tier: 1, reliability: 94 },
-      { name: 'Reuters',          tier: 1, reliability: 99 },
-      { name: 'ISW OSINT account',tier: 2, reliability: 82 },
+      { name: 'IDF Spokesperson',  tier: 1, reliability: 90 },
+      { name: 'CSIS analysis',     tier: 1, reliability: 94 },
+      { name: 'Reuters',           tier: 1, reliability: 99 },
+      { name: 'NBC News verified', tier: 1, reliability: 95 },
     ],
     actorResponses: [
-      { actorId: 'idf', actorName: 'PM Netanyahu', stance: 'SUPPORTING', type: 'STATEMENT', statement: 'Israeli strikes have killed several leaders of the Iranian nuclear programme. Strikes against nuclear sites will continue in the coming days. The job is not finished.' },
+      { actorId: 'idf', actorName: 'PM Netanyahu', stance: 'SUPPORTING', type: 'STATEMENT', statement: 'Israeli strikes have killed several leaders of the Iranian nuclear programme. Strikes against nuclear sites will continue in the coming days.' },
+      { actorId: 'idf', actorName: 'IDF Spokesperson', stance: 'SUPPORTING', type: 'STATEMENT', statement: 'The strikes were directed at command centers where IDF intelligence identified active operational presence of regime personnel managing combat operations and terror campaigns.' },
     ],
-    tags: ['day-2', 'isfahan', 'parchin', 'irgc-navy', 'jamaran', 'nuclear-continued'],
+    tags: ['day-2', 'tehran', 'irgc-command', 'isfahan', 'parchin', 'jamaran', 'nuclear-continued'],
   },
 
   {
@@ -391,25 +404,29 @@ This political divide has significant implications for the operation's legal sta
     timestamp: '2026-03-01T13:42:00Z',
     severity:  'STANDARD',
     type:      'HUMANITARIAN',
-    title:     'Iran casualty figures: 201 killed including 150 civilians — IRCS; Minab school airstrike',
+    title:     'Iran casualty figures: 200+ killed — IRCS; Minab school death toll rises to 165',
     location:  'Iran (nationwide)',
-    summary:   'Iranian Red Crescent Society (IRCS) reported 201 killed and 747 injured across Iran from US-Israeli strikes. HRANA (Human Rights Activists in Iran) reported 133 killed and 200+ injured. The Minab school airstrike in Hormozgan Province reportedly killed 148 civilians, including children. The incident drew condemnation from the UN and humanitarian organizations. Israel denied targeting the school.',
-    fullContent: `The Iranian Red Crescent Society reported an updated toll of 201 killed and 747 injured across Iran as of March 1, 2026. Separately, HRANA (Human Rights Activists in Iran) reported 133 killed and at least 200 injured — the lower figure reflects verified reports excluding contested incidents.
+    summary:   'Iranian Red Crescent Society (IRCS) reported more than 200 killed across Iran from US-Israeli strikes. The Minab school airstrike in Hormozgan Province was updated: 165 students killed after search and recovery operations concluded at the Shajareh Tayyebeh girls primary school, according to the governor of Minab county via Fars News. The school had 264 students and was struck three times, per Iran\'s Ministry of Education spokesperson Ali Farhadi. Ten people killed in Israel, including eight in the Beit Shemesh missile strike. Two killed in the UAE.',
+    fullContent: `The Iranian Red Crescent Society reported more than 200 killed across Iran as of March 1, 2026.
 
-The most significant humanitarian incident involves the Minab school airstrike in Hormozgan Province, southern Iran. Initial reports suggest 148 civilians were killed when a building housing displaced families was struck near a military installation. The incident is under investigation.
+The most significant humanitarian incident: the Minab school airstrike in Hormozgan Province, southern Iran. The governor of Minab county announced the end of search and recovery operations for student victims. 165 bodies were recovered from beneath the rubble of the Shajareh Tayyebeh girls primary school, according to Fars News. The school had 264 students and was struck three times, per Ali Farhadi, spokesperson for Iran's Ministry of Education, via state-affiliated Nour News.
+
+Reuters footage showed crews and rescue equipment digging at the destroyed school overnight, with dust billowing as rescuers went through mangled wreckage.
 
 • IDF statement: "We do not target civilian infrastructure. All strikes are against military and strategic targets. We investigate all reports of civilian casualties."
-• Iran: "The Zionist enemy deliberately targeted civilian shelters."
-• ICRC: Called for immediate access to assess civilian casualties.
+• Iran: "The enemy deliberately targeted civilian shelters."
 • UN Secretary-General: "Deeply alarmed by reports of civilian deaths. All parties must comply with international humanitarian law."
 
-Regional casualties (outside Iran):
-• UAE: 3 civilians killed, 58 injured
-• Kuwait: 1 civilian killed, 32 injured  
-• Qatar: 16 injured
-• Bahrain: 4 injured
-• Oman (Strait of Hormuz): 1 injured
-• Syria: 5 civilians killed (from Iranian proxy operations)`,
+Israel casualties:
+• 10 people killed in Israel total — 8 in a single Beit Shemesh missile strike (synagogue and bomb shelter destroyed), 2 elsewhere
+• 28+ hospitalized from Beit Shemesh strike alone
+
+Regional casualties (outside Iran — from Iranian retaliatory strikes):
+• UAE: 2 killed, multiple injured (Dubai Fairmont The Palm hotel, Burj Al Arab area; Abu Dhabi Etihad Towers drone debris; Amazon AWS data center knocked offline)
+• Kuwait: 3 US service members killed (Army sustainment unit — Operation Epic Fury's first US KIA)
+• Qatar: Doha residential area struck, Hamad International Airport suspended operations
+• Bahrain: Crowne Plaza Manama hotel struck; drone debris on residential areas
+• Multiple airports closed: Dubai, Kuwait, Bahrain, Erbil (Iraq)`,
     verified: true,
     sources: [
       { name: 'IRCS (Iranian Red Crescent)', tier: 2, reliability: 85 },
@@ -422,6 +439,402 @@ Regional casualties (outside Iran):
       { actorId: 'idf', actorName: 'IDF Spokesperson',     stance: 'NEUTRAL', type: 'STATEMENT', statement: 'We do not target civilian infrastructure. All strikes are directed at military and strategic objectives. We investigate all reports of civilian casualties.' },
     ],
     tags: ['casualties', 'humanitarian', 'minab', 'civilians', 'ircs', 'hrana'],
+  },
+
+  // ── MARCH 1 — Additional verified events ──────────────────────────────────
+
+  {
+    id:        'evt-013',
+    timestamp: '2026-03-01T08:00:00Z',
+    severity:  'HIGH',
+    type:      'POLITICAL',
+    title:     'Iran forms interim leadership council — Pezeshkian, Mohseni-Ejei, Arafi assume powers',
+    location:  'Tehran, Iran',
+    summary:   'Iran announced the formation of a three-member transitional leadership council to assume the powers of the Supreme Leader following Khamenei\'s killing. The council consists of President Masoud Pezeshkian, Chief Justice Gholam-Hossein Mohseni-Ejei, and Ayatollah Alireza Arafi (selected as the Guardian Council\'s representative). The Guardian Council spokesperson said a new supreme leader "must be determined as soon as possible" but "given wartime conditions, this will take place at the earliest opportunity." This is unprecedented — Iran has had only two supreme leaders since the 1979 revolution.',
+    fullContent: `Iran announced the formation of a three-member transitional leadership council to govern the country following the death of Supreme Leader Ayatollah Ali Khamenei.
+
+Constitutional basis: Iran's constitution provides for a transitional council to exercise the powers of the Supreme Leader until the Assembly of Experts selects a successor. The council consists of three members per Article 111.
+
+Council members:
+• President Masoud Pezeshkian — reformist president elected August 2024. Had been out of public sight since the strikes began; resurfaced March 1 to announce the council's formation.
+• Chief Justice Gholam-Hossein Mohseni-Ejei — hardliner, appointed by Khamenei in 2021. Closely linked to the judiciary's role in suppressing 2022 Mahsa Amini protests.
+• Ayatollah Alireza Arafi — 67-year-old Shia cleric, member of the Guardian Council. Selected as the "jurist member" (faqih) of the council, effectively the interim religious authority. Head of Iran's Islamic Seminaries. Considered a conservative loyalist.
+
+Hadi Tahan Nazif, Guardian Council spokesperson, told IRIB News: "The constitution has provisions for the current circumstances, and until a leader is appointed, the leadership council will assume responsibility. Given the wartime conditions, this will take place at the earliest opportunity."
+
+This is historically unprecedented — Iran has had only two supreme leaders: Ayatollah Ruhollah Khomeini (1979–1989) and Ali Khamenei (1989–2026). The succession mechanism has never been tested under wartime conditions, with significant portions of the military and political leadership killed.
+
+NBC News analysis: Richard Engel noted that with "dozens of Iran's top leaders killed" per Israeli claims and strikes still ongoing, "the leadership role is in crisis." The Assembly of Experts — the 88-member clerical body responsible for selecting a new Supreme Leader — has itself likely suffered casualties.`,
+    verified: true,
+    sources: [
+      { name: 'Al Jazeera',        tier: 1, reliability: 95 },
+      { name: 'ABC News',          tier: 1, reliability: 95 },
+      { name: 'IRIB News (Iranian state)', tier: 2, reliability: 80 },
+      { name: 'NBC News / Richard Engel',  tier: 1, reliability: 95 },
+    ],
+    actorResponses: [
+      { actorId: 'iran', actorName: 'Guardian Council Spokesperson', stance: 'NEUTRAL', type: 'STATEMENT', statement: 'The constitution has provisions for the current circumstances. Until a leader is appointed, the leadership council will assume responsibility.' },
+    ],
+    tags: ['leadership-council', 'pezeshkian', 'arafi', 'succession', 'guardian-council', 'day-2'],
+  },
+
+  {
+    id:        'evt-014',
+    timestamp: '2026-03-01T14:30:00Z',
+    severity:  'CRITICAL',
+    type:      'MILITARY',
+    title:     '3 US service members killed in Kuwait — first US KIA of Operation Epic Fury',
+    location:  'Kuwait',
+    summary:   'Three US service members were killed in action and five seriously wounded during Operation Epic Fury, US Central Command confirmed. The troops were part of an Army sustainment unit based in Kuwait. Several others sustained minor shrapnel injuries and concussions. CENTCOM said "major combat operations continue and our response effort is ongoing." Trump warned there will "likely be more" American casualties before the operation ends.',
+    fullContent: `US Central Command confirmed the first American combat deaths of Operation Epic Fury at approximately 09:30 AM ET on March 1.
+
+CENTCOM statement: "Three U.S. service members have been killed in action and five are seriously wounded as part of Operation Epic Fury. Several others sustained minor shrapnel injuries and concussions — and are in the process of being returned to duty. Major combat operations continue and our response effort is ongoing."
+
+Two US officials confirmed to NBC News that the attack occurred in Kuwait. The troops were part of an Army sustainment unit based in Kuwait.
+
+CENTCOM did not identify the service members, pending notification of next of kin.
+
+President Trump, speaking in a video posted to Truth Social: "As one nation, we grieve for the true American patriots who have made the ultimate sacrifice for our nation, even as we continue the righteous mission for which they gave their lives."
+
+Trump warned: "We'll do everything possible to prevent more casualties. But America will avenge their deaths and deliver the most punishing blow to the terrorists who have waged war against, basically, civilization."
+
+Trump added that "there will likely be more" American casualties before the operation ends.
+
+He also called on the IRGC and Iranian military and police "to lay down your arms and receive full immunity or face certain death."`,
+    verified: true,
+    sources: [
+      { name: 'CENTCOM official statement', tier: 1, reliability: 99 },
+      { name: 'NBC News (two US officials)', tier: 1, reliability: 95 },
+      { name: 'Reuters',                    tier: 1, reliability: 99 },
+      { name: 'Trump Truth Social',         tier: 1, reliability: 90 },
+    ],
+    actorResponses: [
+      { actorId: 'us', actorName: 'President Trump',  stance: 'SUPPORTING', type: 'STATEMENT', statement: 'America will avenge their deaths and deliver the most punishing blow to the terrorists who have waged war against civilization. There will likely be more casualties.' },
+      { actorId: 'us', actorName: 'CENTCOM',           stance: 'NEUTRAL',    type: 'STATEMENT', statement: 'Three US service members killed in action, five seriously wounded. Major combat operations continue.' },
+    ],
+    tags: ['us-kia', 'kuwait', 'centcom', 'casualties', 'day-2'],
+  },
+
+  {
+    id:        'evt-015',
+    timestamp: '2026-03-01T13:00:00Z',
+    severity:  'CRITICAL',
+    type:      'MILITARY',
+    title:     'Beit Shemesh missile strike kills 9 — synagogue and bomb shelter destroyed',
+    location:  'Beit Shemesh, Israel',
+    summary:   'An Iranian ballistic missile struck a residential neighborhood in Beit Shemesh, near Jerusalem, killing 9 people and injuring more than 40. The missile destroyed a synagogue and caused extensive damage to a public bomb shelter beneath it. Some victims had been sheltering in the communal bunker when it suffered a direct hit. Others were found in the open. Among the dead: 16-year-old Gavriel Baruch. An IDF search-and-rescue spokesperson said it was evidence Iran was targeting civilians — no military bases or command centers were in the vicinity.',
+    fullContent: `On the afternoon of March 1 (local time), an Iranian ballistic missile struck a residential neighborhood in Beit Shemesh, a city located approximately 30km west of Jerusalem.
+
+Casualty details (Magen David Adom emergency service):
+• 9 killed
+• 28 taken to hospitals
+• More than 40 total injured
+• 16-year-old Gavriel Baruch identified as the fourth named victim
+
+Impact details:
+• The missile destroyed a synagogue in the neighborhood.
+• A public bomb shelter beneath the synagogue suffered extensive damage from the direct hit.
+• Some victims had been sheltering in the communal bunker, per ZAKA (Israeli body recovery organization) spokesperson Zeev Druck.
+• Others were found out in the open.
+• About a dozen houses in the vicinity showed heavy damage — doors and windows blown open, rubble and broken tile scattered in streets.
+
+At the scene: approximately 200 people gathered, among them police officers and first responders. Bulldozers and heavy equipment were securing the site, collecting forensic evidence and taking witness statements.
+
+An Israeli military search-and-rescue spokesperson at the scene stated it was evidence that Iran was targeting civilians, "pointing out that there were no military bases or command centers in the vicinity."
+
+This was the deadliest single strike on Israeli territory during the conflict — 8 of the 10 total Israeli deaths occurred here.
+
+Separately, an Iranian missile struck a highway on Jerusalem's outskirts, leaving a large crater and injuring 3 people (one in moderate condition). Police bomb disposal experts conducted searches for additional munitions.`,
+    verified: true,
+    sources: [
+      { name: 'Times of Israel',          tier: 2, reliability: 88 },
+      { name: 'New York Times',            tier: 1, reliability: 97 },
+      { name: 'Reuters',                   tier: 1, reliability: 99 },
+      { name: 'Magen David Adom',          tier: 1, reliability: 95 },
+      { name: 'The Guardian (video)',      tier: 1, reliability: 95 },
+    ],
+    actorResponses: [
+      { actorId: 'idf',  actorName: 'IDF Search & Rescue',  stance: 'NEUTRAL',  type: 'STATEMENT', statement: 'There are no military bases or command centers in the vicinity. This is evidence Iran is deliberately targeting civilians.' },
+      { actorId: 'irgc', actorName: 'IRGC',                 stance: 'OPPOSING', type: 'STATEMENT', statement: 'Iran\'s response has been directed solely and exclusively at US bases and assets.' },
+    ],
+    tags: ['beit-shemesh', 'synagogue', 'civilian-casualties', 'israel', 'ballistic-missile', 'day-2'],
+  },
+
+  {
+    id:        'evt-016',
+    timestamp: '2026-03-01T17:30:00Z',
+    severity:  'HIGH',
+    type:      'MILITARY',
+    title:     'Trump: US has sunk 9 Iranian warships and "largely destroyed" Iran\'s naval headquarters',
+    location:  'Persian Gulf / Gulf of Oman',
+    summary:   'President Trump announced that the US military had destroyed and sunk 9 Iranian warships and was "going after the rest." In a separate attack, Iran\'s naval headquarters was "largely destroyed." Trump said "the rest of Iran\'s fleet of military vessels will soon be floating at the bottom of the sea, also." Earlier, CENTCOM confirmed an Iranian Jamaran-class corvette was struck and sinking in the Gulf of Oman. CENTCOM told the remaining Iranian naval forces: "Abandon ship."',
+    fullContent: `President Trump announced on Truth Social that the US military was systematically destroying Iran's navy.
+
+Trump statement: "Nine of their warships have been destroyed and sunk. The rest of Iran's fleet of military vessels will soon be floating at the bottom of the sea, also! In a different attack, we largely destroyed their naval headquarters."
+
+Earlier, CENTCOM had confirmed at least one specific naval engagement: "An Iranian Jamaran-class corvette was struck by U.S. forces as part of Operation Epic Fury. The ship was sinking to the bottom of the Gulf of Oman."
+
+CENTCOM added a direct message to Iran's remaining naval personnel: "As the President said, members of Iran's armed forces, IRGC and police 'must lay down your weapons.' Abandon ship."
+
+The systematic destruction of Iran's navy aligns with the broader US strategy of eliminating Iran's ability to threaten the Strait of Hormuz and Persian Gulf shipping lanes. Iran's conventional navy (IRIN) and the IRGC Navy together operate an estimated 200+ vessels, though many are small fast-attack craft rather than warships.
+
+Reuters confirmed Trump's claim about 9 ships sunk, and Axios reported the naval headquarters was "largely destroyed."`,
+    verified: true,
+    sources: [
+      { name: 'Reuters',              tier: 1, reliability: 99 },
+      { name: 'Axios',                tier: 1, reliability: 93 },
+      { name: 'Military Times',       tier: 1, reliability: 94 },
+      { name: 'CENTCOM statement',    tier: 1, reliability: 99 },
+      { name: 'Times of Israel',      tier: 2, reliability: 88 },
+    ],
+    actorResponses: [
+      { actorId: 'us', actorName: 'President Trump',  stance: 'SUPPORTING', type: 'STATEMENT', statement: 'Nine of their warships have been destroyed and sunk. The rest will soon be floating at the bottom of the sea, also!' },
+      { actorId: 'us', actorName: 'CENTCOM',           stance: 'SUPPORTING', type: 'STATEMENT', statement: 'An Iranian Jamaran-class corvette was struck and is sinking. Members of Iran\'s armed forces must lay down your weapons. Abandon ship.' },
+    ],
+    tags: ['navy', 'warships', 'naval-hq', 'trump', 'centcom', 'gulf-of-oman', 'day-2'],
+  },
+
+  {
+    id:        'evt-017',
+    timestamp: '2026-03-01T16:00:00Z',
+    severity:  'HIGH',
+    type:      'MILITARY',
+    title:     'Iran targets USS Abraham Lincoln — CENTCOM says missiles "didn\'t even come close"',
+    location:  'Gulf of Oman / Arabian Sea',
+    summary:   'Iran\'s IRGC claimed it fired four ballistic missiles at the USS Abraham Lincoln aircraft carrier. US Central Command responded that the "missiles launched didn\'t even come close" and confirmed the Lincoln was continuing to launch aircraft. The IRGC had been quoted by state-run IRNA as claiming the strike was successful — CENTCOM directly contradicted the claim.',
+    fullContent: `Iran's Islamic Revolutionary Guard Corps, the country's most powerful military body, claimed via state-run Islamic Republic News Agency (IRNA) that four ballistic missiles had targeted the USS Abraham Lincoln (CVN-72).
+
+CENTCOM response on X: The missiles "didn't even come close." CENTCOM confirmed the Lincoln was continuing to launch aircraft and conducting normal flight operations.
+
+The USS Abraham Lincoln is one of the primary US carrier strike groups deployed to the region as part of Operation Epic Fury. The carrier is operating in the Gulf of Oman / Arabian Sea — outside the Persian Gulf itself.
+
+The failed attempt to strike a US carrier is significant for several reasons:
+1. It demonstrates IRGC intent to target capital warships, not just bases.
+2. It demonstrates the failure of Iran's anti-ship ballistic missile capability against a maneuvering carrier with layered air and missile defense.
+3. The IRGC's public claim of success, directly contradicted by CENTCOM, follows Iran's pattern of overstating military achievements (as in the April 2024 True Promise operation).
+
+IDF had previously confirmed shooting down 50+ drones launched at Israel from Iran during this period.`,
+    verified: true,
+    sources: [
+      { name: 'CENTCOM (X post)',   tier: 1, reliability: 99 },
+      { name: 'NBC News',           tier: 1, reliability: 95 },
+      { name: 'IRNA (Iranian state)', tier: 2, reliability: 60 },
+    ],
+    actorResponses: [
+      { actorId: 'us',   actorName: 'CENTCOM',                    stance: 'SUPPORTING', type: 'STATEMENT', statement: 'Missiles launched at USS Abraham Lincoln didn\'t even come close. The Lincoln continues to launch aircraft.' },
+      { actorId: 'irgc', actorName: 'IRGC (via IRNA)',           stance: 'OPPOSING',   type: 'STATEMENT', statement: 'Four ballistic missiles have successfully targeted the American aircraft carrier.' },
+    ],
+    tags: ['uss-lincoln', 'carrier', 'irgc', 'ballistic-missile', 'failed-strike', 'day-2'],
+  },
+
+  {
+    id:        'evt-018',
+    timestamp: '2026-03-01T17:00:00Z',
+    severity:  'HIGH',
+    type:      'MILITARY',
+    title:     'CENTCOM accuses Iran of targeting civilians — disputes Iran\'s claim of military-only strikes',
+    location:  'Middle East (multi-country)',
+    summary:   'US Central Command published a fact-check directly contradicting Iran\'s ambassador to the UN, who told the Security Council that Iran\'s response had been directed "solely and exclusively" at US bases and assets. CENTCOM called this a "lie" and listed civilian targets struck by Iran: Dubai International Airport, Kuwait International Airport, UAE airports, Erbil International Airport, Port of Dubai, multiple hotels in Dubai and Bahrain, residential areas in Tel Aviv, Beit Shemesh, Bahrain, Qatar, and Abu Dhabi.',
+    fullContent: `CENTCOM published a fact-check statement on X responding to Iran's UN ambassador, who had told the Security Council that Tehran's response was directed "solely and exclusively" at US bases and assets.
+
+CENTCOM statement: "The Iranian Regime is actively targeting civilians and has attacked more than a dozen locations." CENTCOM called the ambassador's assertion a "lie."
+
+Confirmed civilian targets struck by Iran (per CENTCOM):
+
+Airports:
+• Dubai International Airport — flights suspended "until further notice"
+• Kuwait International Airport — struck
+• UAE airports — multiple hit
+• Erbil International Airport, Iraq — struck
+
+Hotels and commercial:
+• Fairmont The Palm, Dubai — struck, smoke and flames visible
+• Burj Al Arab area, Dubai — struck
+• Crowne Plaza Manama, Bahrain — struck
+• Port of Dubai — struck
+
+Infrastructure:
+• Amazon Web Services data center, UAE — "impacted by objects that struck the data center, creating sparks and fire." Fire department shut off power. AWS said getting it back online could take "several hours."
+
+Residential areas struck:
+• Tel Aviv, Israel
+• Beit Shemesh, Israel (synagogue destroyed, 9 killed)
+• Residential areas in Bahrain and Qatar
+• Abu Dhabi — Etihad Towers complex hit by drone debris; woman and child injured
+• Doha, Qatar — smoke rising from industrial district
+
+Emirates airline suspended all operations "until further notice." Qatar Airways suspended all flights pending reopening of Qatari airspace.
+
+NBC News noted it "has not independently verified CENTCOM's full list of locations" but confirmed several sites via verified video and wire agency reporting.`,
+    verified: true,
+    sources: [
+      { name: 'CENTCOM (X fact-check)',  tier: 1, reliability: 99 },
+      { name: 'NBC News',                tier: 1, reliability: 95 },
+      { name: 'Reuters',                 tier: 1, reliability: 99 },
+      { name: 'BBC',                     tier: 1, reliability: 96 },
+      { name: 'The Guardian',            tier: 1, reliability: 95 },
+    ],
+    actorResponses: [
+      { actorId: 'us',   actorName: 'CENTCOM',                        stance: 'SUPPORTING', type: 'STATEMENT', statement: 'The Iranian Regime is actively targeting civilians and has attacked more than a dozen locations. The ambassador\'s claim is a lie.' },
+      { actorId: 'iran', actorName: 'Iran UN Ambassador',            stance: 'OPPOSING',   type: 'DIPLOMATIC', statement: 'Iran\'s response has been directed solely and exclusively at US bases and assets.' },
+    ],
+    tags: ['civilian-targets', 'dubai', 'bahrain', 'centcom', 'fact-check', 'aws', 'airports', 'day-2'],
+  },
+
+  {
+    id:        'evt-019',
+    timestamp: '2026-03-01T18:00:00Z',
+    severity:  'HIGH',
+    type:      'ECONOMIC',
+    title:     'Oil surges 12–14%; OPEC+ announces modest 206K bbl/day increase; 1,500+ flights cancelled',
+    location:  'Global markets / Middle East',
+    summary:   'When oil trading opened at 6 PM ET Sunday, Brent crude surged ~14% and WTI surged ~12%. OPEC+ pre-emptively announced a collective increase of 206,000 barrels per day — a modest figure given the scale of disruption. More than 1,500 flights to Middle East destinations were cancelled. Lufthansa, KLM, Emirates, Qatar Airways suspended routes. Dubai Airports suspended all flights "until further notice." Over 200 vessels stalled near the Strait of Hormuz. Half a dozen cargo shipping companies halted vessels headed to the waterway.',
+    fullContent: `Oil markets:
+• Brent crude: surged approximately 14% when trading opened at 6 PM ET Sunday.
+• WTI (US crude): surged approximately 12%.
+• Oil prices had already risen 17% this year before the strikes, driven by Trump administration rhetoric and escalating sanctions on Iran.
+
+OPEC+ response:
+• Eight OPEC+ nations announced plans to increase collective production by 206,000 barrels of crude oil per day.
+• Analysts noted the increase was modest relative to the disruption — Iran produces less than 5% of global output, but more than 20% of daily global oil supply passes through the Strait of Hormuz.
+
+Aviation disruptions (as of March 1):
+• More than 1,500 flights to Middle East destinations cancelled (Cirium aviation analytics).
+• Israel's airspace closed to civil aviation.
+• Dubai Airports: suspended flights "until further notice."
+• Emirates: "temporarily suspended all operations to and from Dubai."
+• Hamad International Airport (Doha): "all aircraft movements suspended."
+• Qatar Airways: suspended operations pending reopening of Qatari airspace.
+• Lufthansa: suspended flights to Tel Aviv, Beirut, Amman, Erbil, Dammam, Tehran until next Sunday. Dubai and Abu Dhabi flights suspended through Wednesday. Not using airspace over Iran, Israel, Lebanon, Jordan, Iraq, Qatar, Kuwait, Bahrain.
+• KLM: no flights to Dubai, UAE, Riyadh, Dammam through Thursday.
+
+Maritime:
+• Half a dozen cargo shipping companies halted vessels headed to the Strait of Hormuz.
+• 200+ vessels anchored or diverted in the region.
+• Maersk had already paused Trans-Suez sailings after Houthi resumption of Red Sea attacks.`,
+    verified: true,
+    sources: [
+      { name: 'NBC News / Steve Kopack', tier: 1, reliability: 95 },
+      { name: 'Reuters',                 tier: 1, reliability: 99 },
+      { name: 'Cirium (aviation)',        tier: 1, reliability: 95 },
+      { name: 'Emirates/Qatar Airways statements', tier: 1, reliability: 99 },
+    ],
+    actorResponses: [],
+    tags: ['oil', 'markets', 'opec', 'flights', 'aviation', 'shipping', 'hormuz', 'day-2'],
+  },
+
+  {
+    id:        'evt-020',
+    timestamp: '2026-03-01T15:30:00Z',
+    severity:  'HIGH',
+    type:      'POLITICAL',
+    title:     'Trump: operations "ahead of schedule"; suggests "decapitating" Iranian leadership; agrees to talk',
+    location:  'Mar-a-Lago / Washington D.C.',
+    summary:   'In an NBC News interview, Trump said the US strikes are "ahead of schedule" and described possible outcomes including "decapitating" Iran\'s leadership. He confirmed US had killed 48 Iranian leaders. He said Iranian officials were interested in continuing talks but declined to say whether strikes would pause during diplomacy. A senior White House official confirmed Trump will "eventually" talk to "new potential leadership in Iran" but "for now, Operation Epic Fury continues unabated." Trump also called on Iranian citizens to "seize this moment, be brave, be bold, be heroic and take back your country."',
+    fullContent: `President Trump gave an interview to NBC News from Mar-a-Lago on March 1, making several significant statements.
+
+On operations: "We expect casualties with something like this. We have three, but we expect casualties — but in the end it's going to be a great deal for the world. We're moving along very well — ahead of schedule."
+
+On desired outcome: "There are many outcomes that are good. Number one is decapitating them, getting rid of their whole group of killers and thugs. And there are many, many outcomes. We could do the short version or the longer version."
+
+On diplomacy: Iranian officials are interested in continuing talks (referencing the Geneva channel through Oman). Asked whether the US will pause strikes during diplomatic efforts: "I don't know. If they can satisfy us. They haven't been able to."
+
+On the pre-strike negotiations: A senior administration official revealed that Iran's Foreign Minister Abbas Araghchi insisted in a Thursday meeting with US envoys Steve Witkoff and Jared Kushner that Iran had the "inalienable right" to enrich uranium. Witkoff replied: "We have the inalienable right to stop you." The US proposed a 10-year enrichment moratorium — Iran refused. Araghchi also declined to share a seven-page document Iran had prepared. Kushner and Witkoff reported to Trump how poorly negotiations had gone, and Trump was "nonplussed."
+
+Senior White House official: Trump will "eventually" talk to "new potential leadership in Iran." "For now, Operation Epic Fury continues unabated."
+
+Trump to Iranian citizens (Truth Social): "Iranian patriots who yearn for freedom — seize this moment, be brave, be bold, be heroic and take back your country. America is with you. I made a promise to you, and I fulfilled that promise. The rest will be up to you, but we'll be there to help."`,
+    verified: true,
+    sources: [
+      { name: 'NBC News interview',  tier: 1, reliability: 95 },
+      { name: 'CNBC',                tier: 1, reliability: 95 },
+      { name: 'Trump Truth Social',  tier: 1, reliability: 90 },
+      { name: 'Reuters',             tier: 1, reliability: 99 },
+    ],
+    actorResponses: [
+      { actorId: 'us', actorName: 'President Trump',           stance: 'SUPPORTING', type: 'STATEMENT', statement: 'We\'re ahead of schedule. Number one outcome is decapitating them. We could do the short version or the longer version.' },
+      { actorId: 'us', actorName: 'Senior White House Official', stance: 'SUPPORTING', type: 'STATEMENT', statement: 'For now, Operation Epic Fury continues unabated. The President will eventually talk to new potential leadership in Iran.' },
+    ],
+    tags: ['trump', 'decapitation', 'diplomacy', 'regime-change', 'geneva', 'witkoff', 'kushner', 'day-2'],
+  },
+
+  {
+    id:        'evt-021',
+    timestamp: '2026-03-01T19:00:00Z',
+    severity:  'HIGH',
+    type:      'DIPLOMATIC',
+    title:     'Omani FM pushes diplomacy; UK allows US to use bases; Congress briefings set for Tuesday',
+    location:  'Muscat / London / Washington D.C.',
+    summary:   'Omani Foreign Minister Badr al-Busaidi said the "door to diplomacy" remained open, noting Geneva talks had made "genuine progress towards an unprecedented agreement" before the strikes. UK PM Starmer gave consent for US to use British military bases for defensive operations. Congress will receive classified briefings Tuesday from Rubio, Hegseth, CIA Director Ratcliffe, and Joint Chiefs Chairman Gen. Dan Caine. Sen. Mark Kelly (D-AZ) called Khamenei\'s death a "good thing" but criticized the lack of a plan — "Hope is not a strategy." Rep. Ro Khanna (D-CA) said Americans "are not safer today."',
+    fullContent: `Diplomatic and political developments on the evening of March 1:
+
+Oman backchannel:
+Omani FM Badr al-Busaidi posted on social media: "Talks in Geneva made genuine progress towards an unprecedented agreement between Iran and the United States and although the hope was to avoid war, war should not mean that the hope of peace is extinguished. I still believe in the power of diplomacy to resolve this conflict. The sooner talks are resumed the better it is for everyone."
+
+He had earlier lamented that ongoing negotiations with Iran had been undermined by the strikes and warned that US and global interests could suffer if military operations escalate.
+
+UK position:
+PM Keir Starmer gave consent for the US to use British military bases — including RAF Akrotiri in Cyprus and RAF Fairford — for defensive operations related to the conflict. The UK characterized its support as defensive in nature.
+
+Congressional response:
+• Congress will receive classified briefings Tuesday — Secretary of State Marco Rubio, Defense Secretary Pete Hegseth, CIA Director John Ratcliffe, and Joint Chiefs Chairman Gen. Dan Caine will brief the full membership of both chambers.
+• Senate briefing at 3:30 PM ET, House briefing at 5 PM ET.
+• War Powers Resolution push: Rep. Ro Khanna (D-CA) is seeking a vote, saying it would be "close — it depends if we can keep several Democrats in line."
+• Sen. Mark Kelly (D-AZ) on Meet the Press: Called Khamenei's death a "good thing" but criticized: "Hope is not a strategy. We got to have a plan here. What is the strategic goal, and how do we achieve it?"
+• Rep. Khanna: "The ayatollah was 86. They were picking the new leader before we killed the ayatollah. The question is, is the country going to descend into civil war?"
+• Sen. Lindsey Graham (R-SC): "It's not our job to pick Iran's next leader. Our job is to make sure Iran is no longer the largest state sponsor of terrorism. No boots on the ground."`,
+    verified: true,
+    sources: [
+      { name: 'NBC News / Meet the Press', tier: 1, reliability: 95 },
+      { name: 'Reuters',                   tier: 1, reliability: 99 },
+      { name: 'AP',                        tier: 1, reliability: 98 },
+      { name: 'Times of Israel',           tier: 2, reliability: 88 },
+    ],
+    actorResponses: [
+      { actorId: 'oman', actorName: 'Omani FM al-Busaidi',  stance: 'NEUTRAL',    type: 'DIPLOMATIC', statement: 'I still believe in the power of diplomacy to resolve this conflict. The sooner talks are resumed the better.' },
+      { actorId: 'uk',   actorName: 'PM Starmer',           stance: 'SUPPORTING', type: 'DIPLOMATIC', statement: 'The UK has authorized the use of British bases for defensive operations.' },
+    ],
+    tags: ['oman', 'diplomacy', 'uk', 'congress', 'war-powers', 'kelly', 'khanna', 'graham', 'day-2'],
+  },
+
+  {
+    id:        'evt-022',
+    timestamp: '2026-03-01T23:30:00Z',
+    severity:  'HIGH',
+    type:      'MILITARY',
+    title:     'First rockets from Lebanon in months — sirens across northern Israel as Hezbollah suspected',
+    location:  'Northern Israel / Southern Lebanon',
+    summary:   'Rockets were launched from Lebanon at northern Israel for the first time in months, setting off air raid sirens across Haifa and the Upper Galilee. The IDF intercepted one rocket; several others fell in open areas. Hezbollah is suspected but has not confirmed responsibility. Separately, multiple suspected drone infiltrations were detected from the north. This would be the first time Hezbollah has joined Iran in the current conflict and the first violation of the November 2024 US-brokered Israel-Lebanon ceasefire.',
+    fullContent: `Late on March 1 / early March 2 (local time), sirens were activated across northern Israel.
+
+IDF statement: Projectiles fired from Lebanon. One rocket intercepted; several additional rockets fell in open areas and were not intercepted "in accordance with the military's policies." No reports of casualties or damage.
+
+Sirens sounded in:
+• Haifa and surrounding areas
+• Multiple locations in the Upper Galilee
+• Additional alerts for suspected drone infiltrations in the Upper Galilee
+
+Attribution:
+• Hebrew media reports indicate Hezbollah is behind the rocket fire, though the group has not confirmed this.
+• It would mark the first time Hezbollah has joined Iran in its attacks on Israel during this conflict.
+• It would also be the first violation of the US-brokered Israel-Lebanon ceasefire that went into effect in November 2024.
+• Hezbollah did not get involved during the previous Israel-Iran exchanges (June 2025).
+
+The IDF separately confirmed it had shot down over 50 drones launched at Israel from Iran throughout the day.
+
+The potential opening of a northern front represents the most significant escalation risk of the conflict. Hezbollah maintains an estimated 130,000+ rockets and missiles, making it the most heavily armed non-state actor in history.
+
+US Embassy Beirut had earlier issued an Emergency Security Alert advising all US citizens in Lebanon to shelter in place, noting "extremely limited" commercial flight options.`,
+    verified: true,
+    sources: [
+      { name: 'IDF Spokesperson',   tier: 1, reliability: 90 },
+      { name: 'Times of Israel',    tier: 2, reliability: 88 },
+      { name: 'Magen David Adom',   tier: 1, reliability: 95 },
+    ],
+    actorResponses: [
+      { actorId: 'idf', actorName: 'IDF Spokesperson', stance: 'NEUTRAL', type: 'STATEMENT', statement: 'Projectiles fired from Lebanon. One rocket intercepted. No casualties reported. Details under investigation.' },
+    ],
+    tags: ['lebanon', 'hezbollah', 'haifa', 'northern-front', 'ceasefire-violation', 'drones', 'day-2'],
   },
 ];
 

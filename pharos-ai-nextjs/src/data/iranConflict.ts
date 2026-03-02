@@ -15,14 +15,20 @@ export const CONFLICT = {
 
   keyFacts: [
     'Khamenei confirmed killed — IRNA state media confirmation 14:30 UTC Feb 28',
-    '14 GBU-57 Massive Ordnance Penetrators dropped on Fordow and Natanz — largest B-2 strike in US history',
-    'Strait of Hormuz closed by IRGC — 200+ vessels anchored, 14M bbl/day disrupted',
-    'Iran fired 35+ ballistic missiles at Israel; struck US bases in 6 Gulf nations',
-    '3 US service members KIA, 5 seriously wounded (CENTCOM, Mar 1 09:30 ET)',
-    '11 Israeli civilians killed, 450+ injured by Iranian retaliatory strikes',
-    'Ben Gurion Airport closed to all commercial/charter traffic',
-    'Maersk pausing Trans-Suez sailings, rerouting via Cape of Good Hope',
-    'Houthis announcing resumption of Red Sea shipping attacks',
+    'B-2 Spirit bombers struck fortified nuclear and missile sites from Diego Garcia',
+    'Strait of Hormuz closure — 200+ vessels anchored, half-dozen shipping companies halted',
+    'IRGC launched Operation True Promise 4 — at least 9 waves targeting 27+ US/Israeli sites',
+    'Iran struck US bases in 6 Gulf nations: Al Udeid (Qatar), Ali Al Salem (Kuwait), Al Dhafra (UAE), NSA Bahrain, Prince Sultan AB (Saudi), Erbil (Iraq)',
+    '3 US service members KIA in Kuwait (Army sustainment unit), 5 seriously wounded',
+    '10 killed in Israel — 9 in Beit Shemesh synagogue strike, 1 elsewhere; 40+ injured',
+    '9 Iranian warships destroyed and sunk — naval HQ "largely destroyed" (Trump/CENTCOM)',
+    '48 Iranian leaders killed (per Trump); IDF struck "dozens" of IRGC command centers in Tehran',
+    'Iran hit civilian targets across Gulf — Dubai Fairmont, Bahrain Crowne Plaza, airports, AWS data center',
+    '1,500+ flights cancelled; Dubai, Kuwait, Bahrain, Erbil airports suspended',
+    'Oil: Brent +14% (~$78), WTI +12% (~$72); OPEC+ increase: 206K bbl/day',
+    'Iran forms interim leadership council: Pezeshkian, Mohseni-Ejei, Arafi',
+    'Starmer/Macron/Merz joint statement: "Iran pursuing scorched earth strategy"',
+    'Houthis resumed Red Sea attacks; first rockets from Lebanon (late March 1)',
   ],
 
   objectives: {
@@ -33,14 +39,14 @@ export const CONFLICT = {
   commanders: {
     us: ['President Donald Trump', 'SecDef Pete Hegseth', 'CENTCOM CG Dan Caine', 'Adm. Brad Cooper'],
     il: ['PM Benjamin Netanyahu', 'DefMin Israel Katz', 'IDF Chief Eyal Zamir', 'IAF Chief Tomer Bar'],
-    ir: ['President Masoud Pezeshkian (transitional)', 'Judiciary Chief Mohseni Ejei', 'Ali Larijani'],
+    ir: ['President Masoud Pezeshkian (interim council)', 'Chief Justice Mohseni-Ejei (interim council)', 'Ayatollah Arafi (interim council)', 'FM Abbas Araghchi'],
   },
 
   casualties: {
     us:       { kia: 3,   wounded: 5,    civilians: 0 },
-    israel:   { kia: 0,   wounded: 0,    civilians: 11, injured: 450 },
-    iran:     { killed: 201, injured: 747 },  // IRCS figures
-    regional: 'UAE 3 killed, Kuwait 1 killed, Qatar 16 injured, Bahrain 4 injured',
+    israel:   { kia: 0,   wounded: 0,    civilians: 10, injured: 40 },  // 9 in Beit Shemesh, 1 elsewhere
+    iran:     { killed: 200, injured: 'unknown' },  // IRCS figures; 165 students at Minab school alone
+    regional: 'UAE 2 killed, multiple injured; Kuwait 3 US KIA; Bahrain/Qatar civilian impacts',
   },
 };
 

@@ -98,6 +98,14 @@ export const STRIKE_ARCS: StrikeArc[] = [
   { id: 's14', actor: 'US',     priority: 'P2', category: 'KINETIC', type: 'NAVAL_STRIKE', status: 'COMPLETE', from: [58.0,    25.5   ], to: [50.3248, 29.2352], label: 'Naval Strike: USS Ford → Kharg Island',         severity: 'HIGH'     },
   { id: 's15', actor: 'US',     priority: 'P2', category: 'KINETIC', type: 'AIRSTRIKE',    status: 'COMPLETE', from: [51.3149, 25.1175], to: [51.4,    35.7   ], label: 'USAF Strike: Al Udeid → Tehran Radar',          severity: 'HIGH'     },
   { id: 's16', actor: 'US',     priority: 'P2', category: 'KINETIC', type: 'AIRSTRIKE',    status: 'COMPLETE', from: [54.5477, 24.2483], to: [51.5059, 35.7607], label: 'USAF Strike: Al Dhafra → Lavizan Complex',      severity: 'HIGH'     },
+
+  // ── Day 2 (March 1) — Verified strike arcs ─────────────────────────────────
+  { id: 's17', actor: 'ISRAEL', priority: 'P1', category: 'KINETIC', type: 'AIRSTRIKE',    status: 'COMPLETE', from: [34.9408, 31.2083], to: [51.42,   35.70  ], label: 'IDF Day 2: Nevatim → IRGC HQ Tehran (dozens of command centers)', severity: 'CRITICAL' },
+  { id: 's18', actor: 'ISRAEL', priority: 'P1', category: 'KINETIC', type: 'AIRSTRIKE',    status: 'COMPLETE', from: [34.9408, 31.2083], to: [51.45,   35.72  ], label: 'IDF Day 2: Nevatim → IRGC Intelligence HQ Tehran',              severity: 'CRITICAL' },
+  { id: 's19', actor: 'ISRAEL', priority: 'P2', category: 'KINETIC', type: 'AIRSTRIKE',    status: 'COMPLETE', from: [34.9408, 31.2083], to: [51.38,   35.74  ], label: 'IDF Day 2: Nevatim → IRGC Air Force Command Tehran',            severity: 'HIGH'     },
+  { id: 's20', actor: 'ISRAEL', priority: 'P2', category: 'KINETIC', type: 'AIRSTRIKE',    status: 'COMPLETE', from: [34.9408, 31.2083], to: [51.40,   35.68  ], label: 'IDF Day 2: Nevatim → Internal Security HQ Tehran',             severity: 'HIGH'     },
+  { id: 's21', actor: 'US',     priority: 'P2', category: 'KINETIC', type: 'NAVAL_STRIKE', status: 'COMPLETE', from: [58.0,    25.5   ], to: [60.6223, 25.3467], label: 'Naval Day 2: USS Ford → IRGC Chabahar (Jamaran corvette sunk)',  severity: 'HIGH'     },
+  { id: 's22', actor: 'US',     priority: 'P2', category: 'KINETIC', type: 'NAVAL_STRIKE', status: 'COMPLETE', from: [59.5,    23.0   ], to: [56.2666, 27.1832], label: 'Naval Day 2: USS Lincoln → IRGC Naval HQ (largely destroyed)',   severity: 'HIGH'     },
 ];
 
 // ─── Missile tracks ───────────────────────────────────────────────────────────
@@ -115,6 +123,19 @@ export const MISSILE_TRACKS: MissileTrack[] = [
   { id: 'm10', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'INTERCEPTED', from: [51.3890, 35.6840], to: [34.7818, 32.0853], label: 'IRGC Ballistic: Imam Ali Base → Tel Aviv (Wave 2)',     severity: 'CRITICAL' },
   { id: 'm11', actor: 'IRGC',   priority: 'P3', category: 'KINETIC', type: 'BALLISTIC', status: 'INTERCEPTED', from: [46.3600, 38.0800], to: [35.0018, 32.7940], label: 'IRGC Ballistic: Tabriz → Haifa (intercepted)',          severity: 'HIGH'     },
   { id: 'm12', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'IMPACTED',    from: [48.6799, 31.3342], to: [47.5804, 24.0621], label: 'IRGC Ballistic: Ahvaz → Prince Sultan AB Saudi (HIT)', severity: 'HIGH'     },
+
+  // ── Day 2 (March 1) — Operation True Promise 4 waves ───────────────────────
+  { id: 'm13', actor: 'IRGC',   priority: 'P1', category: 'KINETIC', type: 'BALLISTIC', status: 'IMPACTED',    from: [51.4,    35.7   ], to: [34.9913, 31.7308], label: 'IRGC Day 2: Tehran → Beit Shemesh (HIT — 9 killed, synagogue destroyed)', severity: 'CRITICAL' },
+  { id: 'm14', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'IMPACTED',    from: [51.4,    35.7   ], to: [35.2137, 31.7683], label: 'IRGC Day 2: Tehran → Jerusalem highway (HIT — 3 injured)',            severity: 'HIGH'     },
+  { id: 'm15', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'INTERCEPTED', from: [51.4,    35.7   ], to: [34.8219, 31.8394], label: 'IRGC True Promise 4: Tehran → Tel Nof AB (intercepted)',             severity: 'HIGH'     },
+  { id: 'm16', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'INTERCEPTED', from: [51.4,    35.7   ], to: [34.7900, 32.0700], label: 'IRGC True Promise 4: Tehran → HaKirya IDF HQ Tel Aviv (intercepted)', severity: 'CRITICAL' },
+  { id: 'm17', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'INTERCEPTED', from: [51.4,    35.7   ], to: [59.5,    23.0   ], label: 'IRGC True Promise 4: → USS Abraham Lincoln (miss — "didn\'t even come close")', severity: 'CRITICAL' },
+  { id: 'm18', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'DRONE',     status: 'INTERCEPTED', from: [51.4,    35.7   ], to: [34.7818, 32.0853], label: 'IRGC Day 2: 50+ Shahed drones → Israel (IDF: all shot down)',       severity: 'HIGH'     },
+  { id: 'm19', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'IMPACTED',    from: [51.4,    35.7   ], to: [55.3281, 25.2048], label: 'IRGC Day 2: → Dubai (Fairmont The Palm hotel, airports)',            severity: 'HIGH'     },
+  { id: 'm20', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'IMPACTED',    from: [48.6799, 31.3342], to: [50.5750, 26.2150], label: 'IRGC Day 2: Ahvaz → Bahrain (Crowne Plaza Manama)',                 severity: 'HIGH'     },
+  { id: 'm21', actor: 'IRGC',   priority: 'P2', category: 'KINETIC', type: 'BALLISTIC', status: 'IMPACTED',    from: [48.6799, 31.3342], to: [47.9800, 29.3300], label: 'IRGC Day 2: Ahvaz → Kuwait (Ali Al Salem — 3 US KIA)',              severity: 'CRITICAL' },
+  { id: 'm22', actor: 'IRGC',   priority: 'P3', category: 'KINETIC', type: 'DRONE',     status: 'IMPACTED',    from: [51.4,    35.7   ], to: [54.6500, 24.4500], label: 'IRGC Day 2: Drone debris → Abu Dhabi (Etihad Towers area)',         severity: 'HIGH'     },
+  { id: 'm23', actor: 'IRGC',   priority: 'P3', category: 'KINETIC', type: 'DRONE',     status: 'IMPACTED',    from: [51.4,    35.7   ], to: [54.5800, 24.4200], label: 'IRGC Day 2: → UAE (AWS data center struck, sparks & fire)',         severity: 'HIGH'     },
 ];
 
 // ─── Targets (Iranian installations) ─────────────────────────────────────────
@@ -137,6 +158,15 @@ export const TARGETS: Target[] = [
   { id: 't15', actor: 'IRGC', priority: 'P3', category: 'INSTALLATION', type: 'COMMAND',        status: 'DAMAGED',   name: 'IRGC Ahvaz',          position: [48.6799, 31.3342], description: 'Regional IRGC command, missile operations degraded' },
   { id: 't16', actor: 'IRAN', priority: 'P3', category: 'INSTALLATION', type: 'INFRASTRUCTURE', status: 'DESTROYED', name: 'Isfahan Drone Base',  position: [51.5,    32.5   ], description: 'Shahid drone production and storage' },
   { id: 't17', actor: 'IRAN', priority: 'P1', category: 'INSTALLATION', type: 'COMMAND',        status: 'DESTROYED', name: 'Khamenei Compound',   position: [51.4,    35.76  ], description: 'Supreme Leader compound — confirmed KIA site' },
+
+  // ── Day 2 (March 1) — Verified targets ─────────────────────────────────────
+  { id: 't18', actor: 'IRGC', priority: 'P1', category: 'INSTALLATION', type: 'COMMAND',        status: 'DESTROYED', name: 'IRGC Intelligence HQ Tehran',   position: [51.45,   35.72  ], description: 'Day 2 — IDF struck intelligence headquarters near Gandhi St, hospital damaged nearby' },
+  { id: 't19', actor: 'IRGC', priority: 'P1', category: 'INSTALLATION', type: 'COMMAND',        status: 'DESTROYED', name: 'IRGC Air Force Command',        position: [51.38,   35.74  ], description: 'Day 2 — IDF struck IRGC Air Force command centers, HQ-9B air defense inactivated' },
+  { id: 't20', actor: 'IRGC', priority: 'P1', category: 'INSTALLATION', type: 'COMMAND',        status: 'DESTROYED', name: 'Internal Security HQ Tehran',    position: [51.40,   35.68  ], description: 'Day 2 — IDF struck internal security headquarters' },
+  { id: 't21', actor: 'IRGC', priority: 'P2', category: 'INSTALLATION', type: 'NAVAL_BASE',     status: 'DESTROYED', name: 'IRGC Chabahar Naval Base',       position: [60.6223, 25.3467], description: 'Day 2 — Jamaran-class corvette sunk at pier (CENTCOM confirmed + imagery), "Abandon ship"' },
+  { id: 't22', actor: 'IRGC', priority: 'P1', category: 'INSTALLATION', type: 'NAVAL_BASE',     status: 'DESTROYED', name: 'IRGC Naval Headquarters',        position: [56.28,   27.19  ], description: 'Day 2 — Trump: "largely destroyed." Total 9 warships sunk across fleet' },
+  { id: 't23', actor: 'IRAN', priority: 'P2', category: 'INSTALLATION', type: 'COMMAND',        status: 'STRUCK',    name: 'Tehran Revolutionary Court',     position: [51.42,   35.69  ], description: 'Day 2 — Revolutionary Court building destroyed per OSINT/satellite' },
+  { id: 't24', actor: 'IRAN', priority: 'P2', category: 'INSTALLATION', type: 'AIR_BASE',       status: 'STRUCK',    name: 'Iranian Air Force Runway',        position: [51.30,   35.65  ], description: 'Day 2 — IDF struck F-4 and F-5 fighter jets as they prepared for takeoff from runway' },
 ];
 
 // ─── Allied assets ────────────────────────────────────────────────────────────
@@ -145,7 +175,7 @@ export const ALLIED_ASSETS: Asset[] = [
   // ── Carrier Strike Groups — P1 ─────────────────────────────────────────────
   { id: 'a1',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'CARRIER',    status: 'ACTIVE', name: 'USS Ford CVN-78',        position: [58.0,    25.5   ], description: 'CSG-12 · Gulf of Oman · F/A-18 sorties ongoing' },
   { id: 'a2',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'CARRIER',    status: 'ACTIVE', name: 'USS Eisenhower CVN-69',  position: [44.0,    12.5   ], description: 'CSG-2 · Red Sea / Gulf of Aden · Iron Dome maritime support' },
-  { id: 'a3',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'CARRIER',    status: 'ACTIVE', name: 'USS Roosevelt CVN-71',   position: [65.0,    21.0   ], description: 'CSG-9 · North Arabian Sea · QRF posture' },
+  { id: 'a3',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'CARRIER',    status: 'ACTIVE', name: 'USS Abraham Lincoln CVN-72', position: [59.5, 23.0], description: 'CSG-3 · Gulf of Oman / Arabian Sea · Targeted by IRGC (miss) · Launching aircraft' },
   { id: 'a33', actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'CARRIER',    status: 'ACTIVE', name: 'USS Truman CVN-75',      position: [28.0,    34.5   ], description: 'CSG-8 · Eastern Mediterranean · F/A-18 SEAD/DEAD · Aegis BMD' },
 
   // ── IDF Air Bases — P1/P2 ─────────────────────────────────────────────────
@@ -157,11 +187,11 @@ export const ALLIED_ASSETS: Asset[] = [
   { id: 'a32', actor: 'ISRAEL', priority: 'P3', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'ACTIVE', name: 'Hatzor AFB',             position: [34.7231, 31.7605], description: 'F-16C/D · Strike and QRA mission' },
 
   // ── US Bases — Gulf (P1 = struck HQs, P2 = major, P3 = peripheral) ────────
-  { id: 'a8',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'STRUCK', name: 'Al Udeid AB Qatar',      position: [51.3149, 25.1175], description: 'USAF CENTCOM FWD HQ · 10,000 personnel · Struck — 1 US KIA' },
-  { id: 'a9',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'STRUCK', name: 'Al Dhafra AB UAE',       position: [54.5477, 24.2483], description: 'F-35A / F-22 operations · Struck by IRGC cruise missile · 1 US KIA' },
-  { id: 'a10', actor: 'US',     priority: 'P2', category: 'INSTALLATION', type: 'ARMY_BASE',  status: 'STRUCK', name: 'Ali Al Salem AB Kuwait',  position: [47.5186, 29.3467] },
+  { id: 'a8',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'STRUCK', name: 'Al Udeid AB Qatar',      position: [51.3149, 25.1175], description: 'USAF CENTCOM FWD HQ · 10,000 personnel · Struck by IRGC missile' },
+  { id: 'a9',  actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'STRUCK', name: 'Al Dhafra AB UAE',       position: [54.5477, 24.2483], description: 'F-35A / F-22 operations · Struck by IRGC cruise missile' },
+  { id: 'a10', actor: 'US',     priority: 'P2', category: 'INSTALLATION', type: 'ARMY_BASE',  status: 'STRUCK', name: 'Ali Al Salem AB Kuwait',  position: [47.5186, 29.3467], description: 'Struck — 3 US KIA (Army sustainment unit) · Also Italian troops stationed' },
   { id: 'a11', actor: 'US',     priority: 'P2', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'STRUCK', name: 'Prince Sultan AB',       position: [47.5804, 24.0621] },
-  { id: 'a12', actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'NAVAL_BASE', status: 'STRUCK', name: 'NSA Bahrain (5th Fleet)', position: [50.5860, 26.2285], description: 'US 5th Fleet HQ · Struck — 2 US KIA' },
+  { id: 'a12', actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'NAVAL_BASE', status: 'STRUCK', name: 'NSA Bahrain (5th Fleet)', position: [50.5860, 26.2285], description: 'US 5th Fleet HQ · Struck by IRGC missile · Smoke visible in video' },
   { id: 'a13', actor: 'US',     priority: 'P1', category: 'INSTALLATION', type: 'AIR_BASE',   status: 'ACTIVE', name: 'Diego Garcia',           position: [72.4232, -7.3195], description: 'USAF/USN BIOT · B-2 Spirit launch origin · ~7,000km from targets' },
   { id: 'a14', actor: 'US',     priority: 'P3', category: 'INSTALLATION', type: 'ARMY_BASE',  status: 'ACTIVE', name: 'Al-Tanf Base Syria',     position: [38.6,    33.5   ] },
   { id: 'a15', actor: 'US',     priority: 'P2', category: 'INSTALLATION', type: 'ARMY_BASE',  status: 'ACTIVE', name: 'Ayn al-Asad Iraq',       position: [42.4412, 33.7856] },
@@ -251,4 +281,21 @@ export const HEAT_POINTS: HeatPoint[] = [
   { position: [48.6799, 31.3342], weight: 0.6 }, { position: [48.7299, 31.3842], weight: 0.55 },
   { position: [48.6299, 31.2842], weight: 0.5 }, { position: [48.7099, 31.3142], weight: 0.55 },
   { position: [48.6599, 31.3642], weight: 0.5 },
+  // Day 2: Tehran IRGC command cluster (intensified)
+  { position: [51.42,   35.70  ], weight: 0.9 }, { position: [51.45,   35.72  ], weight: 0.85 },
+  { position: [51.38,   35.74  ], weight: 0.8 }, { position: [51.40,   35.68  ], weight: 0.8 },
+  { position: [51.43,   35.71  ], weight: 0.85 }, { position: [51.41,   35.73  ], weight: 0.8 },
+  { position: [51.44,   35.69  ], weight: 0.75 }, { position: [51.39,   35.72  ], weight: 0.75 },
+  // Day 2: Shahrak-e Gharb / Azadi area explosions
+  { position: [51.35,   35.72  ], weight: 0.7 }, { position: [51.33,   35.70  ], weight: 0.65 },
+  { position: [51.37,   35.71  ], weight: 0.7 },
+  // Day 2: Chabahar naval cluster
+  { position: [60.6223, 25.3467], weight: 0.8 }, { position: [60.67,   25.38  ], weight: 0.7 },
+  { position: [60.58,   25.30  ], weight: 0.65 },
+  // Day 2: Beit Shemesh impact
+  { position: [34.9913, 31.7308], weight: 0.85 }, { position: [34.98,   31.73  ], weight: 0.7 },
+  // Day 2: Dubai impacts
+  { position: [55.3281, 25.2048], weight: 0.5 }, { position: [55.31,   25.20  ], weight: 0.45 },
+  // Day 2: Ali Al Salem / Kuwait impacts
+  { position: [47.5186, 29.3467], weight: 0.65 }, { position: [47.53,   29.35  ], weight: 0.55 },
 ];

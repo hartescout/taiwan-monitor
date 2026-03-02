@@ -6,9 +6,6 @@ import DeckGL from '@deck.gl/react';
 import Map from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
-import type { MapViewState, PickingInfo } from '@deck.gl/core';
-import type { StyleSpecification } from 'maplibre-gl';
-
 import { useMapFilters } from '@/hooks/use-map-filters';
 import { useMapLayers } from '@/hooks/use-map-layers';
 import { buildTooltip } from '@/lib/map-tooltip';
@@ -20,6 +17,8 @@ import MapDetailPanel from '@/components/map/MapDetailPanel';
 import MapLegend     from '@/components/map/MapLegend';
 import MapFilterPanel from '@/components/map/MapFilterPanel';
 
+import type { MapViewState, PickingInfo } from '@deck.gl/core';
+import type { StyleSpecification } from 'maplibre-gl';
 import type { MapStory } from '@/data/mapStories';
 import type { SelectedItem } from '@/components/map/MapDetailPanel';
 import type { StrikeArc, MissileTrack, Target, Asset, ThreatZone } from '@/data/mapData';
@@ -54,7 +53,7 @@ export default function FullMapPage() {
   const f = useMapFilters();
 
   const layers = useMapLayers({
-    filtered:    { strikes: f.strikes, missiles: f.missiles, targets: f.targets, assets: f.assets, zones: f.zones, heat: f.heat },
+    filtered:    f.filtered,
     activeStory,
     isSatellite: mapStyle === 'satellite',
   });
@@ -103,10 +102,17 @@ export default function FullMapPage() {
         {/* Filter panel — top right */}
         <div style={{ position: 'absolute', top: 12, right: selectedItem ? 332 : 12, zIndex: 10, transition: 'right 0.22s cubic-bezier(0.4,0,0.2,1)' }}>
           <MapFilterPanel
-            layers={f.layers} actors={f.actors} priorities={f.priorities} statuses={f.statuses}
+            state={f.state}
+            facets={f.facets}
+            totalVisible={f.totalVisible}
+            totalAll={f.totalAll}
             isFiltered={f.isFiltered}
-            onToggleLayer={f.toggleLayer} onToggleActor={f.toggleActor}
-            onTogglePriority={f.togglePriority} onToggleStatus={f.toggleStatus}
+            onToggleDataset={f.toggleDataset}
+            onToggleType={f.toggleType}
+            onToggleActor={f.toggleActor}
+            onTogglePriority={f.togglePriority}
+            onToggleStatus={f.toggleStatus}
+            onToggleHeat={f.toggleHeat}
             onReset={f.resetFilters}
           />
         </div>
