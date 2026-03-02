@@ -129,7 +129,9 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
     if (!el) return;
 
     const onDown = (e: MouseEvent) => {
-      if ((e.target as HTMLElement).closest('a')) return;
+      // Don't intercept clicks on links or buttons
+      const target = e.target as HTMLElement;
+      if (target.closest('a') || target.closest('button')) return;
       dragState.current = {
         active: true,
         startX: e.clientX, startY: e.clientY,
@@ -137,19 +139,24 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
         moved: false,
       };
       setIsDragging(true);
-      e.preventDefault();
+      // Note: no preventDefault here — lets native link clicks through
     };
 
     const onMove = (e: MouseEvent) => {
       if (!dragState.current.active) return;
       const dx = e.clientX - dragState.current.startX;
       const dy = e.clientY - dragState.current.startY;
-      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) dragState.current.moved = true;
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) {
+        dragState.current.moved = true;
+        e.preventDefault(); // only prevent default once we're actually dragging
+      }
+      if (!dragState.current.moved) return;
       panRef.current = { x: dragState.current.panX + dx, y: dragState.current.panY + dy };
       commitTransform();
     };
 
     const onClick = (e: MouseEvent) => {
+      // Suppress click only if we actually dragged — not on normal clicks
       if (dragState.current.moved) {
         e.preventDefault();
         e.stopPropagation();
@@ -315,14 +322,18 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
     // Save current transform to restore on blur
     savedTransform.current = { zoom: zoomRef.current, pan: { ...panRef.current } };
 
-    // Target: zoom to MAX_ZOOM, center card in viewport
+    // Zoom to 1.0, center the expanded card (EXP_W wide, from cardTop downward)
     const TARGET_ZOOM = 1.0;
-    const cardCenterX = cardX + CARD_W / 2;
-    const cardCenterY = cardTop + (article.imageUrl ? CARD_H_IMG : CARD_H_NO_IMG) / 2;
+    const EXP_W = CARD_W + 160;
+    const expLeft = Math.max(20, cardX - (EXP_W - CARD_W) / 2);
+    const expandedCenterX = expLeft + EXP_W / 2;
+    // Expanded card grows downward from cardTop — center vertically on it
+    const expCardH = (article.imageUrl ? 180 : 0) + 200; // rough expanded height
+    const expandedCenterY = cardTop + expCardH / 2;
 
     panRef.current = {
-      x: rect.width / 2 - cardCenterX * TARGET_ZOOM,
-      y: rect.height / 2 - cardCenterY * TARGET_ZOOM,
+      x: rect.width / 2 - expandedCenterX * TARGET_ZOOM,
+      y: rect.height / 2 - expandedCenterY * TARGET_ZOOM,
     };
     zoomRef.current = TARGET_ZOOM;
     commitTransform();
@@ -630,11 +641,13 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
                 {/* Card — focused/expanded state */}
                 {isFocused && (() => {
                   const EXP_W = CARD_W + 160;
-                  // Center expanded card on the normal card, but clamp to stay in canvas
-                  const expLeft = Math.max(20, x - 80);
-                  // For above-spine cards: anchor bottom to cardTop+cardH (so it grows upward from card bottom edge)
-                  // For below-spine cards: anchor top to cardTop (grows downward)
-                  const expTop = Math.max(20, cardTop - 40);
+                  // Horizontal: center on card, clamp left edge
+                  const expLeft = Math.max(20, x - (EXP_W - CARD_W) / 2);
+                  // Vertical: grow TOWARD the spine (inward) not away from it.
+                  // Above-spine cards: expanded card anchored at cardTop (grows down toward spine)
+                  // Below-spine cards: expanded card grows down from cardTop
+                  // Either way, anchor at the normal cardTop — expansion goes downward
+                  const expTop = Math.max(20, cardTop);
                   return (
                   <div
                     className="absolute"
