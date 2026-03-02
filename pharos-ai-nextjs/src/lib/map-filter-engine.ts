@@ -49,6 +49,7 @@ export type FilterState = {
   statuses:   Set<string>;
   priorities: Set<string>;
   heat:       boolean;
+  timeRange:  [number, number] | null;  // [startMs, endMs] or null = no time filter
 };
 
 export type FilteredData = {
@@ -60,7 +61,7 @@ export type FilteredData = {
   heat:     HeatPoint[];
 };
 
-type DataItem = { actor: string; priority: string; type: string; status?: string };
+type DataItem = { actor: string; priority: string; type: string; status?: string; timestamp: string };
 
 // ─── Helpers ────────────────────────────────────────────────────────────────────
 
@@ -106,7 +107,21 @@ export function extractInitialState(data: DataArrays): FilterState {
     }
   }
 
-  return { datasets, types, actors, statuses, priorities, heat: true };
+  return { datasets, types, actors, statuses, priorities, heat: true, timeRange: null };
+}
+
+/** Derive min/max timestamps from all data */
+export function extractTimeExtent(data: DataArrays): [number, number] {
+  let min = Infinity;
+  let max = -Infinity;
+  for (const dk of DATASET_KEYS) {
+    for (const d of datasetItems(data, dk)) {
+      const t = new Date(d.timestamp).getTime();
+      if (t < min) min = t;
+      if (t > max) max = t;
+    }
+  }
+  return [min, max];
 }
 
 // ─── Apply filters ──────────────────────────────────────────────────────────────
@@ -117,11 +132,19 @@ export function applyFilters(
   am: Record<string, ActorMeta> = ACTOR_META,
 ): { filtered: FilteredData; facets: FilterFacets } {
 
+  const [tMin, tMax] = state.timeRange ?? [0, Infinity];
+  const inTime = (item: DataItem): boolean => {
+    if (!state.timeRange) return true;
+    const t = new Date(item.timestamp).getTime();
+    return t >= tMin && t <= tMax;
+  };
+
   const passes = (item: DataItem): boolean =>
     state.types.has(item.type) &&
     state.actors.has(item.actor) &&
     state.priorities.has(item.priority) &&
-    (!item.status || state.statuses.has(item.status));
+    (!item.status || state.statuses.has(item.status)) &&
+    inTime(item);
 
   // Filter each dataset
   const filtered: FilteredData = {

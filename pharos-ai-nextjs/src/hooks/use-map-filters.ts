@@ -3,7 +3,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { STRIKE_ARCS, MISSILE_TRACKS, TARGETS, ALLIED_ASSETS, THREAT_ZONES, HEAT_POINTS } from '@/data/mapData';
 import { ACTOR_META } from '@/data/mapTokens';
 
-import { extractInitialState, applyFilters } from '@/lib/map-filter-engine';
+import { extractInitialState, applyFilters, extractTimeExtent } from '@/lib/map-filter-engine';
 
 import type { FilterState, FilteredData, FilterFacets, DataArrays } from '@/lib/map-filter-engine';
 
@@ -46,12 +46,14 @@ export type UseMapFiltersReturn = {
   state:    FilterState;
   filtered: FilteredData;
   facets:   FilterFacets;
+  timeExtent: [number, number];
   toggleDataset:  (d: string) => void;
   toggleType:     (t: string) => void;
   toggleActor:    (a: string) => void;
   togglePriority: (p: string) => void;
   toggleStatus:   (s: string) => void;
   toggleHeat:     () => void;
+  setTimeRange:   (range: [number, number] | null) => void;
   resetFilters:   () => void;
   isFiltered:     boolean;
 };
@@ -59,6 +61,7 @@ export type UseMapFiltersReturn = {
 // ─── Hook ───────────────────────────────────────────────────────────────────────
 
 const INITIAL_STATE = extractInitialState(RAW_DATA);
+const TIME_EXTENT = extractTimeExtent(RAW_DATA);
 
 export function useMapFilters(): UseMapFiltersReturn {
   const [state, setState] = useState<FilterState>(INITIAL_STATE);
@@ -86,6 +89,7 @@ export function useMapFilters(): UseMapFiltersReturn {
   const togglePriority = useCallback((p: string) => setState(prev => ({ ...prev, priorities: toggle(prev.priorities, p) })), []);
   const toggleStatus   = useCallback((s: string) => setState(p => ({ ...p, statuses:   toggle(p.statuses, s) })), []);
   const toggleHeat     = useCallback(() => setState(p => ({ ...p, heat: !p.heat })), []);
+  const setTimeRange   = useCallback((range: [number, number] | null) => setState(p => ({ ...p, timeRange: range })), []);
   const resetFilters   = useCallback(() => setState(INITIAL_STATE), []);
 
   const { filtered, facets } = useMemo(
@@ -99,11 +103,12 @@ export function useMapFilters(): UseMapFiltersReturn {
     state.actors.size < INITIAL_STATE.actors.size ||
     state.priorities.size < INITIAL_STATE.priorities.size ||
     state.statuses.size < INITIAL_STATE.statuses.size ||
-    !state.heat;
+    !state.heat ||
+    state.timeRange !== null;
 
   return {
-    state, filtered, facets,
+    state, filtered, facets, timeExtent: TIME_EXTENT,
     toggleDataset, toggleType, toggleActor, togglePriority, toggleStatus, toggleHeat,
-    resetFilters, isFiltered,
+    setTimeRange, resetFilters, isFiltered,
   };
 }
