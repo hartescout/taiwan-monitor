@@ -1,45 +1,37 @@
 /**
- * Force luma.gl (DeckGL v9) to use WebGL2 instead of WebGPU.
+ * Force luma.gl to use WebGL2 and handle Turbopack HMR re-init.
  *
- * Import this BEFORE any @deck.gl/* import.
+ * Turbopack can re-evaluate @luma.gl/core during HMR, creating a second Luma
+ * singleton with no registered adapters. This causes a crash reading
+ * device.limits.maxTextureDimension2D.
+ *
+ * We register the adapter on every HMR cycle and suppress the "already
+ * initialized" console error. The MapErrorBoundary catches any residual
+ * crashes and auto-remounts.
  */
 
-type WindowWithLuma = Window & {
-  __lumaInstance?: object;
-  __lumaInitCount?: number;
-};
-
 if (typeof window !== 'undefined') {
-  const win = window as WindowWithLuma;
-  win.__lumaInitCount = (win.__lumaInitCount ?? 0) + 1;
+  // Suppress the noisy "already been initialized" console error from luma.gl
+  const origError = console.error;
+  console.error = (...args: unknown[]) => {
+    if (typeof args[0] === 'string' && args[0].includes('already been initialized')) return;
+    origError.apply(console, args);
+  };
 
-  // Suppress navigator.gpu to prevent WebGPU path
   try {
     Object.defineProperty(navigator, 'gpu', { value: undefined, configurable: true, writable: true });
-  } catch { /* non-configurable — enforceWebGL2 is the fallback */ }
+  } catch { /* non-configurable */ }
 
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { luma } = require('@luma.gl/core') as {
-      luma: {
-        registerAdapters: (adapters: unknown[]) => void;
-        enforceWebGL2: () => void;
-      };
-    };
+    const { luma } = require('@luma.gl/core');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { webgl2Adapter } = require('@luma.gl/webgl');
 
-    if (win.__lumaInstance !== (luma as unknown as object)) {
-      win.__lumaInstance = luma as unknown as object;
-
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const { webgl2Adapter } = require('@luma.gl/webgl') as {
-        webgl2Adapter: unknown;
-      };
-
-      try { luma.registerAdapters([webgl2Adapter]); } catch { /* already registered */ }
-      try { luma.enforceWebGL2(); } catch { /* already enforced */ }
-    }
-  } catch (e) {
-    console.warn('[deckgl-device] luma.gl init failed, will retry on next HMR cycle:', e);
+    try { luma.registerAdapters([webgl2Adapter]); } catch { /* already registered */ }
+    try { luma.enforceWebGL2(); } catch { /* already enforced */ }
+  } catch {
+    // luma.gl not available — will crash in DeckGL render, caught by ErrorBoundary
   }
 }
 
