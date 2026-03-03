@@ -1,10 +1,20 @@
 'use client';
 
 import '@/lib/deckgl-device';
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import DeckGL from '@deck.gl/react';
 import Map from 'react-map-gl/maplibre';
 import 'maplibre-gl/dist/maplibre-gl.css';
+
+import { useAppSelector, useAppDispatch } from '@/store';
+import {
+  setViewState    as setViewStateAction,
+  activateStory   as activateStoryAction,
+  setActiveStory  as setActiveStoryAction,
+  setSelectedItem as setSelectedItemAction,
+  toggleSidebar   as toggleSidebarAction,
+  setMapStyle     as setMapStyleAction,
+} from '@/store/map-slice';
 
 import { useMapFilters } from '@/hooks/use-map-filters';
 import { useMapLayers } from '@/hooks/use-map-layers';
@@ -22,8 +32,6 @@ import { usePanelLayout } from '@/hooks/use-panel-layout';
 
 import type { MapViewState, PickingInfo } from '@deck.gl/core';
 import type { StyleSpecification } from 'maplibre-gl';
-import type { MapStory } from '@/data/mapStories';
-import type { SelectedItem } from '@/components/map/MapDetailPanel';
 import type { StrikeArc, MissileTrack, Target, Asset, ThreatZone } from '@/data/mapData';
 
 // ─── Map styles ───────────────────────────────────────────────────────────────
@@ -42,16 +50,15 @@ const MAP_STYLE_SAT: StyleSpecification = {
   ],
 };
 
-const INITIAL_VIEW: MapViewState = { longitude: 51.0, latitude: 30.0, zoom: 4.5, pitch: 0, bearing: 0 };
-
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function FullMapPage({ embedded = false }: { embedded?: boolean }) {
-  const [viewState,    setViewState]    = useState<MapViewState>(INITIAL_VIEW);
-  const [activeStory,  setActiveStory]  = useState<MapStory | null>(null);
-  const [selectedItem, setSelectedItem] = useState<SelectedItem | null>(null);
-  const [sidebarOpen,  setSidebarOpen]  = useState(true);
-  const [mapStyle,     setMapStyle]     = useState<'dark' | 'satellite'>('dark');
+  const dispatch = useAppDispatch();
+  const viewState    = useAppSelector(s => s.map.viewState);
+  const activeStory  = useAppSelector(s => s.map.activeStory);
+  const selectedItem = useAppSelector(s => s.map.selectedItem);
+  const sidebarOpen  = useAppSelector(s => s.map.sidebarOpen);
+  const mapStyle     = useAppSelector(s => s.map.mapStyle);
   const { defaultLayout, onLayoutChanged } = usePanelLayout({ id: 'map', panelIds: ['sidebar', 'canvas'] });
 
   const f = useMapFilters();
@@ -62,21 +69,16 @@ export default function FullMapPage({ embedded = false }: { embedded?: boolean }
     isSatellite: mapStyle === 'satellite',
   });
 
-  const handleActivateStory = useCallback((story: MapStory) => {
-    setActiveStory(story);
-    setViewState(prev => ({ ...prev, ...story.viewState, transitionDuration: 1200 }));
-  }, []);
-
   const handleMapClick = useCallback(({ object, layer }: PickingInfo) => {
-    if (!object || !layer) { setSelectedItem(null); return; }
+    if (!object || !layer) { dispatch(setSelectedItemAction(null)); return; }
     const id = layer.id;
-    if (id === 'strikes')                              setSelectedItem({ type: 'strike',  data: object as StrikeArc   });
-    else if (id === 'missiles')                        setSelectedItem({ type: 'missile', data: object as MissileTrack });
-    else if (id === 'targets' || id === 'target-labels') setSelectedItem({ type: 'target',  data: object as Target      });
-    else if (id === 'assets'  || id === 'asset-labels')  setSelectedItem({ type: 'asset',   data: object as Asset       });
-    else if (id === 'zones')                           setSelectedItem({ type: 'zone',    data: object as ThreatZone  });
-    else setSelectedItem(null);
-  }, []);
+    if (id === 'strikes')                                dispatch(setSelectedItemAction({ type: 'strike',  data: object as StrikeArc   }));
+    else if (id === 'missiles')                          dispatch(setSelectedItemAction({ type: 'missile', data: object as MissileTrack }));
+    else if (id === 'targets' || id === 'target-labels') dispatch(setSelectedItemAction({ type: 'target',  data: object as Target      }));
+    else if (id === 'assets'  || id === 'asset-labels')  dispatch(setSelectedItemAction({ type: 'asset',   data: object as Asset       }));
+    else if (id === 'zones')                             dispatch(setSelectedItemAction({ type: 'zone',    data: object as ThreatZone  }));
+    else dispatch(setSelectedItemAction(null));
+  }, [dispatch]);
 
   return (
     <ResizablePanelGroup orientation="horizontal" defaultLayout={defaultLayout} onLayoutChanged={onLayoutChanged} className="w-full h-full bg-[var(--bg-app)] overflow-hidden min-w-0">
@@ -87,9 +89,9 @@ export default function FullMapPage({ embedded = false }: { embedded?: boolean }
             <MapSidebar
               isOpen={sidebarOpen}
               activeStory={activeStory}
-              onToggle={() => setSidebarOpen(o => !o)}
-              onActivateStory={handleActivateStory}
-              onClearStory={() => setActiveStory(null)}
+              onToggle={() => dispatch(toggleSidebarAction())}
+              onActivateStory={story => dispatch(activateStoryAction(story))}
+              onClearStory={() => dispatch(setActiveStoryAction(null))}
             />
           </ResizablePanel>
           <ResizableHandle />
@@ -98,17 +100,17 @@ export default function FullMapPage({ embedded = false }: { embedded?: boolean }
 
       <ResizablePanel id="canvas" defaultSize="75%" minSize="40%" className="relative overflow-hidden">
         <DeckGL
-          viewState={viewState}
-          onViewStateChange={({ viewState: vs }) => setViewState(vs as MapViewState)}
+          viewState={{ ...viewState }}
+          onViewStateChange={({ viewState: vs }) => { dispatch(setViewStateAction(vs as MapViewState)); }}
           controller layers={layers} getTooltip={buildTooltip} onClick={handleMapClick}
           style={{ width: '100%', height: '100%' }}
         >
           <Map mapStyle={mapStyle === 'dark' ? MAP_STYLE_DARK : MAP_STYLE_SAT} />
         </DeckGL>
 
-        <MapOverlays activeStory={activeStory} onClearStory={() => setActiveStory(null)} sidebarOpen={sidebarOpen} onToggleSidebar={() => setSidebarOpen(o => !o)} embedded={embedded} />
+        <MapOverlays activeStory={activeStory} onClearStory={() => dispatch(setActiveStoryAction(null))} sidebarOpen={sidebarOpen} onToggleSidebar={() => dispatch(toggleSidebarAction())} embedded={embedded} />
         <MapLegend hasPanel={!!selectedItem} />
-        <MapControls viewState={viewState} mapStyle={mapStyle} hasPanel={!!selectedItem} onStyleChange={setMapStyle} />
+        <MapControls viewState={viewState} mapStyle={mapStyle} hasPanel={!!selectedItem} onStyleChange={style => dispatch(setMapStyleAction(style))} />
 
         {/* Filter panel — top right */}
         <div style={{ position: 'absolute', top: 12, right: selectedItem ? 332 : 12, zIndex: 10, transition: 'right 0.22s cubic-bezier(0.4,0,0.2,1)' }}>
@@ -126,7 +128,7 @@ export default function FullMapPage({ embedded = false }: { embedded?: boolean }
           />
         </div>
 
-        <MapDetailPanel item={selectedItem} onClose={() => setSelectedItem(null)} onSelectItem={setSelectedItem} onActivateStory={handleActivateStory} />
+        <MapDetailPanel item={selectedItem} onClose={() => dispatch(setSelectedItemAction(null))} onSelectItem={item => dispatch(setSelectedItemAction(item))} onActivateStory={story => dispatch(activateStoryAction(story))} />
 
         {/* Timeline scrubber — bottom */}
         <MapTimeline
