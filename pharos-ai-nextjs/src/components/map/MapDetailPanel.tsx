@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { StrikeContent, MissileContent, TargetContent, AssetContent, ZoneContent } from './MapDetailContent';
 
 import type { StrikeArc, MissileTrack, Target, Asset, ThreatZone } from '@/data/mapData';
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

@@ -1,5 +1,4 @@
 import type { MarketGroup } from '@/types/domain';
-export type { MarketGroup };
 
 export const MARKET_GROUPS: MarketGroup[] = [
   {

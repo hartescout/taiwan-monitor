@@ -4,7 +4,7 @@ import { ChevronDown, ChevronRight } from 'lucide-react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { Button } from '@/components/ui/button';
 import type { PredictionMarket } from '@/types/domain';
-import type { MarketGroup } from '@/data/predictionGroups';
+import type { MarketGroup } from '@/types/domain';
 import { MarketRow } from './MarketRow';
 import { fmtVol, getLeadProb } from './utils';
 

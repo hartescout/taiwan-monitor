@@ -1,5 +1,4 @@
-import type { ActivityLevel, Stance, RecentAction, Actor, ConflictDay } from '@/types/domain';
-export type { ActivityLevel, Stance, RecentAction, Actor };
+import type { ActivityLevel, Stance, Actor, ConflictDay } from '@/types/domain';
 
 export const ACTORS: Actor[] = [
   {

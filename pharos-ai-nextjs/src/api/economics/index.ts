@@ -1,12 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import type { EconomicIndex } from '@/types/domain';
+import type { EconomicIndex, EconFilters } from '@/types/domain';
 import { api, buildUrl } from '../client';
 import { queryKeys } from '../keys';
-
-export interface EconFilters {
-  tier?: number;
-  category?: string;
-}
 
 export function useEconomicIndexes(filters?: EconFilters) {
   return useQuery({

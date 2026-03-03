@@ -6,7 +6,7 @@ import { ACTOR_META, NAVAL_RGB, STATUS_META } from '@/data/mapTokens';
 
 import type { StrikeArc, MissileTrack, Target, Asset, ThreatZone, HeatPoint } from '@/data/mapData';
 import type { FilteredData } from './use-map-filters';
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

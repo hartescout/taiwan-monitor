@@ -9,7 +9,7 @@ import { ACTOR_META, CATEGORY_LABEL, STATUS_META } from '@/data/mapTokens';
 import StoryIcon from './StoryIcon';
 
 import type { StrikeArc, MissileTrack, Target, Asset, ThreatZone } from '@/data/mapData';
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 import type { SelectedItem } from './MapDetailPanel';
 
 // ─── Hook for cross-reference data ───────────────────────────────────────────

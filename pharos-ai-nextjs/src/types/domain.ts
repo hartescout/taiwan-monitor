@@ -38,6 +38,18 @@ export interface ConflictDaySnapshot {
 export type ThreatLevel = 'CRITICAL' | 'HIGH' | 'ELEVATED' | 'MONITORING';
 export type ConflictStatus = 'ONGOING' | 'PAUSED' | 'CEASEFIRE' | 'RESOLVED';
 
+export interface Conflict {
+  id: string;
+  name: string;
+  codename: string;
+  startDate: string;
+  status: ConflictStatus;
+  threatLevel: ThreatLevel;
+  summary: string;
+  objectives: { us: string; il: string };
+  commanders: { us: string[]; il: string[]; ir: string[] };
+}
+
 // ── Actors ───────────────────────────────────────────────────────────────────
 
 export type ActivityLevel = 'CRITICAL' | 'HIGH' | 'ELEVATED' | 'MODERATE';
@@ -131,9 +143,42 @@ export interface XPost {
   pharosNote?: string;
 }
 
-// ── Map data types live in src/data/mapData.ts + src/data/mapTokens.ts ───────
-// (Map token types use Extract<> from mapTokens which requires co-location
-//  with the token definitions. ActorKey is a string alias defined there.)
+// ── Bootstrap ────────────────────────────────────────────────────────────────
+
+export interface BootstrapData {
+  conflictId: string;
+  conflictName: string;
+  days: string[];
+  status: string;
+  threatLevel: string;
+  escalation: number;
+}
+
+// ── API filter types ─────────────────────────────────────────────────────────
+
+export interface EventFilters {
+  day?: string;
+  severity?: string;
+  type?: string;
+  verified?: boolean;
+}
+
+export interface XPostFilters {
+  day?: string;
+  significance?: string;
+  accountType?: string;
+  pharosOnly?: boolean;
+}
+
+export interface EconFilters {
+  tier?: number;
+  category?: string;
+}
+
+// ── Map data types ───────────────────────────────────────────────────────────
+// Map feature types (StrikeArc, MissileTrack, etc.) use Extract<> from map
+// token enums — they stay in src/data/mapData.ts, co-located with their
+// token definitions. MapDataResponse re-exports them for the API layer.
 
 // ── Map stories ───────────────────────────────────────────────────────────────
 

@@ -1,16 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import type { IntelEvent } from '@/types/domain';
+import type { IntelEvent, EventFilters } from '@/types/domain';
 import { api, buildUrl } from '../client';
 import { queryKeys } from '../keys';
 
 const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID!;
-
-export interface EventFilters {
-  day?: string;
-  severity?: string;
-  type?: string;
-  verified?: boolean;
-}
 
 export function useEvents(id: string = CONFLICT_ID, filters?: EventFilters) {
   return useQuery({

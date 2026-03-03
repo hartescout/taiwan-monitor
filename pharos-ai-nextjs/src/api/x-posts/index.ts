@@ -1,16 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import type { XPost } from '@/types/domain';
+import type { XPost, XPostFilters } from '@/types/domain';
 import { api, buildUrl } from '../client';
 import { queryKeys } from '../keys';
 
 const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID!;
-
-export interface XPostFilters {
-  day?: string;
-  significance?: string;
-  accountType?: string;
-  pharosOnly?: boolean;
-}
 
 export function useXPosts(id: string = CONFLICT_ID, filters?: XPostFilters) {
   return useQuery({

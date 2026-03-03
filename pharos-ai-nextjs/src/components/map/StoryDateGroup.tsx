@@ -3,7 +3,7 @@
 import { ChevronRight, ChevronDown } from 'lucide-react';
 import StoryCard from './StoryCard';
 
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 import type { DayGroup } from './story-utils';
 
 type Props = {

@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/tool
 import { extractInitialState, extractTimeExtent } from '@/lib/map-filter-engine';
 import type { DataArrays } from '@/lib/map-filter-engine';
 import type { MapViewState } from '@deck.gl/core';
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 import type { SelectedItem } from '@/components/map/MapDetailPanel';
 
 // ─── Async thunk ─────────────────────────────────────────────────────────────

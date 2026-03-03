@@ -5,7 +5,7 @@ import { X, PanelLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import StoryIcon from './StoryIcon';
 
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 
 // ─── Back button ──────────────────────────────────────────────────────────────
 

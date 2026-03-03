@@ -6,14 +6,14 @@ import { queryKeys } from '../keys';
 
 const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID!;
 
-export interface MapDataResponse {
+export type MapDataResponse = {
   strikes: StrikeArc[];
   missiles: MissileTrack[];
   targets: Target[];
   assets: Asset[];
   threatZones: ThreatZone[];
   heatPoints: HeatPoint[];
-}
+};
 
 export function useMapData(id: string = CONFLICT_ID) {
   return useQuery({

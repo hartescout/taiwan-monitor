@@ -4,7 +4,6 @@
  */
 
 import type { EconomicIndex, EconCategory } from '@/types/domain';
-export type { EconomicIndex, EconCategory };
 
 export const ECON_CATEGORIES: { key: EconCategory; label: string; color: string; description: string }[] = [
   { key: 'ENERGY',     label: 'ENERGY',       color: '#ef4444', description: 'Oil, gas, and energy commodities — direct conflict impact' },

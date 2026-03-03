@@ -1,15 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import type { BootstrapData } from '@/types/domain';
 import { api } from '../client';
 import { queryKeys } from '../keys';
-
-export interface BootstrapData {
-  conflictId: string;
-  conflictName: string;
-  days: string[];
-  status: string;
-  threatLevel: string;
-  escalation: number;
-}
 
 export function useBootstrap() {
   return useQuery({

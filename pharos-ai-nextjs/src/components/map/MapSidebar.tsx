@@ -8,7 +8,7 @@ import StoryTimeline from './StoryTimeline';
 import StoryDateGroup from './StoryDateGroup';
 import { groupByDay } from './story-utils';
 
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 

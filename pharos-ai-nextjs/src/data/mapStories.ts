@@ -1,5 +1,4 @@
-import type { StoryEvent, MapStory } from '@/types/domain';
-export type { StoryEvent, MapStory };
+import type { MapStory } from '@/types/domain';
 
 export const MAP_STORIES: MapStory[] = [
   {

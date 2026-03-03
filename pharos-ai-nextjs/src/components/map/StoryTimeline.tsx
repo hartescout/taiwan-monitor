@@ -6,7 +6,7 @@ import StoryIcon from './StoryIcon';
 import { Button } from '@/components/ui/button';
 import { groupByDay } from './story-utils';
 
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 
 // ─── Types ──────────────────────────────────────────────────────────────────────
 

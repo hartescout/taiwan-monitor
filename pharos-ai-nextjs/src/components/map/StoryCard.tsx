@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { fmtTimeZ } from '@/lib/format';
 import StoryIcon from './StoryIcon';
 
-import type { MapStory, StoryEvent } from '@/data/mapStories';
+import type { MapStory, StoryEvent } from '@/types/domain';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 

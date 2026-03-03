@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import type { ConflictDaySnapshot } from '@/types/domain';
+import type { Conflict, ConflictDaySnapshot } from '@/types/domain';
 import { api } from '../client';
 import { queryKeys } from '../keys';
 
@@ -8,8 +8,7 @@ const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID!;
 export function useConflict(id: string = CONFLICT_ID) {
   return useQuery({
     queryKey: queryKeys.conflicts.detail(id),
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    queryFn: () => api.get<any>(`/conflicts/${id}`),
+    queryFn: () => api.get<Conflict>(`/conflicts/${id}`),
     staleTime: 60_000,
   });
 }

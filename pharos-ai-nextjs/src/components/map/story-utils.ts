@@ -1,4 +1,4 @@
-import type { MapStory } from '@/data/mapStories';
+import type { MapStory } from '@/types/domain';
 
 export type DayGroup = {
   label:   string;

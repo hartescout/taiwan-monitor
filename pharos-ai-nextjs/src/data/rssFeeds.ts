@@ -4,7 +4,6 @@
  */
 
 import type { RssFeed, ConflictCollection, ConflictChannel } from '@/types/domain';
-export type { RssFeed, ConflictCollection, ConflictChannel };
 
 // ─── ALL FEEDS (30) ───────────────────────────────────────────
 
