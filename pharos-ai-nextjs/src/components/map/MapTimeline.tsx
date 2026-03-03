@@ -6,11 +6,13 @@ import { Button } from '@/components/ui/button';
 
 import TimelineTrack from '@/components/map/TimelineTrack';
 import { useTimelineDrag } from '@/hooks/use-timeline-drag';
-import { useAppSelector } from '@/store';
+
+import type { DataArrays } from '@/lib/map-filter-engine';
 
 // ─── Types ──────────────────────────────────────────────────────────────────────
 
 type Props = {
+  rawData?:     DataArrays;
   dataExtent:   [number, number];
   viewExtent:   [number, number];
   onViewExtent: (ext: [number, number]) => void;
@@ -41,8 +43,7 @@ function fmt(ms: number) {
 
 // ─── Component ──────────────────────────────────────────────────────────────────
 
-export default function MapTimeline({ dataExtent, viewExtent, onViewExtent, timeRange, onTimeRange }: Props) {
-  const rawData = useAppSelector(s => s.map.rawData);
+export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExtent, timeRange, onTimeRange }: Props) {
 
   const [vMin, vMax] = viewExtent;
   const span = vMax - vMin;

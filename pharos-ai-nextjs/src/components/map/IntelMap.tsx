@@ -63,8 +63,8 @@ export default function IntelMap() {
   const missiles  = mapData?.missiles ?? [];
   const targets   = mapData?.targets ?? [];
   const assets    = mapData?.assets ?? [];
-  const zones     = mapData?.threatZones ?? [];
-  const heatPts   = mapData?.heatPoints ?? [];
+  const zones     = mapData?.zones ?? [];
+  const heatPts   = mapData?.heat ?? [];
 
   const layers = useMemo(() => [
     visibility.heat && heatPts.length > 0 &&

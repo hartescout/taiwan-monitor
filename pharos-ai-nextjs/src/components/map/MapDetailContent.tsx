@@ -2,8 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 
-import { useAppSelector } from '@/store';
-import { useMapStories } from '@/api/map';
+import { useMapData, useMapStories } from '@/api/map';
 
 import { ACTOR_META, CATEGORY_LABEL, STATUS_META } from '@/data/map-tokens';
 import StoryIcon from './StoryIcon';
@@ -15,7 +14,7 @@ import type { SelectedItem } from './MapDetailPanel';
 // ─── Hook for cross-reference data ───────────────────────────────────────────
 
 function useMapCrossRefData() {
-  const rawData = useAppSelector(s => s.map.rawData);
+  const { data: rawData } = useMapData();
   const { data: stories = [] } = useMapStories();
   return { rawData, stories };
 }

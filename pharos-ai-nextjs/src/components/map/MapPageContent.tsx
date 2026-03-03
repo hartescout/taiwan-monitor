@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 
 import '@/lib/deckgl-device';
 import DeckGL from '@deck.gl/react';
@@ -9,7 +9,6 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
-  loadMapData     as loadMapDataThunk,
   setViewState    as setViewStateAction,
   activateStory   as activateStoryAction,
   setActiveStory  as setActiveStoryAction,
@@ -41,8 +40,6 @@ import type { OverlayVisibility } from '@/components/map/MapVisibilityMenu';
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
-const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID ?? 'iran-2026';
-
 export default function FullMapPage({ embedded = false }: { embedded?: boolean }) {
   const dispatch = useAppDispatch();
   const viewState    = useAppSelector(s => s.map.viewState);
@@ -52,9 +49,6 @@ export default function FullMapPage({ embedded = false }: { embedded?: boolean }
   const mapStyle     = useAppSelector(s => s.map.mapStyle);
   const { defaultLayout, onLayoutChanged } = usePanelLayout({ id: 'map', panelIds: ['sidebar', 'canvas'] });
   const { data: stories = [] } = useMapStories();
-
-  // Load map data into Redux on mount
-  useEffect(() => { dispatch(loadMapDataThunk(CONFLICT_ID)); }, [dispatch]);
 
   const [overlayVisibility, setOverlayVisibility] = useState<OverlayVisibility>({
     timeline: true,
@@ -152,6 +146,7 @@ export default function FullMapPage({ embedded = false }: { embedded?: boolean }
         {/* Timeline scrubber — bottom */}
         {overlayVisibility.timeline && (
           <MapTimeline
+            rawData={f.rawData}
             dataExtent={f.dataExtent} viewExtent={f.viewExtent} onViewExtent={f.setViewExtent}
             timeRange={f.state.timeRange} onTimeRange={f.setTimeRange}
           />

@@ -1,5 +1,8 @@
+import { useMemo, useEffect } from 'react';
+
 import { useAppSelector, useAppDispatch } from '@/store';
 import {
+  initializeFilters as initializeFiltersAction,
   toggleDataset  as toggleDatasetAction,
   toggleType     as toggleTypeAction,
   toggleActor    as toggleActorAction,
@@ -9,10 +12,15 @@ import {
   setTimeRange   as setTimeRangeAction,
   setViewExtent  as setViewExtentAction,
   resetFilters   as resetFiltersAction,
+  toSerializable,
 } from '@/store/map-slice';
-import { selectFilterState, selectFilteredData, selectIsFiltered } from '@/store/map-selectors';
+import { selectFilterState, selectIsFiltered } from '@/store/map-selectors';
 
-import type { FilterState, FilteredData, FilterFacets } from '@/lib/map-filter-engine';
+import { useMapData } from '@/api/map';
+import { applyFilters, extractInitialState, extractTimeExtent } from '@/lib/map-filter-engine';
+import { ACTOR_META } from '@/data/map-tokens';
+
+import type { DataArrays, FilterState, FilteredData, FilterFacets } from '@/lib/map-filter-engine';
 
 // ─── Re-exports ─────────────────────────────────────────────────────────────────
 
@@ -28,12 +36,20 @@ export const DATASET_LABEL: Record<DatasetName, string> = {
   strikes: 'STRIKES', missiles: 'MISSILES', targets: 'TARGETS', assets: 'ASSETS', zones: 'ZONES',
 };
 
+// ─── Empty fallback ─────────────────────────────────────────────────────────────
+
+const EMPTY_RESULT: { filtered: FilteredData; facets: FilterFacets } = {
+  filtered: { strikes: [], missiles: [], targets: [], assets: [], zones: [], heat: [] },
+  facets:   { datasets: [], perDataset: {}, totalVisible: 0, totalAll: 0 },
+};
+
 // ─── Return type ────────────────────────────────────────────────────────────────
 
 export type UseMapFiltersReturn = {
   state:    FilterState;
   filtered: FilteredData;
   facets:   FilterFacets;
+  rawData:  DataArrays | undefined;
   /** Absolute min/max of all timestamped data */
   dataExtent:   [number, number];
   /** Current visible window on the timeline (zoom level) */
@@ -48,28 +64,58 @@ export type UseMapFiltersReturn = {
   setTimeRange:   (range: [number, number] | null) => void;
   resetFilters:   () => void;
   isFiltered:     boolean;
-  mapLoading:     boolean;
+  isLoading:      boolean;
 };
 
-// ─── Hook (Redux adapter — same return type as before) ──────────────────────────
+// ─── Hook ───────────────────────────────────────────────────────────────────────
 
 export function useMapFilters(): UseMapFiltersReturn {
   const dispatch   = useAppDispatch();
   const dataExtent = useAppSelector(s => s.map.dataExtent);
   const viewExtent = useAppSelector(s => s.map.viewExtent);
-  const mapLoading = useAppSelector(s => s.map.mapLoading);
-  const { filtered, facets } = useAppSelector(selectFilteredData);
   const isFiltered = useAppSelector(selectIsFiltered);
-  const state: FilterState = useAppSelector(selectFilterState);
+  const filterState: FilterState = useAppSelector(selectFilterState);
+
+  // Server state via TanStack Query
+  const { data: rawData, isLoading } = useMapData();
+
+  // Initialize Redux filter state once data arrives
+  useEffect(() => {
+    if (!rawData) return;
+    const initial = extractInitialState(rawData);
+    const extent  = extractTimeExtent(rawData);
+    dispatch(initializeFiltersAction({
+      initialFilters: toSerializable(initial),
+      dataExtent: extent,
+    }));
+  }, [rawData, dispatch]);
+
+  // Compute filtered data + facets locally (replaces selectFilteredData)
+  const { filtered, facets } = useMemo(
+    () => rawData ? applyFilters(rawData, filterState, ACTOR_META) : EMPTY_RESULT,
+    [rawData, filterState],
+  );
+
+  // Extract dataset types from rawData for toggleDataset
+  const datasetTypesMap = useMemo(() => {
+    if (!rawData) return {} as Record<string, string[]>;
+    const map: Record<string, string[]> = {};
+    for (const key of ALL_DATASETS) {
+      const items = rawData[key === 'zones' ? 'zones' : key] as Array<{ type: string }>;
+      if (items) map[key] = [...new Set(items.map(i => i.type))];
+    }
+    return map;
+  }, [rawData]);
 
   return {
-    state,
+    state: filterState,
     filtered,
     facets,
+    rawData,
     dataExtent,
     viewExtent,
     setViewExtent: (ext) => dispatch(setViewExtentAction(ext)),
-    toggleDataset:  (d) => dispatch(toggleDatasetAction(d)),
+    toggleDataset:  (d) => dispatch(toggleDatasetAction({ dataset: d, datasetTypes: datasetTypesMap[d] })),
     toggleType:     (t) => dispatch(toggleTypeAction(t)),
     toggleActor:    (a) => dispatch(toggleActorAction(a)),
     togglePriority: (p) => dispatch(togglePriorityAction(p)),
@@ -78,6 +124,6 @@ export function useMapFilters(): UseMapFiltersReturn {
     setTimeRange:   (r) => dispatch(setTimeRangeAction(r)),
     resetFilters:   ()  => dispatch(resetFiltersAction()),
     isFiltered,
-    mapLoading,
+    isLoading,
   };
 }

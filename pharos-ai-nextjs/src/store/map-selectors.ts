@@ -1,17 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
 
-import { applyFilters } from '@/lib/map-filter-engine';
-
-import { ACTOR_META } from '@/data/map-tokens';
-
 import type { RootState } from './index';
-import type { FilterState, FilteredData, FilterFacets } from '@/lib/map-filter-engine';
+import type { FilterState } from '@/lib/map-filter-engine';
 
 // ─── Base selectors ──────────────────────────────────────────────────────────
 
 const selectSerializableFilters = (state: RootState) => state.map.filters;
 const selectInitialFilters      = (state: RootState) => state.map.initialFilters;
-const selectRawData             = (state: RootState) => state.map.rawData;
 
 // ─── Convert serializable arrays → Set-based FilterState ─────────────────────
 
@@ -26,19 +21,6 @@ export const selectFilterState = createSelector(
     heat:       f.heat,
     timeRange:  f.timeRange,
   }),
-);
-
-// ─── Filtered data — only recomputes when filter state or raw data changes ───
-
-const EMPTY_RESULT: { filtered: FilteredData; facets: FilterFacets } = {
-  filtered: { strikes: [], missiles: [], targets: [], assets: [], zones: [], heat: [] },
-  facets:   { datasets: [], perDataset: {}, totalVisible: 0, totalAll: 0 },
-};
-
-export const selectFilteredData = createSelector(
-  [selectRawData, selectFilterState],
-  (rawData, filterState) =>
-    rawData ? applyFilters(rawData, filterState, ACTOR_META) : EMPTY_RESULT,
 );
 
 // ─── Derived boolean: are any filters active? ────────────────────────────────
