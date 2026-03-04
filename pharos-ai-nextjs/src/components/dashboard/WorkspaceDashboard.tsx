@@ -31,6 +31,7 @@ import { ALL_WIDGET_KEYS, WIDGET_LABELS, PRESETS, type WidgetKey } from '@/store
 
 import { useBootstrap } from '@/api/bootstrap';
 import { useIsMobile } from '@/hooks/use-is-mobile';
+import { useIsLandscapePhone } from '@/hooks/use-is-landscape-phone';
 import { MobileOverview } from '@/components/dashboard/MobileOverview';
 import { useConflict, useConflictDays } from '@/api/conflicts';
 import { useEvents } from '@/api/events';
@@ -500,7 +501,8 @@ function widgetComponents(): Record<WidgetKey, () => React.ReactNode> {
 export function WorkspaceDashboard() {
   const dispatch = useAppDispatch();
   const { columns, activePreset, editing, columnSizes, rowSizes } = useAppSelector(s => s.workspace);
-  const isMobile = useIsMobile();
+  const isMobile = useIsMobile(1024);
+  const isLandscapePhone = useIsLandscapePhone();
 
   const { data: bootstrap } = useBootstrap();
   const allDays = bootstrap?.days ?? [];
@@ -530,7 +532,7 @@ export function WorkspaceDashboard() {
   };
 
   // Mobile: completely different overview — no widgets, no presets
-  if (isMobile) return <MobileOverview />;
+  if (isMobile || isLandscapePhone) return <MobileOverview />;
 
   return (
     <div className="flex flex-col flex-1 min-h-0 bg-[var(--bg-1)] overflow-hidden">
