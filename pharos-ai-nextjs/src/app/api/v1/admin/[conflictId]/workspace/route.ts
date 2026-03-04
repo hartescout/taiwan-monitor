@@ -241,12 +241,12 @@ export async function GET(
       priority: isUrgent ? 'P1' : 'P2',
       category: 'Events',
       title: `Add Day 5 events — ${eventsToday.length} created, target ${adjustedEventTarget} by now (${TARGETS.eventsPerDay} total for full day)`,
-      description: `Each event = one real intelligence development. Cover: airstrikes, retaliation, diplomatic moves, economic impacts, casualties, regional spillover. Each event needs: title, location, summary, fullContent (400+ chars), sources, then actor responses. Use ?enforcement=true before creating. IMPORTANT: use web_search as your primary source — NOT the RSS feed.`,
+      description: `Each event = one real intelligence development. Cover: airstrikes, retaliation, diplomatic moves, economic impacts, casualties, regional spillover. Each event needs: title, location, summary, fullContent (400+ chars), sources, then actor responses. Use ?enforcement=true before creating. `,
       action: `POST /api/v1/admin/${conflictId}/events?enforcement=true → POST /api/v1/admin/${conflictId}/events`,
       count: eventGap,
       suggestSubagent: eventGap >= 8,
       subagentHint: eventGap >= 8
-        ? `Consider spawning a research subagent to gather raw news material first, then write ${eventGap} events. The subagent can web_search for latest developments while main session prepares other data.`
+        ? `Consider spawning a research subagent to gather raw news material first, then write ${eventGap} events. While it works, main session can handle X posts and actor responses.`
         : undefined,
     });
   }
@@ -269,7 +269,7 @@ export async function GET(
       priority: isUrgent ? 'P1' : 'P2',
       category: 'X Posts',
       title: `Add Day 5 X posts — ${xPostsToday} created, target ${adjustedXPostTarget} by now (${TARGETS.xPostsPerDay} total for full day)`,
-      description: `Capture key statements from: CENTCOM, IDF Spokesperson, Trump, PM Netanyahu, IRGC, Iranian FM, UK MoD, Macron, relevant journalists. Each post needs: handle, displayName, accountType, significance (BREAKING/HIGH/STANDARD), content (full post text), pharosNote (why it matters), eventId (link to relevant event). Use web_search to find real statements — do NOT invent content.`,
+      description: `Capture key statements from: CENTCOM, IDF Spokesperson, Trump, PM Netanyahu, IRGC, Iranian FM, UK MoD, Macron, relevant journalists. Each post needs: handle, displayName, accountType, significance (BREAKING/HIGH/STANDARD), content (full post text), pharosNote (why it matters), eventId (link to relevant event). Do not invent content — use real statements.`,
       action: `POST /api/v1/admin/${conflictId}/x-posts?enforcement=true → POST /api/v1/admin/${conflictId}/x-posts`,
       count: xPostGap,
     });
@@ -361,43 +361,6 @@ export async function GET(
     });
   }
 
-  // ── P3: Research tasks ────────────────────────────────────────────────────
-
-  const researchTasks: ResearchTask[] = [
-    {
-      priority: 'P3',
-      title: 'Fetch latest CENTCOM, IDF, and Pentagon statements',
-      hint: 'web_search: "CENTCOM Iran strike Day 5" / "IDF Lebanon operations" / "Pentagon briefing Iran 2026". These are Tier-1 sources — events from official military statements are highest value.',
-    },
-    {
-      priority: 'P3',
-      title: 'Check Iranian leadership and succession developments',
-      hint: 'web_search: "Mojtaba Khamenei successor" / "Iran supreme leader interim" / "IRGC leadership". Succession is the key political story of Day 5.',
-    },
-    {
-      priority: 'P3',
-      title: 'Pull economic data: oil, markets, shipping',
-      hint: 'web_search: "Brent crude oil price Iran war" / "Strait of Hormuz shipping 2026" / "stock market Iran conflict". Economic chips and the economicNarrative in the day snapshot need real figures.',
-    },
-    {
-      priority: 'P3',
-      title: 'Check Hezbollah, Houthi, and PMF activity',
-      hint: 'web_search: "Hezbollah rockets Israel Day 5" / "Houthi Red Sea attack" / "PMF Iraq drone strike". These proxy actors need daily snapshot updates.',
-    },
-    {
-      priority: 'P3',
-      title: 'Search for diplomatic and UN developments',
-      hint: 'web_search: "UN Security Council Iran ceasefire" / "EU Iran diplomacy 2026" / "Turkey Iran mediation". Diplomatic events = DIPLOMATIC event type.',
-    },
-    {
-      priority: 'P3',
-      title: 'Check NATO and allied military posture',
-      hint: 'web_search: "NATO Iran response" / "UK France military Middle East 2026" / "aircraft carrier Gulf deployment". Allied activity drives asset map features and NATO actor updates.',
-    },
-  ];
-
-  // Only show research tasks if content is still needed
-  const activeResearchTasks = (eventGap > 0 || xPostGap > 0) ? researchTasks : [];
 
   // ── Subagent hints ────────────────────────────────────────────────────────
 
@@ -405,7 +368,7 @@ export async function GET(
   if (eventGap >= 8) {
     subagentHints.push({
       priority: 'HIGH',
-      task: `Spawn a research subagent: give it the conflict context and ask it to write ${eventGap} events for Day 5 using web_search. While it works, main session can handle X posts and actor responses.`,
+      task: `Spawn a research subagent: give it the conflict context and ask it to research and write ${eventGap} events for today. While it works, main session can handle X posts and actor responses.`,
     });
   }
   if (mapFeatureGap >= 6 && eventGap <= 3) {
@@ -450,7 +413,6 @@ export async function GET(
       stories: { current: storiesToday, target: TARGETS.storiesPerDay, gap: storyGap },
     },
     todos,
-    researchTasks: activeResearchTasks,
     subagentHints,
     summary: {
       total: todos.length,
