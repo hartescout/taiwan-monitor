@@ -18,6 +18,7 @@ type Props = {
   onViewExtent: (ext: [number, number]) => void;
   timeRange:    [number, number] | null;
   onTimeRange:  (range: [number, number] | null) => void;
+  isMobile?:    boolean;
 };
 
 // ─── Constants ──────────────────────────────────────────────────────────────────
@@ -43,14 +44,14 @@ function fmt(ms: number) {
 
 // ─── Component ──────────────────────────────────────────────────────────────────
 
-export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExtent, timeRange, onTimeRange }: Props) {
+export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExtent, timeRange, onTimeRange, isMobile = false }: Props) {
 
   const [vMin, vMax] = viewExtent;
   const span = vMax - vMin;
   const rng = timeRange ?? viewExtent;
   const isActive = timeRange !== null;
 
-  const { trackRef, handleMouseDown, handleClick } = useTimelineDrag(viewExtent, timeRange, onTimeRange);
+  const { trackRef, handleMouseDown, handleTouchStart, handleClick } = useTimelineDrag(viewExtent, timeRange, onTimeRange);
 
   const histogram = useMemo(() => {
     const b = new Array(BUCKETS).fill(0);
@@ -99,12 +100,16 @@ export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExt
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-10 select-none"
-      style={{ background: 'rgba(28,33,39,0.92)', borderTop: '1px solid var(--bd)', padding: '4px 16px 6px' }}>
+      style={{
+        background: 'rgba(28,33,39,0.92)',
+        borderTop: '1px solid var(--bd)',
+        padding: isMobile ? '6px 10px calc(12px + var(--safe-bottom))' : '4px 16px 6px',
+      }}>
       <div className="flex items-center justify-between mb-0.5">
-        <div className="flex items-center gap-0.5">
+        <div className="flex items-center gap-0.5 overflow-x-auto touch-scroll hide-scrollbar pr-2">
           {ZOOM_LEVELS.map(z => (
             <Button key={z.label} variant="ghost" size="xs" onClick={() => handleZoom(z.ms)}
-              className="mono rounded-sm px-1.5 py-0 h-4 text-[8px] font-bold tracking-wider"
+              className={`mono rounded-sm px-1.5 py-0 text-[8px] font-bold tracking-wider ${isMobile ? 'h-5' : 'h-4'}`}
               style={{
                 border: `1px solid ${activeZoom === z.label ? 'var(--blue)' : 'var(--bd)'}`,
                 background: activeZoom === z.label ? 'var(--blue-dim)' : 'transparent',
@@ -126,8 +131,8 @@ export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExt
       <TimelineTrack
         histogram={histogram} ticks={ticks}
         leftPct={toPct(rng[0])} rightPct={toPct(rng[1])}
-        isActive={isActive} trackRef={trackRef}
-        onClick={handleClick} onHandleDown={handleMouseDown}
+        isActive={isActive} isMobile={isMobile} trackRef={trackRef}
+        onClick={handleClick} onTouchStart={handleTouchStart} onHandleDown={handleMouseDown}
       />
     </div>
   );

@@ -8,18 +8,23 @@ type Props = {
   leftPct:         number;
   rightPct:        number;
   isActive:        boolean;
+  isMobile?:       boolean;
   trackRef:        React.RefObject<HTMLDivElement | null>;
   onClick:         (e: React.MouseEvent) => void;
-  onHandleDown:    (e: React.MouseEvent, handle: 'left' | 'right' | 'range') => void;
+  onTouchStart:    (e: React.TouchEvent) => void;
+  onHandleDown:    (e: React.MouseEvent | React.TouchEvent, handle: 'left' | 'right' | 'range') => void;
 };
 
 const BUCKETS = 80;
 
 // ─── Component ──────────────────────────────────────────────────────────────────
 
-export default function TimelineTrack({ histogram, ticks, leftPct, rightPct, isActive, trackRef, onClick, onHandleDown }: Props) {
+export default function TimelineTrack({ histogram, ticks, leftPct, rightPct, isActive, isMobile = false, trackRef, onClick, onTouchStart, onHandleDown }: Props) {
+  const handleW = isMobile ? 14 : 6;
+  const handleOffset = handleW / 2;
+  const trackHeight = isMobile ? 38 : 32;
   return (
-    <div ref={trackRef} className="relative cursor-crosshair" style={{ height: 32 }} onClick={onClick}>
+    <div ref={trackRef} className="relative cursor-crosshair" style={{ height: trackHeight, touchAction: 'none' }} onClick={onClick} onTouchStart={onTouchStart}>
       {/* Histogram bars */}
       {histogram.map((h, i) => {
         const pL = (i / BUCKETS) * 100;
@@ -51,16 +56,19 @@ export default function TimelineTrack({ histogram, ticks, leftPct, rightPct, isA
             className="absolute top-0 bottom-0 cursor-grab"
             style={{ left: `${leftPct}%`, width: `${rightPct - leftPct}%`, borderTop: '2px solid var(--blue)', borderBottom: '2px solid var(--blue)' }}
             onMouseDown={e => onHandleDown(e, 'range')}
+            onTouchStart={e => onHandleDown(e, 'range')}
           />
           <div
             className="absolute top-0 bottom-0 cursor-ew-resize"
-            style={{ left: `${leftPct}%`, width: 6, marginLeft: -3, background: 'var(--blue)', borderRadius: 1, opacity: 0.8 }}
+            style={{ left: `${leftPct}%`, width: handleW, marginLeft: -handleOffset, background: 'var(--blue)', borderRadius: 2, opacity: 0.85 }}
             onMouseDown={e => onHandleDown(e, 'left')}
+            onTouchStart={e => onHandleDown(e, 'left')}
           />
           <div
             className="absolute top-0 bottom-0 cursor-ew-resize"
-            style={{ left: `${rightPct}%`, width: 6, marginLeft: -3, background: 'var(--blue)', borderRadius: 1, opacity: 0.8 }}
+            style={{ left: `${rightPct}%`, width: handleW, marginLeft: -handleOffset, background: 'var(--blue)', borderRadius: 2, opacity: 0.85 }}
             onMouseDown={e => onHandleDown(e, 'right')}
+            onTouchStart={e => onHandleDown(e, 'right')}
           />
         </>
       )}

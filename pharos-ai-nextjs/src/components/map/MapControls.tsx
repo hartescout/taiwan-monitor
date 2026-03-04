@@ -9,21 +9,26 @@ type Props = {
   mapStyle:         'dark' | 'satellite';
   hasPanel:         boolean;
   timelineVisible?: boolean;
+  isMobile?:        boolean;
   onStyleChange:    (s: 'dark' | 'satellite') => void;
 };
 
-export default function MapControls({ viewState, mapStyle, hasPanel, timelineVisible = true, onStyleChange }: Props) {
-  const right = hasPanel ? 332 : 12;
+export default function MapControls({ viewState, mapStyle, hasPanel, timelineVisible = true, isMobile = false, onStyleChange }: Props) {
+  const right = isMobile ? 12 : (hasPanel ? 332 : 12);
   const bottomOffset = timelineVisible ? 0 : -44;
+  const coordBottom = isMobile ? 64 + bottomOffset : 56 + bottomOffset;
+  const switcherBottom = isMobile ? 94 + bottomOffset : 86 + bottomOffset;
+  const coordBottomStyle = isMobile ? `calc(${coordBottom}px + var(--safe-bottom))` : coordBottom;
+  const switcherBottomStyle = isMobile ? `calc(${switcherBottom}px + var(--safe-bottom))` : switcherBottom;
 
   return (
     <>
       {/* Map style switcher */}
       <div className="absolute flex overflow-hidden rounded-sm z-10"
-        style={{ bottom: 86 + bottomOffset, right, border: '1px solid var(--bd)', transition: 'right 0.22s cubic-bezier(0.4,0,0.2,1), bottom 0.22s cubic-bezier(0.4,0,0.2,1)' }}>
+        style={{ bottom: switcherBottomStyle, right, border: '1px solid var(--bd)', transition: 'right 0.22s cubic-bezier(0.4,0,0.2,1), bottom 0.22s cubic-bezier(0.4,0,0.2,1)' }}>
         {(['dark', 'satellite'] as const).map((mode, i) => (
           <Button key={mode} variant="ghost" size="xs" onClick={() => onStyleChange(mode)}
-            className="mono rounded-none px-2.5 py-1 h-auto text-[8px] font-bold"
+            className={`mono rounded-none px-2.5 py-1 h-auto font-bold ${isMobile ? 'text-[9px]' : 'text-[8px]'}`}
             style={{
               background:  mapStyle === mode ? 'var(--blue)' : 'rgba(28,33,39,0.92)',
               borderRight: i === 0 ? '1px solid var(--bd)' : 'none',
@@ -36,7 +41,7 @@ export default function MapControls({ viewState, mapStyle, hasPanel, timelineVis
       {/* Coordinates */}
       <div className="mono absolute pointer-events-none"
         style={{
-          bottom: 56 + bottomOffset, right,
+          bottom: coordBottomStyle, right,
           background: 'rgba(28,33,39,0.85)', border: '1px solid var(--bd)',
           padding: '4px 8px', fontSize: 9, color: 'var(--t4)',
           transition: 'right 0.22s cubic-bezier(0.4,0,0.2,1), bottom 0.22s cubic-bezier(0.4,0,0.2,1)',

@@ -9,7 +9,7 @@ import type { MapStory } from '@/types/domain';
 
 // ─── Back button ──────────────────────────────────────────────────────────────
 
-function BackButton() {
+function BackButton({ isMobile = false }: { isMobile?: boolean }) {
   return (
     <Link
       href="/dashboard"
@@ -20,8 +20,8 @@ function BackButton() {
         left:       12,
         background: 'var(--blue)',
         color:      'var(--t1)',
-        padding:    '6px 12px',
-        fontSize:   10,
+        padding:    isMobile ? '6px 10px' : '6px 12px',
+        fontSize:   isMobile ? 9 : 10,
         fontWeight: 700,
         borderRadius: 2,
         textDecoration: 'none',
@@ -30,7 +30,7 @@ function BackButton() {
         letterSpacing: '0.06em',
       }}
     >
-      ← BACK TO OVERVIEW
+      {isMobile ? '← OVERVIEW' : '← BACK TO OVERVIEW'}
     </Link>
   );
 }
@@ -40,15 +40,17 @@ function BackButton() {
 type StoryPillProps = {
   story:   MapStory;
   onClear: () => void;
+  isMobile?: boolean;
 };
 
-function ActiveStoryPill({ story, onClear }: StoryPillProps) {
+function ActiveStoryPill({ story, onClear, isMobile = false }: StoryPillProps) {
   return (
     <div style={{
       position:  'absolute',
       top:       12,
       left:      '50%',
       transform: 'translateX(-50%)',
+      maxWidth: isMobile ? 'calc(100vw - 24px)' : 'none',
       background: 'rgba(28,33,39,0.95)',
       border:    '1px solid var(--bd)',
       borderRadius: 2,
@@ -77,12 +79,13 @@ type Props = {
   sidebarOpen:  boolean;
   onToggleSidebar: () => void;
   embedded?: boolean;
+  isMobile?: boolean;
 };
 
-export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, onToggleSidebar, embedded = false }: Props) {
+export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, onToggleSidebar, embedded = false, isMobile = false }: Props) {
   return (
     <>
-      {!embedded && <BackButton />}
+      {!embedded && <BackButton isMobile={isMobile} />}
       {!sidebarOpen && (
         <Button
           variant="ghost"
@@ -92,7 +95,9 @@ export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, on
           style={{
             position:     'absolute',
             top:          12,
-            left:         embedded ? 12 : 170,
+            left:         isMobile
+              ? (embedded ? 12 : 108)
+              : (embedded ? 12 : 170),
             background:   'rgba(28,33,39,0.92)',
             border:       '1px solid var(--bd)',
             borderRadius: 2,
@@ -110,7 +115,7 @@ export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, on
           STORIES
         </Button>
       )}
-      {activeStory && <ActiveStoryPill story={activeStory} onClear={onClearStory} />}
+      {activeStory && <ActiveStoryPill story={activeStory} onClear={onClearStory} isMobile={isMobile} />}
     </>
   );
 }

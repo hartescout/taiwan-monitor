@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Layers, Eye, EyeOff } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
@@ -23,9 +23,21 @@ const LABELS: { key: keyof OverlayVisibility; label: string }[] = [
 
 export default function MapVisibilityMenu({ visibility, onToggle }: Props) {
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutside = (event: MouseEvent) => {
+      const target = event.target as Node | null;
+      if (!target) return;
+      if (!menuRef.current?.contains(target)) setOpen(false);
+    };
+    window.addEventListener('mousedown', handleOutside);
+    return () => window.removeEventListener('mousedown', handleOutside);
+  }, [open]);
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div ref={menuRef} style={{ position: 'relative' }}>
       <Button
         variant="ghost"
         size="sm"

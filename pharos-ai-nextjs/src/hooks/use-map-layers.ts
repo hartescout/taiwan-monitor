@@ -21,6 +21,7 @@ type Props = {
   actorMeta:   Record<string, ActorMeta>;
   activeStory: MapStory | null;
   isSatellite: boolean;
+  isMobile?:   boolean;
 };
 
 type RGBA = [number, number, number, number];
@@ -62,7 +63,7 @@ function statusFill(status: Target['status'] | Asset['status']): [number, number
 // ─── Hook ─────────────────────────────────────────────────────────────────────
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function useMapLayers({ filtered, actorMeta, activeStory, isSatellite }: Props): any[] {
+export function useMapLayers({ filtered, actorMeta, activeStory, isSatellite, isMobile = false }: Props): any[] {
   return useMemo(() => {
     const alpha    = activeAlpha(isSatellite);
     const dimActive = activeStory !== null;
@@ -203,7 +204,7 @@ export function useMapLayers({ filtered, actorMeta, activeStory, isSatellite }: 
     });
 
     // ── Target labels ────────────────────────────────────────────────────────
-    const targetLabels = filtered.targets.length > 0 && new TextLayer<Target>({
+    const targetLabels = !isMobile && filtered.targets.length > 0 && new TextLayer<Target>({
       id: 'target-labels',
       data: filtered.targets,
       getPosition:       (d: Target): [number, number] => d.position,
@@ -222,7 +223,7 @@ export function useMapLayers({ filtered, actorMeta, activeStory, isSatellite }: 
     });
 
     // ── Asset labels ─────────────────────────────────────────────────────────
-    const assetLabels = filtered.assets.length > 0 && new TextLayer<Asset>({
+    const assetLabels = !isMobile && filtered.assets.length > 0 && new TextLayer<Asset>({
       id: 'asset-labels',
       data: filtered.assets,
       getPosition:       (d: Asset): [number, number] => d.position,
@@ -244,7 +245,7 @@ export function useMapLayers({ filtered, actorMeta, activeStory, isSatellite }: 
     });
 
     return [heatLayer, zoneLayer, strikeLayer, missileLayer, targetLayer, assetLayer, targetLabels, assetLabels].filter(Boolean);
-  }, [filtered, actorMeta, activeStory, isSatellite]);
+  }, [filtered, actorMeta, activeStory, isSatellite, isMobile]);
 }
 
 // Re-export so tooltip handler can share STATUS_META without another import
