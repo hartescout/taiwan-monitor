@@ -119,11 +119,11 @@ export function SignalsContent() {
         )}
 
         {/* Signals feed */}
-        <ScrollArea className="flex-1 min-h-0">
+        <div className="flex-1 min-h-0 overflow-y-auto">
           <div className="px-3 py-3">
             {signalsList}
           </div>
-        </ScrollArea>
+        </div>
       </div>
     );
   }
