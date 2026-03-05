@@ -4,9 +4,11 @@ import { PrismaPg } from "@prisma/adapter-pg";
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient };
 
 function createPrismaClient() {
+  // uselibpqcompat=true in DATABASE_URL makes sslmode=require use standard
+  // libpq semantics (encrypt without cert verification) instead of pg v8's
+  // default verify-full behavior. No manual ssl config needed.
   const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL!,
-    ssl: { rejectUnauthorized: false },
   });
   return new PrismaClient({ adapter });
 }
