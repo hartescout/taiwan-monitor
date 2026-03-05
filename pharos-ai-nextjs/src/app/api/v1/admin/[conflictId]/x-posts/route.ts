@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { ok, err } from '@/lib/api-utils';
 import { requireAdmin } from '@/lib/admin-auth';
-import { assertRequired, assertEnum, parseISODate, safeJson, POST_TYPES } from '@/lib/admin-validate';
+import { assertRequired, assertEnum, parseISODate, safeJson } from '@/lib/admin-validate';
 import { checkXPostEnforcement } from '@/lib/enforcement';
 import { isEnforcementMode, enforcementResponse } from '@/lib/enforcement-utils';
 import { SignificanceLevel, AccountType, PostType } from '@/generated/prisma/client';

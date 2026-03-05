@@ -1,7 +1,5 @@
 'use client';
-
-import { useState } from 'react';
-import { ArrowLeft, Layers, Clock, BookOpen } from 'lucide-react';
+import { ArrowLeft, Clock, BookOpen, Map as MapIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import '@/lib/deckgl-device';
@@ -11,33 +9,32 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 import { FlyToInterpolator } from '@deck.gl/core';
 import { MAP_STYLE_DARK, MAP_STYLE_SAT } from '@/components/map/map-styles';
+import MapLegend         from '@/components/map/MapLegend';
+import MapFilterPanel    from '@/components/map/MapFilterPanel';
 import MapTimeline       from '@/components/map/MapTimeline';
 import MapVisibilityMenu from '@/components/map/MapVisibilityMenu';
+import { Button } from '@/components/ui/button';
 
 import type { MapPageContext } from '@/components/map/use-map-page';
 import type { MapViewState } from '@deck.gl/core';
-import type { OverlayVisibility } from '@/components/map/MapVisibilityMenu';
+import type { SelectedItem } from '@/components/map/MapDetailPanel';
 
 type Props = {
   ctx: MapPageContext;
   onOpenStories: () => void;
-  onSelectFeature: () => void;
+  onSelectFeature: (item: SelectedItem | null) => void;
 };
 
 export function MapCanvas({ ctx, onOpenStories, onSelectFeature }: Props) {
   const {
     viewState, mapStyle, layers, tooltip, handleMapClick, showTimeline,
     overlayVisibility, toggleOverlay, f,
-    setViewState, setMapStyle, selectedItem,
+    setViewState, setMapStyle,
   } = ctx;
 
-  const [timelineVisible, setTimelineVisible] = useState(false);
-
   const handleClick = (...args: Parameters<typeof handleMapClick>) => {
-    handleMapClick(...args);
-    // If a feature was selected, notify parent to push detail screen
-    // We check after a tick since handleMapClick dispatches to Redux
-    setTimeout(() => onSelectFeature(), 0);
+    const item = handleMapClick(...args);
+    onSelectFeature(item);
   };
 
   return (
@@ -58,67 +55,110 @@ export function MapCanvas({ ctx, onOpenStories, onSelectFeature }: Props) {
       </DeckGL>
 
       {/* ── Floating controls: top-left ── */}
-      <div className="absolute top-2 left-2 flex flex-col gap-1.5 z-10" style={{ left: 'max(8px, var(--safe-left))' }}>
+      <div className="absolute top-2 left-2 flex flex-col gap-1.5 z-20" style={{ left: 'max(8px, env(safe-area-inset-left))' }}>
         {/* Back to dashboard */}
-        <Link href="/dashboard" className="no-underline">
-          <button className="flex items-center justify-center w-8 h-8 bg-[rgba(28,33,39,0.85)] border border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t1)] transition-colors">
+        <Button asChild variant="ghost" size="icon-sm" className="h-8 w-8 bg-[rgba(28,33,39,0.85)] border border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t1)] rounded-none">
+          <Link href="/dashboard" className="no-underline">
             <ArrowLeft size={14} strokeWidth={2} />
-          </button>
-        </Link>
+          </Link>
+        </Button>
 
         {/* Stories */}
-        <button
+        <Button
+          variant="ghost"
+          size="icon-sm"
           onClick={onOpenStories}
-          className="flex items-center justify-center w-8 h-8 bg-[rgba(28,33,39,0.85)] border border-[var(--bd)] text-[var(--blue-l)] hover:text-[var(--t1)] transition-colors"
+          className="h-8 w-8 bg-[rgba(28,33,39,0.85)] border border-[var(--bd)] text-[var(--blue-l)] hover:text-[var(--t1)] transition-colors rounded-none"
           title="Stories"
         >
           <BookOpen size={14} strokeWidth={2} />
-        </button>
+        </Button>
       </div>
 
       {/* ── Floating controls: top-right ── */}
-      <div className="absolute top-2 right-2 flex flex-col gap-1.5 z-10" style={{ right: 'max(8px, var(--safe-right))' }}>
+      <div className="absolute top-2 right-2 flex flex-col gap-1.5 z-20" style={{ right: 'max(8px, env(safe-area-inset-right))' }}>
         {/* Map style toggle */}
-        <button
+        <Button
+          variant="ghost"
+          size="icon-sm"
           onClick={() => setMapStyle(mapStyle === 'dark' ? 'satellite' : 'dark')}
-          className="flex items-center justify-center w-8 h-8 bg-[rgba(28,33,39,0.85)] border border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t1)] transition-colors"
+          className="h-8 w-8 bg-[rgba(28,33,39,0.85)] border border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t1)] transition-colors rounded-none"
           title="Toggle map style"
         >
-          <Layers size={14} strokeWidth={2} />
-        </button>
+          <MapIcon size={14} strokeWidth={2} />
+        </Button>
 
         {/* Visibility menu */}
-        <MapVisibilityMenu visibility={overlayVisibility} onToggle={toggleOverlay} />
+        <MapVisibilityMenu visibility={overlayVisibility} onToggle={toggleOverlay} direction="down" />
       </div>
 
+      {overlayVisibility.legend && (
+        <MapLegend hasPanel={false} timelineVisible={showTimeline} />
+      )}
+
+      {overlayVisibility.filters && (
+        <div
+          style={{
+            position: 'absolute',
+            top: 90,
+            right: 'max(8px, env(safe-area-inset-right))',
+            zIndex: 19,
+            maxHeight: 'calc(100% - 140px)',
+            overflow: 'auto',
+          }}
+        >
+          <MapFilterPanel
+            defaultExpanded
+            state={f.state}
+            facets={f.facets}
+            isFiltered={f.isFiltered}
+            onToggleDataset={f.toggleDataset}
+            onToggleType={f.toggleType}
+            onToggleActor={f.toggleActor}
+            onTogglePriority={f.togglePriority}
+            onToggleStatus={f.toggleStatus}
+            onToggleHeat={f.toggleHeat}
+            onReset={f.resetFilters}
+          />
+        </div>
+      )}
+
       {/* ── Timeline toggle: bottom-right ── */}
-      <div className="absolute bottom-2 right-2 z-10" style={{ right: 'max(8px, var(--safe-right))', bottom: 'max(8px, var(--safe-bottom))' }}>
-        <button
-          onClick={() => setTimelineVisible(p => !p)}
-          className={`flex items-center justify-center w-8 h-8 border transition-colors ${
-            timelineVisible
+      <div
+        className="absolute bottom-2 right-2 z-20"
+        style={{
+          right: 'max(8px, env(safe-area-inset-right))',
+          bottom: showTimeline
+            ? 'max(46px, calc(8px + env(safe-area-inset-bottom) + 32px))'
+            : 'max(8px, env(safe-area-inset-bottom))',
+        }}
+      >
+        <Button
+          variant="ghost"
+          size="icon-sm"
+          onClick={() => toggleOverlay('timeline')}
+          className={`h-8 w-8 border transition-colors rounded-none ${
+            overlayVisibility.timeline
               ? 'bg-[var(--blue-dim)] border-[var(--blue)] text-[var(--blue-l)]'
               : 'bg-[rgba(28,33,39,0.85)] border-[var(--bd)] text-[var(--t3)] hover:text-[var(--t1)]'
           }`}
           title="Toggle timeline"
         >
           <Clock size={14} strokeWidth={2} />
-        </button>
+        </Button>
       </div>
 
       {/* ── Timeline (expandable) ── */}
-      {timelineVisible && showTimeline && (
-        <div className="absolute bottom-10 left-2 right-12 z-10" style={{ left: 'max(8px, var(--safe-left))', bottom: 'max(42px, calc(8px + var(--safe-bottom) + 34px))' }}>
-          <MapTimeline
-            rawData={f.rawData}
-            dataExtent={f.dataExtent}
-            viewExtent={f.viewExtent}
-            onViewExtent={f.setViewExtent}
-            timeRange={f.state.timeRange}
-            onTimeRange={f.setTimeRange}
-            isMobile
-          />
-        </div>
+      {showTimeline && (
+        <MapTimeline
+          rawData={f.rawData}
+          dataExtent={f.dataExtent}
+          viewExtent={f.viewExtent}
+          onViewExtent={f.setViewExtent}
+          timeRange={f.state.timeRange}
+          onTimeRange={f.setTimeRange}
+          isMobile={false}
+        />
       )}
     </div>
   );

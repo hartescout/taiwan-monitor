@@ -32,14 +32,14 @@ const INITIAL_VIEW_STATE: MapViewState = {
   bearing: 0,
 };
 
-interface LayerVisibility {
+type LayerVisibility = {
   strikes: boolean;
   missiles: boolean;
   targets: boolean;
   assets: boolean;
   zones: boolean;
   heat: boolean;
-}
+};
 
 type TooltipObject = StrikeArc | MissileTrack | Target | Asset | ThreatZone | HeatPoint;
 
@@ -59,14 +59,15 @@ export default function IntelMap() {
     setVisibility((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
-  const strikes   = mapData?.strikes ?? [];
-  const missiles  = mapData?.missiles ?? [];
-  const targets   = mapData?.targets ?? [];
-  const assets    = mapData?.assets ?? [];
-  const zones     = mapData?.zones ?? [];
-  const heatPts   = mapData?.heat ?? [];
+  const layers = useMemo(() => {
+    const strikes = mapData?.strikes ?? [];
+    const missiles = mapData?.missiles ?? [];
+    const targets = mapData?.targets ?? [];
+    const assets = mapData?.assets ?? [];
+    const zones = mapData?.zones ?? [];
+    const heatPts = mapData?.heat ?? [];
 
-  const layers = useMemo(() => [
+    return [
     visibility.heat && heatPts.length > 0 &&
       new HeatmapLayer<HeatPoint>({
         id: 'heat',
@@ -214,7 +215,8 @@ export default function IntelMap() {
         backgroundPadding: [3, 2, 3, 2] as [number, number, number, number],
       }),
 
-  ].filter(Boolean), [visibility, strikes, missiles, targets, assets, zones, heatPts]);
+    ].filter(Boolean);
+  }, [visibility, mapData]);
 
   const getTooltip = useCallback(({ object, layer }: PickingInfo<TooltipObject>) => {
     if (!object) return null;

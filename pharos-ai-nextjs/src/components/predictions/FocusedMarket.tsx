@@ -13,13 +13,13 @@ const RANGES = [
   { key: 'max', label: 'ALL' },
 ] as const;
 
-interface FocusedMarketProps {
+type Props = {
   market: PredictionMarket;
   group: MarketGroup;
   onClose: () => void;
-}
+};
 
-export function FocusedMarket({ market, group, onClose }: FocusedMarketProps) {
+export function FocusedMarket({ market, group, onClose }: Props) {
   const [open,         setOpen]         = useState(false);
   const [rangeIdx,     setRangeIdx]     = useState(1); // default 7D
   const [history,      setHistory]      = useState<TimePoint[]>([]);
@@ -52,13 +52,10 @@ export function FocusedMarket({ market, group, onClose }: FocusedMarketProps) {
     finally { setChartLoading(false); }
   }, [market.yesTokenId]);
 
-  useEffect(() => { fetchHistory(rangeIdx); }, []);
-
   useEffect(() => {
     fetchHistory(rangeIdx);
     setCrosshairPct(null);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rangeIdx]);
+  }, [rangeIdx, fetchHistory]);
 
   const handleClose = useCallback(() => {
     setOpen(false);
@@ -161,7 +158,7 @@ export function FocusedMarket({ market, group, onClose }: FocusedMarketProps) {
             { label: 'OPEN INT',    value: fmtVol(market.openInterest) },
             { label: 'SPREAD',      value: `${(market.spread * 100).toFixed(1)}¢`, color: spreadColor(market.spread) },
             { label: 'ENDS',        value: daysLeft !== null ? (daysLeft === 0 ? 'TODAY' : `${daysLeft}d`) : fmtMarketDate(market.endDate) },
-          ].map((s, i) => (
+          ].map((s) => (
             <div key={s.label} className="flex items-center gap-3 pr-4 mr-4 border-r border-[var(--bd)] last:border-r-0">
               <span className="mono text-[7px] text-[var(--t4)] tracking-widest shrink-0">{s.label}</span>
               <span className="mono text-[11px] font-bold shrink-0" style={{ color: s.color ?? 'var(--t1)' }}>{s.value}</span>

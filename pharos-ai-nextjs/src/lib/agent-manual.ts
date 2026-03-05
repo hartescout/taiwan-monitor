@@ -46,7 +46,7 @@ export type LiveContext = {
 };
 
 export function buildAgentManual(ctx: LiveContext): string {
-  const { conflictId, baseUrl, adminToken, actors, currentState } = ctx;
+  const { conflictId, baseUrl, adminToken, actors } = ctx;
   const base = `${baseUrl}/api/v1/admin`;
   const scope = `${base}/${conflictId}`;
 

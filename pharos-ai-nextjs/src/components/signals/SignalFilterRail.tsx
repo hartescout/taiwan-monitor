@@ -40,7 +40,7 @@ export function SignalFilterRail({
   const body = (
     <>
       <FilterBlock label="CONFLICT DAY">
-        <div className="px-3 py-1">
+        <div className={cn(pageScroll ? 'safe-px' : 'px-3', 'py-1')}>
           <DaySelector
             currentDay={currentDay}
             onDayChange={onDayChange}
@@ -70,12 +70,12 @@ export function SignalFilterRail({
 
   return (
     <div className={cn(pageScroll ? 'flex flex-col' : 'flex-1 flex flex-col overflow-hidden')}>
-      <div className={cn('panel-header', compact && 'h-8 min-h-8 px-3')}>
+      <div className={cn('panel-header', compact && (pageScroll ? 'h-8 min-h-8 safe-px' : 'h-8 min-h-8 px-3'))}>
         <span className="text-[13px] text-[var(--t1)] leading-none">𝕏</span>
         <span className="section-title">Signal Filters</span>
       </div>
       {pageScroll ? body : <ScrollArea className="flex-1">{body}</ScrollArea>}
-      <div className="px-3 py-2 border-t border-[var(--bd)] shrink-0">
+      <div className={cn(pageScroll ? 'safe-px' : 'px-3', 'py-2 border-t border-[var(--bd)] shrink-0')}>
         <span className="mono text-[9px] text-[var(--t3)] block">
           {totalShown} / {totalAll} SIGNALS
         </span>

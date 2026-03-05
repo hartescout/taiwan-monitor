@@ -9,15 +9,15 @@ import type { MapStory } from '@/types/domain';
 
 // ─── Back button ──────────────────────────────────────────────────────────────
 
-function BackButton({ isMobile = false }: { isMobile?: boolean }) {
+function BackButton({ isMobile = false, safeTop = false }: { isMobile?: boolean; safeTop?: boolean }) {
   return (
     <Link
       href="/dashboard"
       className="mono"
       style={{
         position:   'absolute',
-        top:        12,
-        left:       12,
+        top:        safeTop ? 'calc(12px + var(--safe-top))' : 12,
+        left:       isMobile ? 'max(12px, var(--safe-left))' : 12,
         background: 'var(--blue)',
         color:      'var(--t1)',
         padding:    isMobile ? '6px 10px' : '6px 12px',
@@ -41,16 +41,17 @@ type StoryPillProps = {
   story:   MapStory;
   onClear: () => void;
   isMobile?: boolean;
+  safeTop?: boolean;
 };
 
-function ActiveStoryPill({ story, onClear, isMobile = false }: StoryPillProps) {
+function ActiveStoryPill({ story, onClear, isMobile = false, safeTop = false }: StoryPillProps) {
   return (
     <div style={{
       position:  'absolute',
-      top:       12,
+      top:       safeTop ? 'calc(12px + var(--safe-top))' : 12,
       left:      '50%',
       transform: 'translateX(-50%)',
-      maxWidth: isMobile ? 'calc(100vw - 24px)' : 'none',
+      maxWidth: isMobile ? 'calc(100vw - max(24px, calc(var(--safe-left) + var(--safe-right) + 24px)))' : 'none',
       background: 'rgba(28,33,39,0.95)',
       border:    '1px solid var(--bd)',
       borderRadius: 2,
@@ -83,9 +84,11 @@ type Props = {
 };
 
 export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, onToggleSidebar, embedded = false, isMobile = false }: Props) {
+  const safeTop = isMobile && !embedded;
+
   return (
     <>
-      {!embedded && <BackButton isMobile={isMobile} />}
+      {!embedded && <BackButton isMobile={isMobile} safeTop={safeTop} />}
       {!sidebarOpen && (
         <Button
           variant="ghost"
@@ -94,9 +97,9 @@ export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, on
           className="mono h-7 px-2"
           style={{
             position:     'absolute',
-            top:          12,
+            top:          safeTop ? 'calc(12px + var(--safe-top))' : 12,
             left:         isMobile
-              ? (embedded ? 12 : 108)
+              ? (embedded ? 'max(12px, var(--safe-left))' : 'calc(max(12px, var(--safe-left)) + 96px)')
               : (embedded ? 12 : 170),
             background:   'rgba(28,33,39,0.92)',
             border:       '1px solid var(--bd)',
@@ -115,7 +118,7 @@ export default function MapOverlays({ activeStory, onClearStory, sidebarOpen, on
           STORIES
         </Button>
       )}
-      {activeStory && <ActiveStoryPill story={activeStory} onClear={onClearStory} isMobile={isMobile} />}
+      {activeStory && <ActiveStoryPill story={activeStory} onClear={onClearStory} isMobile={isMobile} safeTop={safeTop} />}
     </>
   );
 }

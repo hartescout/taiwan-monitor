@@ -13,10 +13,11 @@ interface IntelTabsProps<T extends string> {
   tabs: TabItem<T>[];
   children: React.ReactNode;
   compact?: boolean;
+  safeEdges?: boolean;
 }
 
 export function IntelTabBar<T extends string>({
-  value, onValueChange, tabs, children, compact = false,
+  value, onValueChange, tabs, children, compact = false, safeEdges = false,
 }: IntelTabsProps<T>) {
   return (
     <Tabs
@@ -29,6 +30,7 @@ export function IntelTabBar<T extends string>({
         className={cn(
           'w-full rounded-none border-b border-[var(--bd)] bg-[var(--bg-2)] flex gap-0 p-0 justify-start overflow-x-auto touch-scroll hide-scrollbar',
           compact ? 'h-8' : 'h-[38px]',
+          safeEdges && 'safe-px',
         )}
       >
         {tabs.map(tab => (

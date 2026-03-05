@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import type { FeedItem } from '@/types/domain';
 import { useRssFeeds, useRssCollections } from '@/api/rss';
@@ -26,7 +26,7 @@ export default function NewsPage() {
 
   const { data: feeds } = useRssFeeds();
   const { data: collections } = useRssCollections();
-  const allFeeds = feeds ?? [];
+  const allFeeds = useMemo(() => feeds ?? [], [feeds]);
 
   const collection = collections?.[0];
   const channel = collection?.channels[activeChannel];
@@ -95,7 +95,7 @@ export default function NewsPage() {
     } finally {
       setRefreshing(false);
     }
-  }, []);
+  }, [allFeeds]);
 
   // Initial load — prefetch all feeds in one batch
   useEffect(() => {

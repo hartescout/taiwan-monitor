@@ -27,7 +27,7 @@ type Props = {
 
 export default function LandscapeMapLayout({ ctx }: Props) {
   const {
-    stories, activeStory, selectedItem,
+    stories, activeStory,
     activateStory, setSelectedItem, setActiveStory,
   } = ctx;
 
@@ -55,11 +55,11 @@ export default function LandscapeMapLayout({ ctx }: Props) {
     push({ id: 'stories' });
   }, [push]);
 
-  const handleSelectFeature = useCallback(() => {
-    if (selectedItem && current.id === 'map') {
-      push({ id: 'detail', item: selectedItem });
+  const handleSelectFeature = useCallback((item: SelectedItem | null) => {
+    if (item && current.id === 'map') {
+      push({ id: 'detail', item });
     }
-  }, [selectedItem, current.id, push]);
+  }, [current.id, push]);
 
   const handleSelectStory = useCallback((story: MapStory) => {
     activateStory(story);

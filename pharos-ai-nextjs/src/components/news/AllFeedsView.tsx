@@ -9,14 +9,14 @@ import { useIsLandscapePhone } from '@/hooks/use-is-landscape-phone';
 
 const PERSPECTIVES = ['ALL', 'WESTERN', 'US_GOV', 'ISRAELI', 'IRANIAN', 'ARAB', 'RUSSIAN', 'CHINESE', 'INDEPENDENT'] as const;
 
-interface AllFeedsViewProps {
+type Props = {
   showImages: boolean;
   feedData: Map<string, FeedItem[]>;
-}
+};
 
-export function AllFeedsView({ showImages, feedData }: AllFeedsViewProps) {
+export function AllFeedsView({ showImages, feedData }: Props) {
   const { data: feeds } = useRssFeeds();
-  const allFeeds = feeds ?? [];
+  const allFeeds = useMemo(() => feeds ?? [], [feeds]);
   const [filter, setFilter] = useState<string>('ALL');
   const isLandscapePhone = useIsLandscapePhone();
 
@@ -56,7 +56,7 @@ export function AllFeedsView({ showImages, feedData }: AllFeedsViewProps) {
       </div>
 
       {/* Horizontal scrollable feed columns */}
-      <div className="flex-1 min-h-0 overflow-x-auto overflow-y-hidden">
+      <div className={`flex-1 min-h-0 overflow-x-auto overflow-y-hidden ${isLandscapePhone ? 'safe-px' : ''}`}>
         <div className="flex h-full" style={{ width: `max(100%, ${filtered.length * 320}px)` }}>
           {filtered.map(feed => (
             <div

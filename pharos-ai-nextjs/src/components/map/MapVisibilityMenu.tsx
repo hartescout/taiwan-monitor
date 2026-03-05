@@ -13,6 +13,7 @@ export type OverlayVisibility = {
 type Props = {
   visibility: OverlayVisibility;
   onToggle:   (key: keyof OverlayVisibility) => void;
+  direction?: 'up' | 'down';
 };
 
 const LABELS: { key: keyof OverlayVisibility; label: string }[] = [
@@ -21,7 +22,7 @@ const LABELS: { key: keyof OverlayVisibility; label: string }[] = [
   { key: 'legend',   label: 'LEGEND'   },
 ];
 
-export default function MapVisibilityMenu({ visibility, onToggle }: Props) {
+export default function MapVisibilityMenu({ visibility, onToggle, direction = 'up' }: Props) {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -57,9 +58,10 @@ export default function MapVisibilityMenu({ visibility, onToggle }: Props) {
       {open && (
         <div style={{
           position:     'absolute',
-          bottom:       '100%',
           right:        0,
-          marginBottom: 4,
+          ...(direction === 'up'
+            ? { bottom: '100%', marginBottom: 4 }
+            : { top: '100%', marginTop: 4 }),
           background:   'rgba(28,33,39,0.95)',
           border:       '1px solid var(--bd)',
           borderRadius: 2,
@@ -70,18 +72,18 @@ export default function MapVisibilityMenu({ visibility, onToggle }: Props) {
           {LABELS.map(({ key, label }) => {
             const visible = visibility[key];
             return (
-              <button
+              <Button
                 key={key}
+                variant="ghost"
+                size="sm"
                 onClick={() => onToggle(key)}
-                className="mono flex items-center gap-2 w-full"
+                className="mono flex items-center gap-2 w-full justify-start h-auto rounded-none"
                 style={{
                   padding:   '5px 12px',
                   fontSize:  9,
                   fontWeight: 700,
                   color:     visible ? 'var(--t2)' : 'var(--t4)',
-                  cursor:    'pointer',
                   background: 'transparent',
-                  border:    'none',
                   letterSpacing: '0.06em',
                 }}
               >
@@ -89,7 +91,7 @@ export default function MapVisibilityMenu({ visibility, onToggle }: Props) {
                   ? <Eye size={12} strokeWidth={2} />
                   : <EyeOff size={12} strokeWidth={2} />}
                 {label}
-              </button>
+              </Button>
             );
           })}
         </div>

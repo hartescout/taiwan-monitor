@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { FileText, ArrowLeft } from 'lucide-react';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
@@ -19,8 +18,10 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { getEventsForDay } from '@/lib/day-filter';
 
 export function FeedContent() {
-  const searchParams = useSearchParams();
-  const initEvent    = searchParams.get('event');
+  const initEvent = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    return new URLSearchParams(window.location.search).get('event');
+  }, []);
   const isMobile = useIsMobile(1024);
   const isLandscapePhone = useIsLandscapePhone();
   const usePageScroll = isMobile && isLandscapePhone;

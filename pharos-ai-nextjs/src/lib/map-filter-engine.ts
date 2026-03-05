@@ -124,7 +124,14 @@ export function extractTimeExtent(data: DataArrays): [number, number] {
     }
   }
   const now = Date.now();
+  if (!Number.isFinite(min) || !Number.isFinite(max)) {
+    return [now - 24 * 3600_000, now];
+  }
   if (now > max) max = now;
+  if (min > max) {
+    const mid = (min + max) / 2;
+    return [mid - 12 * 3600_000, mid + 12 * 3600_000];
+  }
   return [min, max];
 }
 

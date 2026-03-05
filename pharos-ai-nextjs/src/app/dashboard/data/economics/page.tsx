@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import Link from 'next/link';
 import { ECON_CATEGORIES } from '@/data/economic-indexes';
 import type { EconCategory, EconomicIndex } from '@/types/domain';
@@ -41,7 +41,7 @@ export default function EconomicsPage() {
   const onLandscapeScroll = useLandscapeScrollEmitter(isLandscapePhone);
 
   const { data: econIndexes } = useEconomicIndexes();
-  const ECONOMIC_INDEXES: EconomicIndex[] = econIndexes ?? [];
+  const ECONOMIC_INDEXES: EconomicIndex[] = useMemo(() => econIndexes ?? [], [econIndexes]);
 
   const range = RANGES[rangeIdx];
 

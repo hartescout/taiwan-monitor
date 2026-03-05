@@ -26,12 +26,6 @@ type TodoItem = {
   subagentHint?: string;
 };
 
-type ResearchTask = {
-  priority: Priority;
-  title: string;
-  hint: string;
-};
-
 // Daily content targets — add data continuously throughout the day
 const TARGETS = {
   events: 20,

@@ -225,7 +225,7 @@ export default function PredictionsPage() {
             <span className="label">NO MARKETS FOUND</span>
           </div>
         ) : isMobile ? (
-          <div className="grid grid-cols-1 gap-2 p-2">
+          <div className={`grid grid-cols-1 gap-2 ${usePageScroll ? 'safe-px py-2' : 'p-2'}`}>
             {mobileSorted.map((market, i) => {
               const group = assignGroup(market.title);
               return (

@@ -335,7 +335,7 @@ export function FocusedChart({ index, data: initialData, initialRangeKey = '5d',
             { label: 'HIGH',   value: fmtPrice(periodHigh, index.unit), color: 'var(--success)' },
             { label: 'LOW',    value: fmtPrice(periodLow,  index.unit), color: 'var(--danger)'  },
             { label: 'CHANGE', value: fmtPct(pctFromOpen), color: pctFromOpen >= 0 ? 'var(--success)' : 'var(--danger)' },
-          ].map((s, i) => (
+          ].map((s) => (
             <div key={s.label} className="flex items-center gap-3 pr-4 mr-4 border-r border-[var(--bd)] last:border-r-0">
               <span className="mono text-[8px] text-[var(--t4)] tracking-widest shrink-0">{s.label}</span>
               <span className="mono text-[11px] font-bold" style={{ color: s.color ?? 'var(--t1)' }}>{s.value}</span>

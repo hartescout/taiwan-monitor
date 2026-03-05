@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { ArrowRight, ArrowLeft, X as XIcon, Plus, Map as MapIcon } from 'lucide-react';
+import { ArrowRight, ArrowLeft, X as XIcon, Plus } from 'lucide-react';
 
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { fmtTimeZ } from '@/lib/format';

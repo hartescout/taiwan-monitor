@@ -44,6 +44,20 @@ export function checkStoryEnforcement(
   const issues: EnforcementIssue[] = [];
   const events = Array.isArray(body.events) ? body.events as { time: string; label: string; type: string }[] : [];
 
+  // ── Duplicate title check ───────────────────────────────────────────────
+  if (typeof body.title === 'string' && Array.isArray(ctx.existingTitles)) {
+    const title = body.title.trim().toLowerCase();
+    const hasDuplicate = ctx.existingTitles.some(existing => existing.trim().toLowerCase() === title);
+    if (hasDuplicate) {
+      issues.push({
+        code: 'STORY_TITLE_DUPLICATE',
+        field: 'title',
+        severity: 'warning',
+        message: `A story with this title already exists. Use a more specific, event-focused title to avoid duplicate narrative cards.`,
+      });
+    }
+  }
+
   // ── Time span check ──────────────────────────────────────────────────────
   if (events.length >= 2) {
     const times = events.map(e => e.time).filter(Boolean).sort();

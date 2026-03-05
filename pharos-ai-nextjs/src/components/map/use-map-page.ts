@@ -20,6 +20,7 @@ import { createBuildTooltip } from '@/lib/map-tooltip';
 import type { MapViewState, PickingInfo } from '@deck.gl/core';
 import type { StrikeArc, MissileTrack, Target, Asset, ThreatZone } from '@/data/map-data';
 import type { OverlayVisibility } from '@/components/map/MapVisibilityMenu';
+import type { SelectedItem } from '@/components/map/MapDetailPanel';
 
 export function useMapPage({ isMobile }: { isMobile: boolean }) {
   const dispatch = useAppDispatch();
@@ -51,15 +52,22 @@ export function useMapPage({ isMobile }: { isMobile: boolean }) {
     isMobile,
   });
 
-  const handleMapClick = useCallback(({ object, layer }: PickingInfo) => {
-    if (!object || !layer) { dispatch(setSelectedItemAction(null)); return; }
+  const handleMapClick = useCallback(({ object, layer }: PickingInfo): SelectedItem | null => {
+    if (!object || !layer) {
+      dispatch(setSelectedItemAction(null));
+      return null;
+    }
+
     const id = layer.id;
-    if (id === 'strikes')                                dispatch(setSelectedItemAction({ type: 'strike',  data: object as StrikeArc   }));
-    else if (id === 'missiles')                          dispatch(setSelectedItemAction({ type: 'missile', data: object as MissileTrack }));
-    else if (id === 'targets' || id === 'target-labels') dispatch(setSelectedItemAction({ type: 'target',  data: object as Target      }));
-    else if (id === 'assets'  || id === 'asset-labels')  dispatch(setSelectedItemAction({ type: 'asset',   data: object as Asset       }));
-    else if (id === 'zones')                             dispatch(setSelectedItemAction({ type: 'zone',    data: object as ThreatZone  }));
-    else dispatch(setSelectedItemAction(null));
+    let next: SelectedItem | null = null;
+    if (id === 'strikes') next = { type: 'strike', data: object as StrikeArc };
+    else if (id === 'missiles') next = { type: 'missile', data: object as MissileTrack };
+    else if (id === 'targets' || id === 'target-labels') next = { type: 'target', data: object as Target };
+    else if (id === 'assets' || id === 'asset-labels') next = { type: 'asset', data: object as Asset };
+    else if (id === 'zones') next = { type: 'zone', data: object as ThreatZone };
+
+    dispatch(setSelectedItemAction(next));
+    return next;
   }, [dispatch]);
 
   const showTimeline = overlayVisibility.timeline && !(isMobile && !!selectedItem);

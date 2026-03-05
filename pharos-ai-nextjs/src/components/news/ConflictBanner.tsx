@@ -1,6 +1,7 @@
 'use client';
 
 import type { ConflictCollection } from '@/types/domain';
+import { useIsLandscapePhone } from '@/hooks/use-is-landscape-phone';
 
 interface ConflictBannerProps {
   collection: ConflictCollection;
@@ -9,10 +10,12 @@ interface ConflictBannerProps {
 }
 
 export function ConflictBanner({ collection, activeChannel, onChannelChange }: ConflictBannerProps) {
+  const isLandscapePhone = useIsLandscapePhone();
+
   return (
     <div className="border-b border-[var(--bd)] bg-[var(--bg-1)]">
       {/* Collection header */}
-      <div className="px-5 pt-4 pb-2 flex items-baseline gap-3">
+      <div className={`${isLandscapePhone ? 'safe-px' : 'px-5'} pt-4 pb-2 flex items-baseline gap-3`}>
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-[var(--danger)] animate-pulse" />
           <h2 className="mono text-[13px] font-bold text-[var(--t1)] tracking-[0.12em]">
@@ -23,7 +26,7 @@ export function ConflictBanner({ collection, activeChannel, onChannelChange }: C
       </div>
 
       {/* Channel tabs */}
-      <div className="flex px-5 gap-1">
+      <div className={`${isLandscapePhone ? 'safe-px' : 'px-5'} flex gap-1 overflow-x-auto touch-scroll hide-scrollbar`}>
         {collection.channels.map((ch, idx) => {
           const active = idx === activeChannel;
           return (

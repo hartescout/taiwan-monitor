@@ -36,17 +36,17 @@ export function EventDetailScreen({ item, onBack, onSelectItem, onActivateStory 
   const accent = PANEL_ACCENT[item.type];
 
   return (
-    <div className="flex flex-col h-full w-full bg-[var(--bg-app)] overflow-hidden" style={{ paddingLeft: 'env(safe-area-inset-left)', paddingRight: 'env(safe-area-inset-right)' }}>
+    <div className="flex flex-col h-full w-full bg-[var(--bg-app)] overflow-hidden">
       <LandscapeHeader title="MAP" onBack={onBack} />
 
       {/* Type header */}
-      <div className="shrink-0 px-4 py-2 border-b border-[var(--bd)] bg-[var(--bg-2)]" style={{ borderTop: `2px solid ${accent}` }}>
+      <div className="shrink-0 safe-px py-2 border-b border-[var(--bd)] bg-[var(--bg-2)]" style={{ borderTop: `2px solid ${accent}` }}>
         <p className="label text-[8px] mb-0.5" style={{ color: accent }}>{PANEL_LABEL[item.type]}</p>
         <p className="mono text-[13px] font-bold text-[var(--t1)]">{getTitle(item)}</p>
       </div>
 
       {/* Content */}
-      <div className="flex-1 min-h-0 overflow-y-auto px-4 py-3">
+      <div className="flex-1 min-h-0 overflow-y-auto safe-px py-3">
         {item.type === 'strike'  && <StrikeContent  d={item.data} onSelectItem={onSelectItem} onActivateStory={onActivateStory} />}
         {item.type === 'missile' && <MissileContent d={item.data} onActivateStory={onActivateStory} />}
         {item.type === 'target'  && <TargetContent  d={item.data} onSelectItem={onSelectItem} onActivateStory={onActivateStory} />}
@@ -55,7 +55,7 @@ export function EventDetailScreen({ item, onBack, onSelectItem, onActivateStory 
       </div>
 
       {/* Footer */}
-      <div className="shrink-0 h-8 flex items-center px-4 border-t border-[var(--bd-s)] bg-[var(--bg-app)]">
+      <div className="shrink-0 h-8 flex items-center safe-px border-t border-[var(--bd-s)] bg-[var(--bg-app)]">
         <span className="mono text-[8px] text-[var(--t4)]">PHAROS INTEL · UNCLASSIFIED</span>
       </div>
     </div>

@@ -45,7 +45,7 @@ export function EventDetail({ event, tab, onTabChange, compact = false, pageScro
   return (
     <div className={cn(pageScroll ? 'flex flex-col' : 'flex-1 flex flex-col overflow-hidden')}>
       {/* Header */}
-      <div className={cn('border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? 'px-3 py-2' : 'px-5 py-2.5')}>
+      <div className={cn('border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? (pageScroll ? 'safe-px py-2' : 'px-3 py-2') : 'px-5 py-2.5')}>
         <div className="flex gap-2 mb-2 flex-wrap items-center">
           <div
             className="flex items-center gap-[5px] px-2 py-0.5"
@@ -76,10 +76,10 @@ export function EventDetail({ event, tab, onTabChange, compact = false, pageScro
       </div>
 
       {/* Tabs */}
-      <IntelTabBar value={tab} onValueChange={onTabChange} tabs={tabs} compact={compact}>
+      <IntelTabBar value={tab} onValueChange={onTabChange} tabs={tabs} compact={compact} safeEdges={pageScroll}>
         <TabsContent value="report" className={pageScroll ? '' : 'flex-1 min-h-0 overflow-hidden'}>
           {pageScroll ? (
-            <div className={cn(compact ? 'px-3 py-3' : 'px-6 py-5')}>
+            <div className={cn(compact ? (pageScroll ? 'safe-px py-3' : 'px-3 py-3') : 'px-6 py-5')}>
               <div className="mb-[22px]">
                 <SectionDivider label="EXECUTIVE SUMMARY" />
                 <div className="pl-[14px]" style={{ borderLeft: `3px solid ${sc}` }}>
@@ -174,7 +174,7 @@ export function EventDetail({ event, tab, onTabChange, compact = false, pageScro
             </div>
           ) : (
             <ScrollArea className="h-full">
-              <div className={cn(compact ? 'px-3 py-3' : 'px-6 py-5')}>
+              <div className={cn(compact ? (pageScroll ? 'safe-px py-3' : 'px-3 py-3') : 'px-6 py-5')}>
                 <div className="mb-[22px]">
                   <SectionDivider label="EXECUTIVE SUMMARY" />
                   <div className="pl-[14px]" style={{ borderLeft: `3px solid ${sc}` }}>
@@ -273,7 +273,7 @@ export function EventDetail({ event, tab, onTabChange, compact = false, pageScro
 
         <TabsContent value="signals" className={pageScroll ? '' : 'flex-1 min-h-0 overflow-hidden'}>
           {pageScroll ? (
-            <div className={cn(compact ? 'px-3 py-3' : 'px-4 py-3')}>
+            <div className={cn(compact ? (pageScroll ? 'safe-px py-3' : 'px-3 py-3') : 'px-4 py-3')}>
               {xPosts.length === 0 ? (
                 <div className="p-12 text-center">
                   <span className="text-xl text-[var(--t3)]">𝕏</span>
@@ -294,7 +294,7 @@ export function EventDetail({ event, tab, onTabChange, compact = false, pageScro
             </div>
           ) : (
             <ScrollArea className="h-full">
-              <div className={cn(compact ? 'px-3 py-3' : 'px-4 py-3')}>
+              <div className={cn(compact ? (pageScroll ? 'safe-px py-3' : 'px-3 py-3') : 'px-4 py-3')}>
                 {xPosts.length === 0 ? (
                   <div className="p-12 text-center">
                     <span className="text-xl text-[var(--t3)]">𝕏</span>

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef, useCallback } from 'react';
+import Image from 'next/image';
 import type { RssFeed, FeedItem, FeedResult } from '@/types/domain';
 import { timeAgo } from '@/lib/format';
 import { useIsLandscapePhone } from '@/hooks/use-is-landscape-phone';
@@ -18,6 +19,7 @@ export function NewsFeedColumn({ feed, color, showImages = true, preloaded }: Ne
   const [items, setItems] = useState<FeedItem[]>(preloaded ?? []);
   const [loading, setLoading] = useState(!preloaded);
   const [error, setError] = useState<string | null>(null);
+  const [logoError, setLogoError] = useState(false);
   const fetchedRef = useRef(!!preloaded);
   const isLandscapePhone = useIsLandscapePhone();
   const onLandscapeScroll = useLandscapeScrollEmitter(isLandscapePhone);
@@ -61,16 +63,19 @@ export function NewsFeedColumn({ feed, color, showImages = true, preloaded }: Ne
       {/* Column header */}
       <div className="px-3 py-2.5 border-b border-[var(--bd)] bg-[var(--bg-1)] flex items-center gap-2.5 shrink-0">
         <div className="w-7 h-7 rounded overflow-hidden shrink-0 bg-[var(--bg-3)] flex items-center justify-center">
-          <img
-            src={`/logos/feeds/${feed.id}.png`}
-            alt={feed.name}
-            className="w-full h-full object-contain"
-            onError={(e) => {
-              const el = e.target as HTMLImageElement;
-              el.style.display = 'none';
-              el.parentElement!.innerHTML = `<div style="width:8px;height:8px;border-radius:50%;background:${color}"></div>`;
-            }}
-          />
+          {logoError ? (
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+          ) : (
+            <Image
+              src={`/logos/feeds/${feed.id}.png`}
+              alt={feed.name}
+              width={28}
+              height={28}
+              className="w-full h-full object-contain"
+              onError={() => setLogoError(true)}
+              unoptimized
+            />
+          )}
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="mono text-[11px] font-bold text-[var(--t1)] tracking-wide truncate">
@@ -146,12 +151,15 @@ export function NewsFeedColumn({ feed, color, showImages = true, preloaded }: Ne
 
               {showImages && item.imageUrl && (
                 <div className="w-[80px] h-[56px] rounded overflow-hidden shrink-0 bg-[var(--bg-2)]">
-                  <img
+                  <Image
                     src={item.imageUrl}
                     alt=""
+                    width={80}
+                    height={56}
                     className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                     loading="lazy"
                     onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }}
+                    unoptimized
                   />
                 </div>
               )}

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import Image from 'next/image';
 import { useRssFeeds } from '@/api/rss';
 import { NewsTimeline } from '@/components/news/NewsTimeline';
 import Link from 'next/link';
@@ -16,7 +17,7 @@ type ViewMode = 'feed' | 'timeline';
 
 export default function TimelinePage() {
   const { data: feeds } = useRssFeeds();
-  const allFeeds = feeds ?? [];
+  const allFeeds = useMemo(() => feeds ?? [], [feeds]);
   const [feedData,    setFeedData]    = useState<Map<string, FeedItem[]>>(new Map());
   const [refreshing,  setRefreshing]  = useState(false);
   const [lastRefresh, setLastRefresh] = useState<number>(0);
@@ -66,7 +67,7 @@ export default function TimelinePage() {
     } finally {
       setRefreshing(false);
     }
-  }, []);
+  }, [allFeeds]);
 
   useEffect(() => { fetchFeeds(); }, [fetchFeeds]);
   useEffect(() => {
@@ -182,17 +183,20 @@ export default function TimelinePage() {
                   href={item.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 px-5 py-3 border-b border-[var(--bd)] hover:bg-[var(--bg-2)] transition-colors no-underline group"
+                  className={`flex items-start gap-3 py-3 border-b border-[var(--bd)] hover:bg-[var(--bg-2)] transition-colors no-underline group ${isLandscapePhone ? 'safe-px' : 'px-5'}`}
                 >
                   {/* Feed logo */}
                   <div className="w-6 h-6 rounded shrink-0 mt-0.5 overflow-hidden bg-[var(--bg-3)] flex items-center justify-center">
-                    <img
+                    <Image
                       src={`/logos/feeds/${feedId}.png`}
                       alt={feed?.name ?? feedId}
+                      width={24}
+                      height={24}
                       className="w-full h-full object-contain"
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = 'none';
                       }}
+                      unoptimized
                     />
                   </div>
 
@@ -222,12 +226,15 @@ export default function TimelinePage() {
                   {/* Article image — right side */}
                   {item.imageUrl && (
                     <div className="w-[88px] h-[60px] rounded overflow-hidden shrink-0 bg-[var(--bg-2)]">
-                      <img
+                      <Image
                         src={item.imageUrl}
                         alt=""
+                        width={88}
+                        height={60}
                         className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                         loading="lazy"
                         onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }}
+                        unoptimized
                       />
                     </div>
                   )}

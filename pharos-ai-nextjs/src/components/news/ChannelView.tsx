@@ -40,7 +40,7 @@ export function ChannelView({ channel, showImages, feedData }: ChannelViewProps)
 
       {/* Feed columns */}
       {isMobile ? (
-        <div className="flex-1 min-h-0 overflow-x-auto overflow-y-hidden">
+        <div className={`flex-1 min-h-0 overflow-x-auto overflow-y-hidden ${isLandscapePhone ? 'safe-px' : ''}`}>
           <div className="flex h-full" style={{ width: `max(100%, ${feeds.length * 320}px)` }}>
             {feeds.map(feed => (
               <div

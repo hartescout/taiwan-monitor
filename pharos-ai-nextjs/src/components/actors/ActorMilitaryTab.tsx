@@ -8,6 +8,7 @@ import type { Actor } from '@/types/domain';
 type Props = {
   actor: Actor;
   iso3: string;
+  pageScroll?: boolean;
 };
 
 // ─── Formatters ─────────────────────────────────────────────────────────────
@@ -68,7 +69,7 @@ function Sparkline({ data, color }: { data: MilSpendPoint[]; color: string }) {
 
 // ─── YoY badge ──────────────────────────────────────────────────────────────
 
-function YoyBadge({ pts, formatVal }: { pts: MilSpendPoint[]; formatVal: (v: number) => string }) {
+function YoyBadge({ pts }: { pts: MilSpendPoint[] }) {
   const change = yoyChange(pts);
   if (!change) return null;
 
@@ -101,13 +102,13 @@ function Skeleton() {
 
 // ─── Component ──────────────────────────────────────────────────────────────
 
-export function ActorMilitaryTab({ actor, iso3 }: Props) {
+export function ActorMilitaryTab({ iso3, pageScroll = false }: Props) {
   const { data, isLoading, isError } = useMilitarySpending([iso3]);
 
   if (isLoading) {
     return (
       <ScrollArea className="h-full">
-        <Skeleton />
+        <div className={pageScroll ? 'safe-px' : ''}><Skeleton /></div>
       </ScrollArea>
     );
   }
@@ -117,7 +118,7 @@ export function ActorMilitaryTab({ actor, iso3 }: Props) {
   if (isError || !milData || (milData.spending.length === 0 && milData.gdpPct.length === 0)) {
     return (
       <ScrollArea className="h-full">
-        <div className="p-12 text-center">
+        <div className={pageScroll ? 'safe-px p-12 text-center' : 'p-12 text-center'}>
           <p className="label text-[var(--t3)]">No military data available for this actor</p>
         </div>
       </ScrollArea>
@@ -143,7 +144,7 @@ export function ActorMilitaryTab({ actor, iso3 }: Props) {
 
   return (
     <ScrollArea className="h-full">
-      <div className="px-[22px] py-[18px]">
+      <div className={pageScroll ? 'safe-px py-[18px]' : 'px-[22px] py-[18px]'}>
         {/* MILITARY EXPENDITURE */}
         {latestSpending && (
           <div className="mb-5">
@@ -152,7 +153,7 @@ export function ActorMilitaryTab({ actor, iso3 }: Props) {
               <span className="text-xl font-bold text-[var(--t1)] mono">
                 {fmtUsd(latestSpending.value)}
               </span>
-              <YoyBadge pts={milData.spending} formatVal={fmtUsd} />
+              <YoyBadge pts={milData.spending} />
             </div>
             <span className="label text-[8px] text-[var(--t3)]">
               {latestSpending.year} · CURRENT USD · WORLD BANK
@@ -168,7 +169,7 @@ export function ActorMilitaryTab({ actor, iso3 }: Props) {
               <span className="text-xl font-bold text-[var(--t1)] mono">
                 {fmtPct(latestGdp.value)}
               </span>
-              <YoyBadge pts={milData.gdpPct} formatVal={fmtPct} />
+              <YoyBadge pts={milData.gdpPct} />
             </div>
             <span className="label text-[8px] text-[var(--t3)]">
               {latestGdp.year} · SHARE OF GDP · WORLD BANK

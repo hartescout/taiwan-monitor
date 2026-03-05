@@ -114,7 +114,7 @@ export default function MobileMapLayout({ ctx, embedded = false }: Props) {
         />
 
         {overlayVisibility.legend && (
-          <MapLegend hasPanel={false} timelineVisible={showTimeline} />
+          <MapLegend hasPanel={false} timelineVisible={showTimeline} isMobile />
         )}
 
         <MapControls
@@ -130,7 +130,7 @@ export default function MobileMapLayout({ ctx, embedded = false }: Props) {
         <div style={{
           position: 'absolute',
           bottom: showTimeline ? 'calc(126px + var(--safe-bottom))' : 'calc(82px + var(--safe-bottom))',
-          right: 12,
+          right: 'max(12px, var(--safe-right))',
           zIndex: 10,
         }}>
           <MapVisibilityMenu visibility={overlayVisibility} onToggle={toggleOverlay} />
@@ -138,8 +138,9 @@ export default function MobileMapLayout({ ctx, embedded = false }: Props) {
 
         {/* Filter panel */}
         {overlayVisibility.filters && (
-          <div style={{ position: 'absolute', top: 56, right: 12, zIndex: 10 }}>
+          <div style={{ position: 'absolute', top: 56, right: 'max(12px, var(--safe-right))', zIndex: 10 }}>
             <MapFilterPanel
+              defaultExpanded
               state={f.state}
               facets={f.facets}
               isFiltered={f.isFiltered}

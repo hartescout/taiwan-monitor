@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo, useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { useRssFeeds } from '@/api/rss';
 import type { RssFeed, FeedItem } from '@/types/domain';
 import { useIsLandscapePhone } from '@/hooks/use-is-landscape-phone';
@@ -84,7 +85,6 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
   const [selectedTiers, setSelectedTiers] = useState<Set<number>>(new Set([1, 2, 3, 4]));
   const [viewportWidth, setViewportWidth] = useState(0);
   const viewportRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLDivElement>(null);
 
   // ── Use refs as the single source of truth for transform state.
   // Event handlers read/write refs directly — no stale closures.
@@ -577,12 +577,15 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
                     >
                       {hasImg && (
                         <div className="w-full overflow-hidden bg-[#0a0a0f]" style={{ height: `${IMG_H}px` }}>
-                          <img
+                          <Image
                             src={proxyImg(article.imageUrl!)}
                             alt=""
+                            width={CARD_W}
+                            height={IMG_H}
                             className="w-full h-full object-cover"
                             loading="lazy"
                             onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }}
+                            unoptimized
                           />
                         </div>
                       )}
@@ -661,11 +664,14 @@ export function NewsTimeline({ feedData }: NewsTimelineProps) {
                     >
                       {hasImg && (
                         <div className="w-full overflow-hidden bg-[#0a0a0f]" style={{ height: '180px' }}>
-                          <img
+                          <Image
                             src={proxyImg(article.imageUrl!)}
                             alt=""
+                            width={CARD_W + 160}
+                            height={180}
                             className="w-full h-full object-cover"
                             onError={(e) => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }}
+                            unoptimized
                           />
                         </div>
                       )}

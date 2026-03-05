@@ -36,6 +36,30 @@ export const DATASET_LABEL: Record<DatasetName, string> = {
   strikes: 'STRIKES', missiles: 'MISSILES', targets: 'TARGETS', assets: 'ASSETS', zones: 'ZONES',
 };
 
+function buildFingerprint(rawData: DataArrays): string {
+  let minTs = Number.POSITIVE_INFINITY;
+  let maxTs = Number.NEGATIVE_INFINITY;
+  for (const entry of [...rawData.strikes, ...rawData.missiles, ...rawData.targets]) {
+    if (!entry.timestamp) continue;
+    const ts = new Date(entry.timestamp).getTime();
+    if (!Number.isFinite(ts)) continue;
+    if (ts < minTs) minTs = ts;
+    if (ts > maxTs) maxTs = ts;
+  }
+  const stableMin = Number.isFinite(minTs) ? minTs : 0;
+  const stableMax = Number.isFinite(maxTs) ? maxTs : 0;
+  return [
+    rawData.strikes.length,
+    rawData.missiles.length,
+    rawData.targets.length,
+    rawData.assets.length,
+    rawData.zones.length,
+    rawData.heat.length,
+    stableMin,
+    stableMax,
+  ].join('|');
+}
+
 // ─── Empty fallback ─────────────────────────────────────────────────────────────
 
 const EMPTY_RESULT: { filtered: FilteredData; facets: FilterFacets } = {
@@ -80,16 +104,18 @@ export function useMapFilters(): UseMapFiltersReturn {
   // Server state via TanStack Query
   const { data: mapResult, isLoading } = useMapData();
   const rawData = mapResult;
-  const actorMeta = mapResult?.actorMeta ?? {};
+  const actorMeta = useMemo(() => mapResult?.actorMeta ?? {}, [mapResult]);
 
   // Initialize Redux filter state once data arrives
   useEffect(() => {
     if (!rawData) return;
     const initial = extractInitialState(rawData);
     const extent  = extractTimeExtent(rawData);
+    const fingerprint = buildFingerprint(rawData);
     dispatch(initializeFiltersAction({
       initialFilters: toSerializable(initial),
       dataExtent: extent,
+      fingerprint,
     }));
   }, [rawData, dispatch]);
 

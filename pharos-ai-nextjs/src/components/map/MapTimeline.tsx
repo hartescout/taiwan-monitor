@@ -46,9 +46,13 @@ function fmt(ms: number) {
 
 export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExtent, timeRange, onTimeRange, isMobile = false }: Props) {
 
-  const [vMin, vMax] = viewExtent;
-  const span = vMax - vMin;
-  const rng = timeRange ?? viewExtent;
+  const [rawMin, rawMax] = viewExtent;
+  const [vMin, vMax] = rawMin <= rawMax ? [rawMin, rawMax] : [rawMax, rawMin];
+  const span = Math.max(1, vMax - vMin);
+  const rngBase = timeRange ?? [vMin, vMax];
+  const rng: [number, number] = rngBase[0] <= rngBase[1]
+    ? [rngBase[0], rngBase[1]]
+    : [rngBase[1], rngBase[0]];
   const isActive = timeRange !== null;
 
   const { trackRef, handleMouseDown, handleTouchStart, handleClick } = useTimelineDrag(viewExtent, timeRange, onTimeRange);
@@ -86,13 +90,16 @@ export default function MapTimeline({ rawData, dataExtent, viewExtent, onViewExt
   }, [vMin, vMax, span]);
 
   const activeZoom = useMemo(() => {
-    if (Math.abs(span - (dataExtent[1] - dataExtent[0])) < 60_000) return 'ALL';
+    const fullSpan = Math.max(1, Math.abs(dataExtent[1] - dataExtent[0]));
+    if (Math.abs(span - fullSpan) < 60_000) return 'ALL';
     return ZOOM_LEVELS.find(z => z.ms > 0 && Math.abs(span - z.ms) < 60_000)?.label ?? null;
   }, [span, dataExtent]);
 
   const handleZoom = useCallback((ms: number) => {
-    if (ms === 0) { onViewExtent(dataExtent); onTimeRange(null); return; }
-    onViewExtent([Math.max(dataExtent[0], dataExtent[1] - ms), dataExtent[1]]);
+    const [dMinRaw, dMaxRaw] = dataExtent;
+    const [dMin, dMax] = dMinRaw <= dMaxRaw ? [dMinRaw, dMaxRaw] : [dMaxRaw, dMinRaw];
+    if (ms === 0) { onViewExtent([dMin, dMax]); onTimeRange(null); return; }
+    onViewExtent([Math.max(dMin, dMax - ms), dMax]);
     onTimeRange(null);
   }, [dataExtent, onViewExtent, onTimeRange]);
 

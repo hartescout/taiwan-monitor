@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import Parser from 'rss-parser';
 import { prisma } from '@/lib/db';
-import type { FeedItem, FeedResult } from '@/types/domain';
+import type { FeedResult } from '@/types/domain';
 
 const parser = new Parser({
   timeout: 10000,

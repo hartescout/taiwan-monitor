@@ -59,13 +59,13 @@ export function EventLog({ events, selectedId, onSelect, compact = false, pageSc
 
   return (
     <div className={cn(pageScroll ? 'flex flex-col' : 'flex-1 flex flex-col overflow-hidden')}>
-      <div className={cn('panel-header justify-between', compact && 'h-8 min-h-8 px-3')}>
+      <div className={cn('panel-header justify-between', compact && (pageScroll ? 'h-8 min-h-8 safe-px' : 'h-8 min-h-8 px-3'))}>
         <span className="section-title">Operation Epic Fury</span>
         <Badge variant="outline" className="text-[9px] text-[var(--t4)] border-[var(--bd)]">{events.length}</Badge>
       </div>
 
       {/* Column headers */}
-      <div className={cn('grid grid-cols-[40px_50px_1fr_24px] px-3 py-1 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact && 'py-0.5')}>
+      <div className={cn('grid grid-cols-[40px_50px_1fr_24px] py-1 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', pageScroll ? 'safe-px' : 'px-3', compact && 'py-0.5')}>
         {['TIME', 'SEV', 'TITLE', ''].map(h => <span key={h} className="label text-[8px]">{h}</span>)}
       </div>
 
@@ -85,7 +85,7 @@ export function EventLog({ events, selectedId, onSelect, compact = false, pageSc
             <div key={date}>
               <button
                 onClick={() => toggleDate(date)}
-                className="w-full flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-2)] border-b border-[var(--bd)] cursor-pointer hover:bg-[var(--bg-3)] transition-colors"
+                className={cn('w-full flex items-center gap-2 py-1.5 bg-[var(--bg-2)] border-b border-[var(--bd)] cursor-pointer hover:bg-[var(--bg-3)] transition-colors', pageScroll ? 'safe-px' : 'px-3')}
               >
                 {isExpanded
                   ? <ChevronDown size={10} strokeWidth={2} className="text-[var(--t4)] shrink-0" />
@@ -107,7 +107,8 @@ export function EventLog({ events, selectedId, onSelect, compact = false, pageSc
                     variant="ghost"
                     onClick={() => onSelect(isOn ? null : evt.id)}
                     className={cn(
-                      'grid grid-cols-[40px_50px_1fr_24px] gap-0 w-full h-auto px-3 rounded-none justify-start items-start border-b border-[var(--bd-s)]',
+                      'grid grid-cols-[40px_50px_1fr_24px] gap-0 w-full h-auto rounded-none justify-start items-start border-b border-[var(--bd-s)] whitespace-normal',
+                      pageScroll ? 'safe-px' : 'px-3',
                       compact ? 'py-1' : 'py-1.5',
                     )}
                     style={{
@@ -164,7 +165,7 @@ export function EventLog({ events, selectedId, onSelect, compact = false, pageSc
             <div key={date}>
               <button
                 onClick={() => toggleDate(date)}
-                className="w-full flex items-center gap-2 px-3 py-1.5 bg-[var(--bg-2)] border-b border-[var(--bd)] cursor-pointer hover:bg-[var(--bg-3)] transition-colors"
+                className={cn('w-full flex items-center gap-2 py-1.5 bg-[var(--bg-2)] border-b border-[var(--bd)] cursor-pointer hover:bg-[var(--bg-3)] transition-colors', pageScroll ? 'safe-px' : 'px-3')}
               >
                 {isExpanded
                   ? <ChevronDown size={10} strokeWidth={2} className="text-[var(--t4)] shrink-0" />
@@ -186,7 +187,8 @@ export function EventLog({ events, selectedId, onSelect, compact = false, pageSc
                     variant="ghost"
                     onClick={() => onSelect(isOn ? null : evt.id)}
                     className={cn(
-                      'grid grid-cols-[40px_50px_1fr_24px] gap-0 w-full h-auto px-3 rounded-none justify-start items-start border-b border-[var(--bd-s)]',
+                      'grid grid-cols-[40px_50px_1fr_24px] gap-0 w-full h-auto rounded-none justify-start items-start border-b border-[var(--bd-s)] whitespace-normal',
+                      pageScroll ? 'safe-px' : 'px-3',
                       compact ? 'py-1' : 'py-1.5',
                     )}
                     style={{

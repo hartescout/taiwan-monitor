@@ -47,7 +47,7 @@ export function ActorDossier({ actor, tab, onTabChange, currentDay, compact = fa
   return (
     <div className={cn(pageScroll ? 'flex flex-col' : 'flex-1 flex flex-col overflow-hidden')}>
       {/* Header */}
-      <div className={cn('border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? 'px-3 py-2' : 'px-5 py-3')}>
+      <div className={cn('border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? (pageScroll ? 'safe-px py-2' : 'px-3 py-2') : 'px-5 py-3')}>
         <div className="label text-[8px] text-[var(--t3)] mb-2">
           ACTOR INTELLIGENCE DOSSIER // PHAROS THREAT ANALYSIS // OPERATION EPIC FURY
         </div>
@@ -108,7 +108,7 @@ export function ActorDossier({ actor, tab, onTabChange, currentDay, compact = fa
       </div>
 
       {/* Tabs */}
-      <IntelTabBar value={tab} onValueChange={onTabChange} tabs={tabs} compact={compact}>
+      <IntelTabBar value={tab} onValueChange={onTabChange} tabs={tabs} compact={compact} safeEdges={pageScroll}>
         <TabsContent value="intel" className={pageScroll ? '' : 'flex-1 min-h-0 overflow-hidden'}>
           <ActorIntelTab
             actor={actor}
@@ -122,7 +122,7 @@ export function ActorDossier({ actor, tab, onTabChange, currentDay, compact = fa
 
         <TabsContent value="signals" className={pageScroll ? '' : 'flex-1 min-h-0 overflow-hidden'}>
           {pageScroll ? (
-            <div className={cn(compact ? 'px-3 py-3' : 'px-4 py-3')}>
+            <div className={cn(compact ? (pageScroll ? 'safe-px py-3' : 'px-3 py-3') : 'px-4 py-3')}>
               {posts.length === 0 ? (
                 <div className="p-12 text-center">
                   <span className="text-xl text-[var(--t3)]">𝕏</span>
@@ -143,7 +143,7 @@ export function ActorDossier({ actor, tab, onTabChange, currentDay, compact = fa
             </div>
           ) : (
             <ScrollArea className="h-full">
-              <div className={cn(compact ? 'px-3 py-3' : 'px-4 py-3')}>
+              <div className={cn(compact ? (pageScroll ? 'safe-px py-3' : 'px-3 py-3') : 'px-4 py-3')}>
                 {posts.length === 0 ? (
                   <div className="p-12 text-center">
                     <span className="text-xl text-[var(--t3)]">𝕏</span>
@@ -168,7 +168,7 @@ export function ActorDossier({ actor, tab, onTabChange, currentDay, compact = fa
 
         {iso3 && (
           <TabsContent value="military" className={pageScroll ? '' : 'flex-1 min-h-0 overflow-hidden'}>
-            <ActorMilitaryTab actor={actor} iso3={iso3} />
+            <ActorMilitaryTab actor={actor} iso3={iso3} pageScroll={pageScroll} />
           </TabsContent>
         )}
       </IntelTabBar>

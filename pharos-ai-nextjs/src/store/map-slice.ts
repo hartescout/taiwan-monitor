@@ -36,7 +36,7 @@ export type MapState = {
   mapStyle: 'dark' | 'satellite';
 
   // Guard: whether initializeFilters has run
-  _filtersInitialized: boolean;
+  _filtersFingerprint: string | null;
 };
 
 // ─── localStorage persistence ────────────────────────────────────────────────
@@ -113,7 +113,7 @@ function buildInitialState(): MapState {
     selectedItem: null,
     sidebarOpen: persisted?.sidebarOpen ?? true,
     mapStyle:    persisted?.mapStyle    ?? 'dark',
-    _filtersInitialized: false,
+    _filtersFingerprint: null,
   };
 }
 
@@ -130,12 +130,11 @@ const mapSlice = createSlice({
       state.viewState = action.payload;
     },
 
-    // Initialize filters from fetched data (idempotent — no-op if already done)
-    initializeFilters(state, action: PayloadAction<{ initialFilters: SerializableFilterState; dataExtent: [number, number] }>) {
-      if (state._filtersInitialized) return;
-      state._filtersInitialized = true;
-
-      const { initialFilters, dataExtent } = action.payload;
+    // Initialize filters from fetched data (idempotent per data fingerprint)
+    initializeFilters(state, action: PayloadAction<{ initialFilters: SerializableFilterState; dataExtent: [number, number]; fingerprint: string }>) {
+      const { initialFilters, dataExtent, fingerprint } = action.payload;
+      if (state._filtersFingerprint === fingerprint) return;
+      state._filtersFingerprint = fingerprint;
       state.initialFilters = initialFilters;
       state.dataExtent = dataExtent;
 

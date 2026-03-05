@@ -51,11 +51,11 @@ export function StoriesScreen({ stories, activeStory, onBack, onSelectStory }: P
   };
 
   return (
-    <div className="flex flex-col h-full w-full bg-[var(--bg-app)] overflow-hidden" style={{ paddingLeft: 'env(safe-area-inset-left)', paddingRight: 'env(safe-area-inset-right)' }}>
+    <div className="flex flex-col h-full w-full bg-[var(--bg-app)] overflow-hidden">
       <LandscapeHeader title="MAP" onBack={onBack} />
 
       {/* Story count */}
-      <div className="shrink-0 flex items-center gap-2 px-3 py-1.5 border-b border-[var(--bd)] bg-[var(--bg-2)]">
+      <div className="shrink-0 flex items-center gap-2 safe-px py-1.5 border-b border-[var(--bd)] bg-[var(--bg-2)]">
         <span style={{ color: 'var(--blue)', fontWeight: 700, fontSize: 12 }}>◈ STORIES</span>
         <span className="label" style={{
           background: 'var(--bg-3)', color: 'var(--t4)',

@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { SlidersHorizontal, ChevronDown, ChevronUp, X } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown, ChevronUp } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
-import FilterSection from '@/components/map/FilterSection';
 import DatasetDrilldown from '@/components/map/DatasetDrilldown';
 
 import { LAYER_DISPLAY } from '@/data/map-tokens';
@@ -19,6 +18,7 @@ type Props = {
   onToggleDataset: (d: string) => void; onToggleType: (t: string) => void;
   onToggleActor: (a: string) => void; onTogglePriority: (p: string) => void;
   onToggleStatus: (s: string) => void; onToggleHeat: () => void; onReset: () => void;
+  defaultExpanded?: boolean;
 };
 
 function DatasetBtn({ name, isOn, isActive, onToggle, onDrill }: {
@@ -56,8 +56,8 @@ function DatasetBtn({ name, isOn, isActive, onToggle, onDrill }: {
 
 export default function MapFilterPanel(props: Props) {
   const { state, facets, isFiltered } = props;
-  const { onToggleDataset, onToggleType, onToggleActor, onTogglePriority, onToggleStatus, onToggleHeat, onReset } = props;
-  const [expanded, setExpanded] = useState(false);
+  const { onToggleDataset, onToggleType, onToggleActor, onTogglePriority, onToggleStatus, onToggleHeat, onReset, defaultExpanded = false } = props;
+  const [expanded, setExpanded] = useState(defaultExpanded);
   const [drillDataset, setDrillDataset] = useState<string | null>(null);
 
   const heatMeta = LAYER_DISPLAY.heat;
@@ -114,24 +114,24 @@ export default function MapFilterPanel(props: Props) {
 
             <div className="w-px h-3.5 bg-[var(--bd)] mx-0.5 flex-shrink-0" />
 
-            {/* Collapse button */}
-            <Button variant="ghost" size="xs" onClick={() => { setExpanded(false); setDrillDataset(null); }}
-              className="mono rounded-sm px-1 py-0 h-5"
-              style={{ border: '1px solid var(--bd)', background: 'var(--bg-1)', color: 'var(--t4)' }}
-              title="Collapse filters"
-            >
-              <ChevronUp size={8} />
-            </Button>
-
+            <div className="w-px h-3.5 bg-[var(--bd)] mx-0.5 flex-shrink-0" />
             {isFiltered && (
-              <>
-                <div className="w-px h-3.5 bg-[var(--bd)] mx-0.5 flex-shrink-0" />
-                <Button variant="ghost" size="xs" onClick={onReset}
-                  className="mono rounded-sm px-1.5 py-0 h-5 text-[8px] font-bold tracking-wider"
-                  style={{ border: '1px solid var(--danger)', background: 'var(--danger-dim)', color: 'var(--danger)' }}
-                ><X size={8} /></Button>
-              </>
+              <Button variant="ghost" size="xs" onClick={onReset}
+                className="mono rounded-sm px-1.5 py-0 h-5 text-[8px] font-bold tracking-wider"
+                style={{ border: '1px solid var(--danger)', background: 'var(--danger-dim)', color: 'var(--danger)' }}
+              >CLEAR</Button>
             )}
+
+            <Button
+              variant="ghost"
+              size="xs"
+              onClick={() => { setExpanded(false); setDrillDataset(null); }}
+              className="mono rounded-sm px-1.5 py-0 h-5 text-[8px] font-bold tracking-wider"
+              style={{ border: '1px solid var(--bd)', background: 'var(--bg-1)', color: 'var(--t4)' }}
+              title="Close filters"
+            >
+              CLOSE
+            </Button>
           </div>
 
           {/* Per-dataset drilldown */}

@@ -42,18 +42,18 @@ export function ActorList({ selectedId, onSelect, currentDay, onDayChange, compa
 
   return (
     <div className={cn(pageScroll ? 'flex flex-col' : 'flex-1 flex flex-col overflow-hidden')}>
-      <div className={cn('panel-header justify-between', compact && 'h-8 min-h-8 px-3')}>
+      <div className={cn('panel-header justify-between', compact && (pageScroll ? 'h-8 min-h-8 safe-px' : 'h-8 min-h-8 px-3'))}>
         <span className="section-title">Actors</span>
         <Badge variant="outline" className="text-[9px] text-[var(--t4)] border-[var(--bd)]">{sorted.length}</Badge>
       </div>
 
       {/* Day selector */}
-      <div className={cn('px-3 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? 'py-1.5' : 'py-2')}>
+      <div className={cn(pageScroll ? 'safe-px' : 'px-3', 'border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? 'py-1.5' : 'py-2')}>
         <DaySelector currentDay={currentDay} onDayChange={onDayChange} />
       </div>
 
       {/* Column headers */}
-      <div className="grid grid-cols-[1fr_60px_30px] px-3 py-1 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0">
+      <div className={cn('grid grid-cols-[1fr_60px_30px] py-1 border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', pageScroll ? 'safe-px' : 'px-3')}>
         {['ACTOR', 'ACTIVITY', ''].map(h => <span key={h} className="label text-[8px]">{h}</span>)}
       </div>
 
@@ -72,7 +72,8 @@ export function ActorList({ selectedId, onSelect, currentDay, onDayChange, compa
                 variant="ghost"
                 onClick={() => onSelect(isOn ? null : actor.id)}
                 className={cn(
-                  'grid grid-cols-[1fr_60px_30px] gap-0 w-full h-auto px-3 rounded-none justify-start items-center border-b border-[var(--bd-s)]',
+                  'grid grid-cols-[1fr_60px_30px] gap-0 w-full h-auto rounded-none justify-start items-center border-b border-[var(--bd-s)]',
+                  pageScroll ? 'safe-px' : 'px-3',
                   compact ? 'py-1.5' : 'py-2',
                 )}
                 style={{
@@ -130,7 +131,8 @@ export function ActorList({ selectedId, onSelect, currentDay, onDayChange, compa
                 variant="ghost"
                 onClick={() => onSelect(isOn ? null : actor.id)}
                 className={cn(
-                  'grid grid-cols-[1fr_60px_30px] gap-0 w-full h-auto px-3 rounded-none justify-start items-center border-b border-[var(--bd-s)]',
+                  'grid grid-cols-[1fr_60px_30px] gap-0 w-full h-auto rounded-none justify-start items-center border-b border-[var(--bd-s)]',
+                  pageScroll ? 'safe-px' : 'px-3',
                   compact ? 'py-1.5' : 'py-2',
                 )}
                 style={{

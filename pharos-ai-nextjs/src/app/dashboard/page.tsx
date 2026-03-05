@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { SummaryBar } from '@/components/overview/SummaryBar';
 import { WorkspaceDashboard } from '@/components/dashboard/WorkspaceDashboard';
 import { useIsLandscapePhone } from '@/hooks/use-is-landscape-phone';
@@ -14,8 +15,10 @@ export default function OverviewPage() {
       className={`flex flex-col flex-1 min-h-0 bg-[var(--bg-1)] ${isLandscapePhone ? 'overflow-y-auto' : 'overflow-hidden'}`}
       onScroll={isLandscapePhone ? onLandscapeScroll : undefined}
     >
-      <SummaryBar />
-      <WorkspaceDashboard />
+      <Suspense fallback={<div className="flex-1" />}>
+        <SummaryBar />
+        <WorkspaceDashboard />
+      </Suspense>
     </div>
   );
 }

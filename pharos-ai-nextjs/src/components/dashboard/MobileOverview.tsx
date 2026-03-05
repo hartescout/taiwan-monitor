@@ -11,7 +11,7 @@ import { CasChip } from '@/app/dashboard/overview/CasChip';
 import XPostCard from '@/components/shared/XPostCard';
 
 import { useBootstrap } from '@/api/bootstrap';
-import { useConflict, useConflictDays } from '@/api/conflicts';
+import { useConflictDays } from '@/api/conflicts';
 import { useEvents } from '@/api/events';
 import { useActors } from '@/api/actors';
 import { useXPosts } from '@/api/x-posts';
@@ -25,14 +25,13 @@ const SEV_CLS: Record<string, string> = {
 
 export function MobileOverview() {
   const { data: bootstrap } = useBootstrap();
-  const { data: conflict } = useConflict();
   const { data: snapshots } = useConflictDays();
   const { data: allEvents } = useEvents();
   const { data: actors } = useActors();
   const { data: xPosts } = useXPosts();
   const { data: stories = [] } = useMapStories();
 
-  const allDays = bootstrap?.days ?? [];
+  const allDays = useMemo(() => bootstrap?.days ?? [], [bootstrap]);
   const latestDay = allDays[allDays.length - 1] ?? '';
   const snap = snapshots ? getConflictForDay(snapshots, latestDay) : null;
 
@@ -56,11 +55,11 @@ export function MobileOverview() {
   const critCount = recentEvents.filter(e => e.severity === 'CRITICAL').length;
 
   return (
-    <div className="flex-1 min-h-0 overflow-y-auto bg-[var(--bg-1)]">
+    <div className="flex-1 min-h-0 overflow-y-auto bg-[var(--bg-1)] safe-pb">
 
       {/* ── Situation summary ── */}
       {snap && (
-        <div className="px-4 py-3 border-b border-[var(--bd)]">
+        <div className="safe-px py-3 border-b border-[var(--bd)]">
           <div className="mono text-[8px] text-[var(--t4)] tracking-[0.10em] mb-1">
             {snap.dayLabel} — SITUATION
           </div>
@@ -86,7 +85,7 @@ export function MobileOverview() {
 
       {/* ── GO TO MAP hero ── */}
       <Link href="/dashboard/map" className="no-underline">
-        <div className="mx-3 my-3 px-4 py-4 bg-[var(--blue-dim)] border border-[var(--blue)] flex items-center justify-between">
+        <div className="safe-px my-3 py-4 bg-[var(--blue-dim)] border border-[var(--blue)] flex items-center justify-between">
           <div className="flex items-center gap-3">
             <MapIcon size={20} strokeWidth={2} className="text-[var(--blue-l)]" />
             <div>
@@ -99,7 +98,7 @@ export function MobileOverview() {
       </Link>
 
       {/* ── Quick stats ── */}
-      <div className="grid grid-cols-4 gap-px mx-3 mb-3 bg-[var(--bd)]">
+      <div className="grid grid-cols-4 gap-px safe-px mb-3 bg-[var(--bd)]">
         {[
           { label: 'EVENTS', val: totalEvents, icon: Zap, color: 'var(--blue)' },
           { label: 'CRITICAL', val: critCount, icon: Zap, color: 'var(--danger)' },
@@ -115,7 +114,7 @@ export function MobileOverview() {
 
       {/* ── Latest events ── */}
       <div className="border-t border-[var(--bd)]">
-        <div className="flex items-center justify-between px-4 py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
+        <div className="flex items-center justify-between safe-px py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
           <span className="section-title">Latest Events</span>
           <Link href="/dashboard/feed" className="no-underline flex items-center gap-1">
             <span className="mono text-[9px] text-[var(--blue-l)] font-bold">See all</span>
@@ -127,7 +126,7 @@ export function MobileOverview() {
           return (
             <Link key={evt.id} href={`/dashboard/feed?event=${evt.id}`} className="no-underline">
               <div
-                className="flex gap-2.5 items-start px-4 py-2 hover:bg-[var(--bg-3)] transition-colors"
+                className="flex gap-2.5 items-start safe-px py-2 hover:bg-[var(--bg-3)] transition-colors"
                 style={{
                   borderBottom: i < recentEvents.length - 1 ? '1px solid var(--bd-s)' : 'none',
                   borderLeft: `3px solid ${sc}`,
@@ -151,7 +150,7 @@ export function MobileOverview() {
       {/* ── Active stories ── */}
       {stories.length > 0 && (
         <div className="border-t border-[var(--bd)] mt-0">
-          <div className="flex items-center justify-between px-4 py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
+          <div className="flex items-center justify-between safe-px py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
             <span className="section-title">Active Stories</span>
             <Link href="/dashboard/map" className="no-underline flex items-center gap-1">
               <span className="mono text-[9px] text-[var(--blue-l)] font-bold">Map</span>
@@ -167,7 +166,7 @@ export function MobileOverview() {
             return (
               <Link key={story.id} href="/dashboard/map" className="no-underline">
                 <div
-                  className="flex gap-2.5 items-start px-4 py-2.5 hover:bg-[var(--bg-3)] transition-colors"
+                  className="flex gap-2.5 items-start safe-px py-2.5 hover:bg-[var(--bg-3)] transition-colors"
                   style={{
                     borderBottom: i < 2 ? '1px solid var(--bd-s)' : 'none',
                     borderLeft: `3px solid ${c}`,
@@ -197,14 +196,14 @@ export function MobileOverview() {
       {/* ── Breaking signals ── */}
       {breakingSignals.length > 0 && (
         <div className="border-t border-[var(--bd)]">
-          <div className="flex items-center justify-between px-4 py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
+          <div className="flex items-center justify-between safe-px py-2 bg-[var(--bg-2)] border-b border-[var(--bd)]">
             <span className="section-title">Breaking Signals</span>
             <Link href="/dashboard/signals" className="no-underline flex items-center gap-1">
               <span className="mono text-[9px] text-[var(--blue-l)] font-bold">All signals</span>
               <ArrowRight size={10} className="text-[var(--blue-l)]" />
             </Link>
           </div>
-          <div className="px-3 py-2">
+          <div className="safe-px py-2">
             {breakingSignals.map(p => (
               <XPostCard key={p.id} post={p as XPost} compact />
             ))}
@@ -213,7 +212,7 @@ export function MobileOverview() {
       )}
 
       {/* ── Nav links to other pages ── */}
-      <div className="border-t border-[var(--bd)] px-3 py-3">
+      <div className="border-t border-[var(--bd)] safe-px py-3">
         <div className="grid grid-cols-2 gap-2">
           {[
             { href: '/dashboard/actors', label: 'ACTORS', icon: Users, color: 'var(--teal)' },

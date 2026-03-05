@@ -20,23 +20,27 @@ const ITEMS: LegendItem[] = [
   { shape: 'zone',   color: 'var(--warning)', label: 'PATROL / NFZ'       },
 ];
 
-type Props = { hasPanel: boolean; timelineVisible?: boolean };
+type Props = { hasPanel: boolean; timelineVisible?: boolean; isMobile?: boolean };
 
-export default function MapLegend({ hasPanel, timelineVisible = true }: Props) {
-  const bottom = timelineVisible ? 56 : 12;
+export default function MapLegend({ hasPanel, timelineVisible = true, isMobile = false }: Props) {
+  const bottom = isMobile
+    ? (timelineVisible ? 'calc(126px + var(--safe-bottom))' : 'calc(12px + var(--safe-bottom))')
+    : (timelineVisible ? 56 : 12);
+  const left: number | string = isMobile ? 'max(12px, var(--safe-left))' : 12;
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   return (
     <div style={{
       position:      'absolute',
       bottom,
-      left:          12,
+      left,
       background:    'rgba(28,33,39,0.92)',
       border:        '1px solid var(--bd)',
       borderRadius:  2,
       padding:       isCollapsed ? '0' : '10px 12px',
       transition:    'opacity 0.2s',
       opacity:       hasPanel ? 0.4 : 1,
+      zIndex:        22,
     }}>
       <button
         onClick={() => setIsCollapsed(v => !v)}

@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function MapControls({ viewState, mapStyle, hasPanel, timelineVisible = true, isMobile = false, onStyleChange }: Props) {
-  const right = isMobile ? 12 : (hasPanel ? 332 : 12);
+  const right: number | string = isMobile ? 'max(12px, var(--safe-right))' : (hasPanel ? 332 : 12);
   const bottomOffset = timelineVisible ? 0 : -44;
   const coordBottom = isMobile ? 64 + bottomOffset : 56 + bottomOffset;
   const switcherBottom = isMobile ? 94 + bottomOffset : 86 + bottomOffset;

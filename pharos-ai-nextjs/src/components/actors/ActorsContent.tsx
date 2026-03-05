@@ -1,7 +1,6 @@
 'use client';
 
-import { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useMemo, useState } from 'react';
 import { Users, ArrowLeft } from 'lucide-react';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
@@ -17,8 +16,10 @@ import { EmptyState } from '@/components/shared/EmptyState';
 import { DaySelector } from '@/components/shared/DaySelector';
 
 export function ActorsContent() {
-  const searchParams = useSearchParams();
-  const initActor    = searchParams.get('actor');
+  const initActor = useMemo(() => {
+    if (typeof window === 'undefined') return null;
+    return new URLSearchParams(window.location.search).get('actor');
+  }, []);
   const { currentDay, setDay } = useConflictDay();
   const isMobile = useIsMobile(1024);
   const isLandscapePhone = useIsLandscapePhone();
