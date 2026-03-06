@@ -4,7 +4,9 @@ import { useEffect } from 'react';
 
 function updateAppHeightVar() {
   if (typeof document === 'undefined' || typeof window === 'undefined') return;
-  const vh = window.visualViewport?.height ?? window.innerHeight;
+  const vv = window.visualViewport;
+  // When pinch-zoomed (scale > 1), visualViewport.height shrinks — use innerHeight instead
+  const vh = vv && vv.scale <= 1 ? vv.height : window.innerHeight;
   document.documentElement.style.setProperty('--app-height', `${Math.round(vh)}px`);
 }
 
