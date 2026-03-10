@@ -1,0 +1,82 @@
+'use client';
+
+import { useMemo } from 'react';
+
+import Link from 'next/link';
+
+import { useEvents } from '@/features/events/queries';
+
+import { timeAgo } from '@/shared/lib/format';
+
+const HOURS_32 = 32 * 60 * 60 * 1000;
+
+export function CriticalTimeline() {
+  const { data: events, dataUpdatedAt } = useEvents(undefined, { severity: 'CRITICAL' });
+
+  const all = events ?? [];
+
+  // dataUpdatedAt changes only when the query refetches, making this stable
+  const { isRecent, items } = useMemo(() => {
+    const cutoff = Date.now() - HOURS_32;
+    const recent = all.filter(
+      (e) => new Date(e.timestamp).getTime() >= cutoff,
+    );
+    const hasRecent = recent.length > 0;
+    return { isRecent: hasRecent, items: hasRecent ? recent : all.slice(0, 10) };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataUpdatedAt]);
+
+  return (
+    <aside className="w-48 shrink-0 p-4 overflow-y-auto">
+      <h2 className="label mb-4 tracking-widest">
+        {isRecent ? 'CRITICAL · 32H' : 'CRITICAL · LATEST'}
+      </h2>
+
+      {items.length === 0 ? (
+        <p className="text-[11px] text-[var(--t4)]">No critical events</p>
+      ) : (
+        <ol className="relative list-none">
+          {items.map((event, i) => {
+            const isFirst = i === 0;
+            const isLast = i === items.length - 1;
+
+            return (
+              <li key={event.id} className="relative pl-5 pb-5 last:pb-0">
+                {/* Connecting line */}
+                {!isLast && (
+                  <span
+                    className="absolute left-[3.5px] top-[10px] bottom-0 w-px"
+                    style={{ background: 'var(--danger-bd)' }}
+                  />
+                )}
+
+                {/* Dot */}
+                <span
+                  className="absolute left-0 top-[1px] size-2 rounded-full"
+                  style={{
+                    background: 'var(--danger)',
+                    boxShadow:
+                      '0 0 6px var(--danger), 0 0 12px var(--danger-dim)',
+                    animation: isFirst ? 'pulse-danger 2s ease-in-out infinite' : undefined,
+                  }}
+                />
+
+                <Link
+                  href={`/browse/events/${event.id}`}
+                  className="block no-underline group"
+                >
+                  <time className="mono text-[10px] text-[var(--t4)]">
+                    {timeAgo(event.timestamp)}
+                  </time>
+                  <p className="text-[11px] text-[var(--t2)] line-clamp-2 group-hover:text-[var(--t1)] transition-colors">
+                    {event.title}
+                  </p>
+                </Link>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+    </aside>
+  );
+}
