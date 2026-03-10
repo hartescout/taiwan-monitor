@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { publicConflictId } from '@/shared/lib/env';
 import { fmtDate } from '@/shared/lib/format';
 import { prisma } from '@/server/lib/db';
@@ -8,7 +10,7 @@ const CONFLICT_ID = publicConflictId;
 
 export const PAGE_SIZE = 20;
 
-export async function getEvents(filters?: BrowseEventFilters) {
+export const getEvents = cache(async (filters?: BrowseEventFilters) => {
   const where: Record<string, unknown> = { conflictId: CONFLICT_ID };
 
   if (filters?.severity?.length) {
@@ -51,9 +53,9 @@ export async function getEvents(filters?: BrowseEventFilters) {
     })),
     total,
   };
-}
+});
 
-export async function getEvent(eventId: string) {
+export const getEvent = cache(async (eventId: string) => {
   const row = await prisma.intelEvent.findFirst({
     where: { id: eventId, conflictId: CONFLICT_ID },
     include: {
@@ -67,8 +69,10 @@ export async function getEvent(eventId: string) {
   return {
     ...row,
     timestamp: row.timestamp.toISOString(),
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
   };
-}
+});
 
 export async function getEventDates(): Promise<Set<string>> {
   const rows = await prisma.intelEvent.findMany({
@@ -78,7 +82,7 @@ export async function getEventDates(): Promise<Set<string>> {
   return new Set(rows.map((r) => fmtDate(r.timestamp.toISOString())));
 }
 
-export async function getXPostsByEvent(eventId: string) {
+export const getXPostsByEvent = cache(async (eventId: string) => {
   const rows = await prisma.xPost.findMany({
     where: { conflictId: CONFLICT_ID, eventId },
     orderBy: { timestamp: 'desc' },
@@ -94,4 +98,4 @@ export async function getXPostsByEvent(eventId: string) {
     actorCssVar: r.actor?.cssVar ?? null,
     actorColorRgb: r.actor?.colorRgb ?? [],
   }));
-}
+});

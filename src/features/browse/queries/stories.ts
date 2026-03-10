@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { publicConflictId } from '@/shared/lib/env';
 import { prisma } from '@/server/lib/db';
 
@@ -5,7 +7,7 @@ const CONFLICT_ID = publicConflictId;
 
 export const STORY_PAGE_SIZE = 10;
 
-export async function getStories(page = 1) {
+export const getStories = cache(async (page = 1) => {
   const where = { conflictId: CONFLICT_ID };
 
   const [rows, total] = await Promise.all([
@@ -41,9 +43,9 @@ export async function getStories(page = 1) {
     })),
     total,
   };
-}
+});
 
-export async function getStory(storyId: string) {
+export const getStory = cache(async (storyId: string) => {
   const row = await prisma.mapStory.findFirst({
     where: { id: storyId, conflictId: CONFLICT_ID },
     include: {
@@ -56,5 +58,7 @@ export async function getStory(storyId: string) {
   return {
     ...row,
     timestamp: row.timestamp.toISOString(),
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
   };
-}
+});

@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { publicConflictId } from '@/shared/lib/env';
 import { fmtDate } from '@/shared/lib/format';
 import { prisma } from '@/server/lib/db';
@@ -6,7 +8,7 @@ import { PAGE_SIZE } from './events';
 
 const CONFLICT_ID = publicConflictId;
 
-export async function getBriefs(filters?: { page?: number }) {
+export const getBriefs = cache(async (filters?: { page?: number }) => {
   const where = { conflictId: CONFLICT_ID };
   const page = Math.max(1, filters?.page ?? 1);
 
@@ -35,9 +37,9 @@ export async function getBriefs(filters?: { page?: number }) {
     })),
     total,
   };
-}
+});
 
-export async function getBrief(day: string) {
+export const getBrief = cache(async (day: string) => {
   const date = new Date(day + 'T00:00:00Z');
 
   const row = await prisma.conflictDaySnapshot.findFirst({
@@ -54,5 +56,7 @@ export async function getBrief(day: string) {
   return {
     ...row,
     day: fmtDate(row.day.toISOString()),
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
   };
-}
+});

@@ -3,6 +3,15 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { StoryArticle } from '@/features/browse/components/StoryArticle';
+import { StructuredData } from '@/features/browse/components/StructuredData';
+import {
+  buildDescription,
+  buildDetailMetadata,
+} from '@/features/browse/lib/seo';
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbJsonLd,
+} from '@/features/browse/lib/structured-data';
 import { getStory } from '@/features/browse/queries';
 
 type Props = {
@@ -12,25 +21,44 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const story = await getStory(id);
-  if (!story) return { title: 'Story not found' };
+  if (!story) return { title: { absolute: 'Story not found | Conflicts.app | Pharos' } };
 
-  return {
-    title: `${story.title} — Conflict Narrative`,
-    description: story.narrative.slice(0, 160),
-    openGraph: {
-      title: `${story.title} — PHAROS Conflict Narrative`,
-      description: story.narrative.slice(0, 160),
-      url: `https://www.conflicts.app/browse/stories/${id}`,
-    },
-    alternates: { canonical: `https://www.conflicts.app/browse/stories/${id}` },
-  };
+  const description = buildDescription(`${story.tagline} ${story.narrative}`);
+  return buildDetailMetadata({
+    title: `${story.title} - Iran Conflict Story`,
+    description,
+    path: `/browse/stories/${id}`,
+    image: { alt: `${story.title} story on Conflicts.app` },
+  });
 }
 
 export default async function BrowseStoryPage({ params }: Props) {
   const { id } = await params;
   const story = await getStory(id);
-
   if (!story) notFound();
 
-  return <StoryArticle story={story} />;
+  const description = buildDescription(`${story.tagline} ${story.narrative}`);
+  const jsonLd = [
+    buildBreadcrumbJsonLd([
+      { name: 'Browse', path: '/browse' },
+      { name: 'Stories', path: '/browse/stories' },
+      { name: story.title, path: `/browse/stories/${id}` },
+    ]),
+    buildArticleJsonLd({
+      headline: story.title,
+      description,
+      path: `/browse/stories/${id}`,
+      datePublished: story.timestamp,
+      dateModified: story.updatedAt,
+      articleSection: 'Stories',
+      keywords: story.keyFacts,
+    }),
+  ];
+
+  return (
+    <>
+      <StructuredData data={jsonLd} />
+      <StoryArticle story={story} />
+    </>
+  );
 }

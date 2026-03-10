@@ -3,6 +3,15 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { EventArticle } from '@/features/browse/components/EventArticle';
+import { StructuredData } from '@/features/browse/components/StructuredData';
+import {
+  buildDescription,
+  buildDetailMetadata,
+} from '@/features/browse/lib/seo';
+import {
+  buildArticleJsonLd,
+  buildBreadcrumbJsonLd,
+} from '@/features/browse/lib/structured-data';
 import { getEvent, getXPostsByEvent } from '@/features/browse/queries';
 
 type Props = {
@@ -12,27 +21,20 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const event = await getEvent(id);
-  if (!event) return { title: 'Event not found' };
+  if (!event) return { title: { absolute: 'Event not found | Conflicts.app | Pharos' } };
 
-  return {
-    title: event.title,
-    description: event.summary,
-    openGraph: {
-      title: `${event.title} — PHAROS`,
-      description: event.summary,
-      url: `https://www.conflicts.app/browse/events/${id}`,
-    },
-    alternates: { canonical: `https://www.conflicts.app/browse/events/${id}` },
-  };
+  const description = buildDescription(`${event.summary} ${event.location}. ${event.type} event in the Iran conflict.`);
+  return buildDetailMetadata({
+    title: `${event.title} - Iran Conflict Event`,
+    description,
+    path: `/browse/events/${id}`,
+    image: { alt: `${event.title} on Conflicts.app` },
+  });
 }
 
 export default async function BrowseEventPage({ params }: Props) {
   const { id } = await params;
-  const [event, xPosts] = await Promise.all([
-    getEvent(id),
-    getXPostsByEvent(id),
-  ]);
-
+  const [event, xPosts] = await Promise.all([getEvent(id), getXPostsByEvent(id)]);
   if (!event) notFound();
 
   const signals = xPosts.map((p) => ({
@@ -47,5 +49,27 @@ export default async function BrowseEventPage({ params }: Props) {
     pharosNote: p.pharosNote,
   }));
 
-  return <EventArticle event={event} signals={signals} />;
+  const jsonLd = [
+    buildBreadcrumbJsonLd([
+      { name: 'Browse', path: '/browse' },
+      { name: 'Events', path: '/browse/events' },
+      { name: event.title, path: `/browse/events/${id}` },
+    ]),
+    buildArticleJsonLd({
+      headline: event.title,
+      description: buildDescription(event.summary),
+      path: `/browse/events/${id}`,
+      datePublished: event.timestamp,
+      dateModified: event.updatedAt,
+      articleSection: 'Events',
+      keywords: event.tags,
+    }),
+  ];
+
+  return (
+    <>
+      <StructuredData data={jsonLd} />
+      <EventArticle event={event} signals={signals} />
+    </>
+  );
 }

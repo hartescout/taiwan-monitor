@@ -3,6 +3,15 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 import { BriefArticle } from '@/features/browse/components/BriefArticle';
+import { StructuredData } from '@/features/browse/components/StructuredData';
+import {
+  buildDescription,
+  buildDetailMetadata,
+} from '@/features/browse/lib/seo';
+import {
+  buildBreadcrumbJsonLd,
+  buildReportJsonLd,
+} from '@/features/browse/lib/structured-data';
 import { getBrief } from '@/features/browse/queries';
 
 type Props = {
@@ -12,25 +21,43 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { day } = await params;
   const brief = await getBrief(day);
-  if (!brief) return { title: 'Brief not found' };
+  if (!brief) return { title: { absolute: 'Brief not found | Conflicts.app | Pharos' } };
 
-  return {
-    title: `${brief.dayLabel} — Daily Brief`,
-    description: brief.summary.slice(0, 160),
-    openGraph: {
-      title: `${brief.dayLabel} — PHAROS Daily Brief`,
-      description: brief.summary.slice(0, 160),
-      url: `https://www.conflicts.app/browse/brief/${day}`,
-    },
-    alternates: { canonical: `https://www.conflicts.app/browse/brief/${day}` },
-  };
+  const description = buildDescription(`${brief.dayLabel}. ${brief.summary} Escalation score ${brief.escalation}/100.`);
+  return buildDetailMetadata({
+    title: `${brief.dayLabel} - Iran Conflict Daily Brief`,
+    description,
+    path: `/browse/brief/${day}`,
+    image: { alt: `${brief.dayLabel} daily brief on Conflicts.app` },
+  });
 }
 
 export default async function BrowseBriefDayPage({ params }: Props) {
   const { day } = await params;
   const brief = await getBrief(day);
-
   if (!brief) notFound();
 
-  return <BriefArticle brief={brief} />;
+  const description = buildDescription(`${brief.dayLabel}. ${brief.summary} Escalation score ${brief.escalation}/100.`);
+  const publishedAt = `${brief.day}T00:00:00.000Z`;
+  const jsonLd = [
+    buildBreadcrumbJsonLd([
+      { name: 'Browse', path: '/browse' },
+      { name: 'Briefs', path: '/browse/brief' },
+      { name: brief.dayLabel, path: `/browse/brief/${day}` },
+    ]),
+    buildReportJsonLd({
+      headline: `${brief.dayLabel} - Iran Conflict Daily Brief`,
+      description,
+      path: `/browse/brief/${day}`,
+      datePublished: publishedAt,
+      dateModified: brief.updatedAt,
+    }),
+  ];
+
+  return (
+    <>
+      <StructuredData data={jsonLd} />
+      <BriefArticle brief={brief} />
+    </>
+  );
 }

@@ -1,3 +1,5 @@
+import { cache } from 'react';
+
 import { publicConflictId } from '@/shared/lib/env';
 import { prisma } from '@/server/lib/db';
 
@@ -11,7 +13,7 @@ type ActorFilters = {
   page?: number;
 };
 
-export async function getActors(filters?: ActorFilters) {
+export const getActors = cache(async (filters?: ActorFilters) => {
   const where: Record<string, unknown> = { conflictId: CONFLICT_ID };
 
   if (filters?.type?.length) {
@@ -49,9 +51,9 @@ export async function getActors(filters?: ActorFilters) {
   ]);
 
   return { actors: rows, total };
-}
+});
 
-export async function getActor(actorId: string) {
+export const getActor = cache(async (actorId: string) => {
   const row = await prisma.actor.findFirst({
     where: { id: actorId, conflictId: CONFLICT_ID },
     include: {
@@ -68,6 +70,8 @@ export async function getActor(actorId: string) {
 
   return {
     ...row,
+    createdAt: row.createdAt.toISOString(),
+    updatedAt: row.updatedAt.toISOString(),
     responses: row.responses.map((r) => ({
       ...r,
       event: r.event
@@ -75,4 +79,4 @@ export async function getActor(actorId: string) {
         : null,
     })),
   };
-}
+});
