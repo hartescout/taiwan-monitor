@@ -20,10 +20,10 @@ export function XPostCard({ post, compact }: Props) {
     <div className="card mb-2" style={{ borderLeft: `3px solid ${border}` }}>
 
       {hasEmbed ? (
-        <div className="grid grid-cols-[1fr_1fr] min-h-0 min-w-0 overflow-hidden">
+        <div className="grid h-[min(78vh,760px)] min-h-[640px] min-w-0 grid-cols-1 grid-rows-[minmax(0,1fr)_minmax(0,1fr)] overflow-hidden lg:h-auto lg:min-h-0 lg:grid-cols-[1fr_1fr] lg:grid-rows-1">
           <div
             data-theme="dark"
-            className="border-r border-[var(--bd-s)] px-1 py-2 [&_>_div]:!my-0 overflow-hidden"
+            className="min-h-0 overflow-y-auto border-b border-[var(--bd-s)] px-1 py-2 [&_>_div]:!my-0 lg:border-r lg:border-b-0"
           >
             <div className="flex items-center gap-1 px-2 pb-1.5">
               <span className="mono text-[8px] text-[var(--t4)] tracking-[0.08em]">ORIGINAL</span>
@@ -33,7 +33,7 @@ export function XPostCard({ post, compact }: Props) {
             </Suspense>
           </div>
 
-          <div className="flex min-w-0 flex-col overflow-hidden">
+          <div className="flex min-h-0 min-w-0 flex-col overflow-y-auto">
             <div className="flex items-center gap-1 px-3 py-1.5">
               <span className="mono text-[8px] text-[var(--blue-l)] tracking-[0.08em]">PHAROS INTEL</span>
             </div>
