@@ -38,7 +38,7 @@ All config lives in `~/.openclaw/openclaw.json` inside the container
 {
   agents: {
     defaults: {
-      model: { primary: "anthropic/claude-opus-4-6" },
+      model: { primary: "anthropic/claude-sonnet-4-6" },
       skipBootstrap: true,
       userTimezone: "Europe/Stockholm",
       timeFormat: "24",
