@@ -6,8 +6,6 @@
 
 :root {
   --app-height: 100vh;
-  --app-height-mobile: 100vh;
-  --app-shell-height: var(--app-height);
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-right: env(safe-area-inset-right, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -146,8 +144,6 @@
   @supports (height: 100dvh) {
     :root {
       --app-height: 100dvh;
-      --app-height-mobile: 100dvh;
-      --app-shell-height: 100dvh;
     }
   }
 
@@ -199,9 +195,29 @@
   /* Layout */
   .layout-fill { display: flex; flex: 1 1 0%; min-height: 0; overflow: hidden; }
   .layout-col  { display: flex; flex-direction: column; }
+  .app-shell {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    overflow: visible;
+  }
   .safe-px { padding-left: max(12px, var(--safe-left)); padding-right: max(12px, var(--safe-right)); }
   .safe-pt { padding-top: var(--safe-top); }
   .safe-pb { padding-bottom: var(--safe-bottom); }
+
+  @supports (min-height: 100dvh) {
+    .app-shell {
+      min-height: 100dvh;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .app-shell {
+      min-height: 0;
+      height: var(--app-height);
+      overflow: hidden;
+    }
+  }
 
   /* Panel primitives */
   .panel {
