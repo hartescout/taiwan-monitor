@@ -17,6 +17,7 @@ import { useConflict } from '@/features/dashboard/queries/conflicts';
 import { useEvents } from '@/features/events/queries';
 
 import { fmtDate } from '@/shared/lib/format';
+import { useHorizontalWheelScroll } from '@/shared/hooks/use-horizontal-wheel-scroll';
 import { useIsLandscapePhone } from '@/shared/hooks/use-is-landscape-phone';
 import { useIsMobile } from '@/shared/hooks/use-is-mobile';
 import { useLandscapeHeaderVisibility } from '@/shared/hooks/use-landscape-header-visibility';
@@ -43,6 +44,7 @@ export function Header() {
   const isLandscapeNonMap = isLandscapePhone && !path.startsWith('/dashboard/map');
   const landscapeAutoHideEnabled = isLandscapeNonMap && path !== '/dashboard' && path !== '/dashboard/data';
   const showLandscapeHeader = useLandscapeHeaderVisibility(landscapeAutoHideEnabled, path);
+  const desktopNavRef = useHorizontalWheelScroll<HTMLElement>();
 
   if (isLandscapeNonMap && !showLandscapeHeader) return null;
 
@@ -162,6 +164,7 @@ export function Header() {
 
           {/* ── Nav tabs ── */}
           <nav
+            ref={desktopNavRef}
             className="flex items-stretch h-full flex-1 overflow-x-auto touch-scroll hide-scrollbar"
             style={{ WebkitAppRegion: 'no-drag' } as React.CSSProperties}
           >
