@@ -1,5 +1,5 @@
 'use client';
-import Link           from 'next/link';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 import { Github, Heart, MoreHorizontal } from 'lucide-react';
@@ -16,10 +16,12 @@ import { useBootstrap } from '@/features/dashboard/queries';
 import { useConflict } from '@/features/dashboard/queries/conflicts';
 import { useEvents } from '@/features/events/queries';
 
-import { fmtDate }    from '@/shared/lib/format';
+import { fmtDate } from '@/shared/lib/format';
 import { useIsLandscapePhone } from '@/shared/hooks/use-is-landscape-phone';
 import { useIsMobile } from '@/shared/hooks/use-is-mobile';
 import { useLandscapeHeaderVisibility } from '@/shared/hooks/use-landscape-header-visibility';
+
+import { GITHUB_URL, KOFI_URL } from '@/data/external-links';
 
 const NAV = [
   { label: 'OVERVIEW',    href: '/dashboard'              },
@@ -30,9 +32,6 @@ const NAV = [
   { label: 'MAP',         href: '/dashboard/map'          },
   { label: 'DATA',        href: '/dashboard/data'          },
 ];
-
-const GITHUB_URL = 'https://github.com/Juliusolsson05/pharos-ai';
-const KOFI_URL = 'https://ko-fi.com/pharosai';
 
 export function Header() {
   const path = usePathname();
@@ -81,6 +80,15 @@ export function Header() {
             </Link>
             <div className="flex items-center gap-2 min-w-0 shrink-0">
               <span className="mono text-[8px] text-[var(--t4)] truncate">{displayDate} · UTC</span>
+              <Button
+                variant="ghost"
+                asChild
+                className="h-6 shrink-0 rounded border border-[var(--blue)] bg-[var(--blue-dim)] px-1.5 text-[var(--blue-l)] hover:bg-[var(--blue)] hover:text-[var(--t1)]"
+              >
+                <a href={KOFI_URL} target="_blank" rel="noopener noreferrer" aria-label="Support Pharos server costs on Ko-fi">
+                  <Heart size={11} fill="currentColor" strokeWidth={0} />
+                </a>
+              </Button>
               <Button
                 variant="ghost"
                 asChild
@@ -190,26 +198,32 @@ export function Header() {
               {displayDate} · UTC
             </span>
 
-            <a
-              href={KOFI_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-2 py-1 rounded border border-[var(--blue)] bg-[var(--blue-dim)] text-[var(--blue-l)] hover:bg-[var(--blue)] hover:text-[var(--t1)] transition-colors"
-              title="Help cover hosting and data infrastructure"
+            <Button
+              variant="ghost"
+              asChild
+              className="h-auto rounded border border-[var(--blue)] bg-[var(--blue-dim)] px-2 py-1 text-[var(--blue-l)] hover:bg-[var(--blue)] hover:text-[var(--t1)]"
             >
-              <Heart size={12} fill="currentColor" strokeWidth={0} />
-              <span className="mono text-[10px] font-bold tracking-[0.04em]">SUPPORT SERVER COSTS</span>
-            </a>
+              <a
+                href={KOFI_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Help cover hosting and data infrastructure"
+              >
+                <Heart size={12} fill="currentColor" strokeWidth={0} />
+                <span className="mono text-[10px] font-bold tracking-[0.04em]">SUPPORT SERVER COSTS</span>
+              </a>
+            </Button>
 
-            <a
-              href={GITHUB_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-2 py-1 rounded bg-[var(--t1)] text-[var(--bg-app)] hover:bg-[var(--t2)] transition-colors"
+            <Button
+              variant="ghost"
+              asChild
+              className="h-auto rounded bg-[var(--t1)] px-2 py-1 text-[var(--bg-app)] hover:bg-[var(--t2)] hover:text-[var(--bg-app)]"
             >
-              <Github size={13} fill="currentColor" strokeWidth={0} />
-              <span className="mono text-[10px] font-bold tracking-[0.04em] text-[var(--bg-app)]">STAR</span>
-            </a>
+              <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+                <Github size={13} fill="currentColor" strokeWidth={0} />
+                <span className="mono text-[10px] font-bold tracking-[0.04em] text-[var(--bg-app)]">STAR</span>
+              </a>
+            </Button>
           </div>
         </div>
       )}
