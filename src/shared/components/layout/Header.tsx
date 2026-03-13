@@ -2,7 +2,7 @@
 import Link           from 'next/link';
 import { usePathname } from 'next/navigation';
 
-import { Github, MoreHorizontal } from 'lucide-react';
+import { Github, Heart, MoreHorizontal } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +32,7 @@ const NAV = [
 ];
 
 const GITHUB_URL = 'https://github.com/Juliusolsson05/pharos-ai';
+const KOFI_URL = 'https://ko-fi.com/pharosai';
 
 export function Header() {
   const path = usePathname();
@@ -189,7 +190,17 @@ export function Header() {
               {displayDate} · UTC
             </span>
 
-            {/* GitHub link */}
+            <a
+              href={KOFI_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-2 py-1 rounded border border-[var(--blue)] bg-[var(--blue-dim)] text-[var(--blue-l)] hover:bg-[var(--blue)] hover:text-[var(--t1)] transition-colors"
+              title="Help cover hosting and data infrastructure"
+            >
+              <Heart size={12} fill="currentColor" strokeWidth={0} />
+              <span className="mono text-[10px] font-bold tracking-[0.04em]">SUPPORT SERVER COSTS</span>
+            </a>
+
             <a
               href={GITHUB_URL}
               target="_blank"
