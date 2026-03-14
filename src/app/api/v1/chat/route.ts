@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server';
 
 import { err, ok } from '@/server/lib/api-utils';
-import { appendChatMessage,clearCurrentChatSession, getOrCreateChatSession, listChatMessages } from '@/server/lib/chat/sessions';
+import { appendChatMessage, clearCurrentChatSession, getOrCreateChatSession, listChatMessages } from '@/server/lib/chat/sessions';
 import { resolveAnonymousVisitor } from '@/server/lib/chat/visitor';
 import { prisma } from '@/server/lib/db';
 import { createChatStream } from '@/server/lib/rag/chat-engine';
