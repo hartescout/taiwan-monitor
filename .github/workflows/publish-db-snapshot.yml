@@ -1,0 +1,40 @@
+name: Publish DB Snapshot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Postgres client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build snapshot artifacts
+        env:
+          PUBLIC_SNAPSHOT_DATABASE_URL: ${{ secrets.PUBLIC_SNAPSHOT_DATABASE_URL }}
+        run: npm run db:snapshot:publish
+
+      - name: Ensure snapshot release exists
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: gh release view db-snapshot-latest || gh release create db-snapshot-latest --title "Latest DB Snapshot" --notes "Public onboarding snapshot for local setup."
+
+      - name: Upload latest snapshot assets
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: gh release upload db-snapshot-latest temp/db-snapshots/pharos-db-snapshot.dump temp/db-snapshots/pharos-db-snapshot.json --clobber
