@@ -36,6 +36,17 @@ Named after the [Lighthouse of Alexandria](https://en.wikipedia.org/wiki/Lightho
 
 Next.js 16 · React 19 · TypeScript · DeckGL · MapLibre · Prisma 7 · PostgreSQL · Tailwind CSS · Vercel
 
+## Local setup
+
+```bash
+cp .env.local.example .env.local
+npm install
+npm run setup
+npm run dev
+```
+
+`npm run setup` restores the latest public onboarding snapshot when available, then falls back to the deterministic seed dataset if the snapshot cannot be downloaded.
+
 ## Open-source scope
 
 Pharos is being open-sourced in stages. This repository currently includes the application layer — the dashboard, interface, and supporting app code.

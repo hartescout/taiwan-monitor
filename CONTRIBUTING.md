@@ -25,15 +25,21 @@ Thanks for your interest in contributing. This document covers the setup process
 
    Fill in the required values. At minimum you need `DATABASE_URL` pointing to your local Postgres (the next step provides defaults).
 
-3. **Run the setup script**
+3. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+4. **Run the setup script**
 
    ```bash
    npm run setup
    ```
 
-   This single command starts a local PostgreSQL 16 container, installs dependencies, applies all database migrations, and seeds the database with sample conflict data.
+   This command starts local PostgreSQL, applies all tracked migrations, tries to restore the latest public onboarding snapshot, and falls back to the deterministic seed if the snapshot is unavailable.
 
-4. **Start the dev server**
+5. **Start the dev server**
 
    ```bash
    npm run dev
@@ -81,6 +87,14 @@ If your change requires a schema modification:
 4. CI will verify the migration applies cleanly to a fresh database
 
 Never use `prisma db push` for changes that need to be tracked. Always create a proper migration.
+
+## Snapshot-backed onboarding
+
+Public onboarding snapshots are documented in [`docs/database/SNAPSHOTS.md`](docs/database/SNAPSHOTS.md).
+
+- `npm run db:bootstrap` restores the latest public snapshot into local Docker Postgres
+- `npm run db:seed` remains the offline-safe fallback path
+- Snapshot contents are controlled by the allowlist in [`docs/database/SNAPSHOT_POLICY.md`](docs/database/SNAPSHOT_POLICY.md)
 
 ## Reporting issues
 
