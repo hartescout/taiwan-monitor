@@ -2,7 +2,7 @@
 
 ## Product + conflict
 - conflict: iran-2026
-- dashboard: https://www.conflicts.app/dashboard
+- dashboard: https://www.taiwan-monitor.com/dashboard
 - environment: production
 - do not use localhost for normal operations
 

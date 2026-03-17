@@ -38,8 +38,8 @@ export function SummaryBar() {
   const endDateStr = latestDate ? fmtDate(latestDate) : fmtDate(conflict.startDate);
 
   const chips: { label: string; danger: boolean }[] = [
-    { label: 'KHAMENEI KILLED',           danger: true  },
-    { label: 'HORMUZ CLOSED',             danger: true  },
+    { label: 'TOTAL BLOCKADE',            danger: true  },
+    { label: 'TSMC IMPACTED',             danger: true  },
     { label: `DAY ${day}`,                 danger: false },
   ];
 

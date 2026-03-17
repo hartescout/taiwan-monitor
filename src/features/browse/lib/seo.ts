@@ -19,9 +19,9 @@ type BaseMetadataInput = {
   image?: ImageInput;
 };
 
-const SITE_NAME = 'Conflicts.app';
+const SITE_NAME = 'Taiwan Monitor';
 const BRAND_NAME = 'Pharos';
-const DEFAULT_IMAGE_ALT = 'Conflicts.app live intelligence dashboard';
+const DEFAULT_IMAGE_ALT = 'Taiwan Monitor live intelligence dashboard';
 
 function normalizeText(text: string) {
   return text.replace(/\s+/g, ' ').trim();

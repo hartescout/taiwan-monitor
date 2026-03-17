@@ -22,7 +22,7 @@ import { useIsLandscapePhone } from '@/shared/hooks/use-is-landscape-phone';
 import { useIsMobile } from '@/shared/hooks/use-is-mobile';
 import { useLandscapeHeaderVisibility } from '@/shared/hooks/use-landscape-header-visibility';
 
-import { GITHUB_URL, KOFI_URL } from '@/data/external-links';
+import { GITHUB_URL } from '@/data/external-links';
 
 const NAV = [
   { label: 'OVERVIEW',    href: '/dashboard'              },
@@ -85,15 +85,6 @@ export function Header() {
               <Button
                 variant="ghost"
                 asChild
-                className="h-6 shrink-0 rounded border border-[var(--blue)] bg-[var(--blue-dim)] px-1.5 text-[var(--blue-l)] hover:bg-[var(--blue)] hover:text-[var(--t1)]"
-              >
-                <a href={KOFI_URL} target="_blank" rel="noopener noreferrer" aria-label="Support Pharos server costs on Ko-fi">
-                  <Heart size={11} fill="currentColor" strokeWidth={0} />
-                </a>
-              </Button>
-              <Button
-                variant="ghost"
-                asChild
                 className="h-6 shrink-0 gap-1 rounded bg-[var(--t1)] pl-2 pr-1.5 text-[var(--bg-app)] hover:bg-[var(--t2)] hover:text-[var(--bg-app)]"
               >
                 <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer" aria-label="View Pharos on GitHub">
@@ -140,7 +131,7 @@ export function Header() {
             <div className="w-px h-4 bg-[var(--bd)]" />
 
             <span className="mono text-[9px] font-bold text-[var(--t4)] tracking-[0.08em]">
-              EPIC FURY
+              TAIWAN MONITOR
             </span>
 
             {/* ONGOING badge */}
@@ -201,21 +192,6 @@ export function Header() {
               {displayDate} · UTC
             </span>
 
-            <Button
-              variant="ghost"
-              asChild
-              className="h-auto rounded border border-[var(--blue)] bg-[var(--blue-dim)] px-2 py-1 text-[var(--blue-l)] hover:bg-[var(--blue)] hover:text-[var(--t1)]"
-            >
-              <a
-                href={KOFI_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Help cover hosting and data infrastructure"
-              >
-                <Heart size={12} fill="currentColor" strokeWidth={0} />
-                <span className="mono text-[10px] font-bold tracking-[0.04em]">SUPPORT SERVER COSTS</span>
-              </a>
-            </Button>
 
             <Button
               variant="ghost"

@@ -44,7 +44,7 @@ export function BriefContent() {
             DAILY INTELLIGENCE BRIEF
           </h1>
           <h2 className="mono text-[15px] font-bold text-[var(--danger)] tracking-[0.08em] mb-2.5">
-            OPERATION EPIC FURY / ROARING LION
+            OPERATION FORMOSA SHIELD / JOINT SWORD-2026A
           </h2>
           <div className="flex justify-center gap-5 mb-4">
             <span className="mono text-[10px] text-[var(--t3)]">DATE: {currentDay}</span>
@@ -149,7 +149,7 @@ export function BriefContent() {
 
         <div className="mt-10 pt-4 border-t border-[var(--bd)] text-center">
           <span className="label text-[8px] text-[var(--t4)]">
-            UNCLASSIFIED // PHAROS ANALYTICAL // OPERATION EPIC FURY // {currentDay}
+            UNCLASSIFIED // PHAROS ANALYTICAL // OPERATION FORMOSA SHIELD // {currentDay}
           </span>
         </div>
     </div>

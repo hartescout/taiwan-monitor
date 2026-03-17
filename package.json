@@ -1,15 +1,15 @@
 {
-  "name": "pharos-ai",
+  "name": "taiwan-monitor",
   "version": "0.1.0",
   "license": "AGPL-3.0-only",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/Juliusolsson05/pharos-ai.git"
+    "url": "https://github.com/hartescout/taiwan-monitor.git"
   },
-  "homepage": "https://conflicts.app",
-  "bugs": "https://github.com/Juliusolsson05/pharos-ai/issues",
-  "author": "Julius Olsson",
+  "homepage": "https://taiwan-monitor.com",
+  "bugs": "https://github.com/hartescout/taiwan-monitor/issues",
+  "author": "hartescout",
   "engines": {
     "node": "22.x"
   },

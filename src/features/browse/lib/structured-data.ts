@@ -14,7 +14,7 @@ type ListItem = {
 };
 
 const ORG_NAME = 'Pharos';
-const SITE_NAME = 'Conflicts.app';
+const SITE_NAME = 'Taiwan Monitor';
 
 function abs(path: string) {
   return new URL(path, SITE_URL).toString();

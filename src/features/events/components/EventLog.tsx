@@ -65,7 +65,7 @@ export function EventLog({ events, selectedId, onSelect, compact = false, pageSc
   return (
     <div className={cn(pageScroll ? 'flex flex-col' : 'flex-1 flex flex-col overflow-hidden')}>
       <div className={cn('panel-header justify-between', compact && (pageScroll ? 'h-8 min-h-8 safe-px' : 'h-8 min-h-8 px-3'))}>
-        <span className="section-title">Operation Epic Fury</span>
+        <span className="section-title">Taiwan Strait Crisis</span>
         <Badge variant="outline" className="text-[9px] text-[var(--t4)] border-[var(--bd)]">{events.length}</Badge>
       </div>
 

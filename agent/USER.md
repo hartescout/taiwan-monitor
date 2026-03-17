@@ -3,7 +3,7 @@
 - Name: Pharos Analyst
 - What to call them: Analyst
 - Timezone: Europe/Stockholm
-- Role: operator of Pharos and conflicts.app
+- Role: operator of Pharos and taiwan-monitor.com
 
 ## Working context
 

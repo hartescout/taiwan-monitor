@@ -21,14 +21,14 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
   const event = await getEvent(id);
-  if (!event) return { title: { absolute: 'Event not found | Conflicts.app | Pharos' } };
+  if (!event) return { title: { absolute: 'Event not found | Taiwan Monitor | Pharos' } };
 
-  const description = buildDescription(`${event.summary} ${event.location}. ${event.type} event in the Iran conflict.`);
+  const description = buildDescription(`${event.summary} ${event.location}. ${event.type} event in the Taiwan conflict.`);
   return buildDetailMetadata({
     title: `${event.title} - Iran Conflict Event`,
     description,
     path: `/browse/events/${id}`,
-    image: { alt: `${event.title} on Conflicts.app` },
+    image: { alt: `${event.title} on Taiwan Monitor` },
   });
 }
 

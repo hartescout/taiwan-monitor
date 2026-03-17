@@ -7,10 +7,11 @@
 import 'dotenv/config';
 import { PrismaClient } from '../src/generated/prisma/client.js';
 import { PrismaPg } from '@prisma/adapter-pg';
-import { CONFLICT } from './seed-data/iran-conflict.js';
-import { ACTORS } from './seed-data/iran-actors.js';
-import { EVENTS } from './seed-data/iran-events.js';
-import { X_POSTS } from './seed-data/iran-x-posts.js';
+import { CONFLICT } from './seed-data/taiwan-conflict.js';
+import { ACTORS } from './seed-data/taiwan-actors.js';
+import { ACTOR_SNAPSHOTS } from './seed-data/taiwan-actor-snapshots.js';
+import { EVENTS } from './seed-data/taiwan-events.js';
+import { X_POSTS } from './seed-data/taiwan-x-posts.js';
 import {
   STRIKE_ARCS,
   MISSILE_TRACKS,
@@ -18,8 +19,8 @@ import {
   ALLIED_ASSETS,
   THREAT_ZONES,
   HEAT_POINTS,
-} from './seed-data/map-data.js';
-import { MAP_STORIES } from './seed-data/map-stories.js';
+} from './seed-data/taiwan-map-data.js';
+import { MAP_STORIES } from './seed-data/taiwan-map-stories.js';
 import { RSS_FEEDS, CONFLICT_COLLECTIONS } from './seed-data/rss-feeds.js';
 import { ECONOMIC_INDEXES } from './seed-data/economic-indexes.js';
 import { MARKET_GROUPS } from './seed-data/prediction-groups.js';
@@ -34,7 +35,7 @@ function mapActorType(type: string): 'STATE' | 'NON_STATE' | 'ORGANIZATION' | 'I
 }
 
 async function main() {
-  console.log('Seeding database...\n');
+  console.log('Seeding database for Taiwan Strait Crisis...\n');
 
   // Clear existing data (idempotent re-seed)
   console.log('0. Clearing existing data...');
@@ -85,13 +86,12 @@ async function main() {
     // Casualties — flatten the nested object
     const cas = snap.casualties;
     const casualtyRows: { faction: string; killed: number; wounded: number; civilians: number; injured: number }[] = [
-      { faction: 'us', killed: cas.us.kia, wounded: cas.us.wounded, civilians: cas.us.civilians, injured: 0 },
-      { faction: 'israel', killed: cas.israel.kia, wounded: cas.israel.wounded, civilians: cas.israel.civilians, injured: cas.israel.injured },
-      { faction: 'iran', killed: cas.iran.killed, wounded: 0, civilians: 0, injured: cas.iran.injured },
-      { faction: 'lebanon', killed: cas.lebanon.killed, wounded: 0, civilians: 0, injured: cas.lebanon.injured },
+      { faction: 'us', killed: cas.us.killed ?? 0, wounded: cas.us.wounded ?? 0, civilians: 0, injured: 0 },
+      { faction: 'taiwan', killed: cas.taiwan.killed ?? 0, wounded: cas.taiwan.wounded ?? 0, civilians: cas.taiwan.civilians ?? 0, injured: cas.taiwan.injured ?? 0 },
+      { faction: 'china', killed: cas.china.killed ?? 0, wounded: 0, civilians: 0, injured: cas.china.injured ?? 0 },
     ];
     for (const [key, val] of Object.entries(cas.regional)) {
-      casualtyRows.push({ faction: key, killed: val.killed, wounded: 0, civilians: 0, injured: val.injured });
+      casualtyRows.push({ faction: key, killed: (val as any).killed ?? 0, wounded: 0, civilians: 0, injured: (val as any).injured ?? 0 });
     }
     await prisma.casualtySummary.createMany({
       data: casualtyRows.map(r => ({ snapshotId: snapshot.id, ...r })),
@@ -134,11 +134,9 @@ async function main() {
     affiliation: 'FRIENDLY' | 'HOSTILE' | 'NEUTRAL'; mapGroup: string;
   }> = {
     us:      { mapKey: 'US',     cssVar: 'var(--blue)',    colorRgb: [45,114,210],  affiliation: 'FRIENDLY', mapGroup: 'Coalition' },
-    idf:     { mapKey: 'ISRAEL', cssVar: 'var(--teal)',    colorRgb: [50,200,200],  affiliation: 'FRIENDLY', mapGroup: 'Coalition' },
-    iran:    { mapKey: 'IRAN',   cssVar: 'var(--danger)',  colorRgb: [231,106,110], affiliation: 'HOSTILE',  mapGroup: 'Adversary' },
-    irgc:    { mapKey: 'IRGC',   cssVar: 'var(--danger)',  colorRgb: [200,50,50],   affiliation: 'HOSTILE',  mapGroup: 'Adversary' },
-    houthis: { mapKey: 'HOUTHI', cssVar: 'var(--warning)', colorRgb: [236,154,60],  affiliation: 'HOSTILE',  mapGroup: 'Adversary' },
-    russia:  { mapKey: null,     cssVar: null,             colorRgb: [],            affiliation: 'NEUTRAL',  mapGroup: 'Observer'  },
+    taiwan:  { mapKey: 'TAIWAN', cssVar: 'var(--blue-l)',  colorRgb: [100,180,255], affiliation: 'FRIENDLY', mapGroup: 'Coalition' },
+    china:   { mapKey: 'CHINA',  cssVar: 'var(--danger)',  colorRgb: [231,106,110], affiliation: 'HOSTILE',  mapGroup: 'Adversary' },
+    japan:   { mapKey: 'JAPAN',  cssVar: 'var(--cyber)',   colorRgb: [160,100,220], affiliation: 'NEUTRAL',  mapGroup: 'Observer'  },
   };
 
   for (const actor of ACTORS) {
@@ -209,9 +207,8 @@ async function main() {
     affiliation: 'FRIENDLY' | 'HOSTILE' | 'NEUTRAL'; mapGroup: string;
   }[] = [
     { id: 'nato',      name: 'NATO',       fullName: 'North Atlantic Treaty Organization', type: 'ORGANIZATION', mapKey: 'NATO',      cssVar: 'var(--cyber)',   colorRgb: [160,100,220], affiliation: 'FRIENDLY', mapGroup: 'Coalition' },
-    { id: 'usil',      name: 'US-IL Joint', fullName: 'US-Israel Joint Operations',        type: 'ORGANIZATION', mapKey: 'USIL',      cssVar: 'var(--blue)',    colorRgb: [45,114,210],  affiliation: 'FRIENDLY', mapGroup: 'Coalition' },
-    { id: 'hezbollah', name: 'Hezbollah',   fullName: 'Hezbollah',                         type: 'NON_STATE',    mapKey: 'HEZBOLLAH', cssVar: 'var(--danger)',  colorRgb: [180,40,40],   affiliation: 'HOSTILE',  mapGroup: 'Adversary' },
-    { id: 'pmf',       name: 'Iraqi PMF',   fullName: 'Popular Mobilization Forces',       type: 'NON_STATE',    mapKey: 'PMF',       cssVar: 'var(--warning)', colorRgb: [200,120,40],  affiliation: 'HOSTILE',  mapGroup: 'Adversary' },
+    { id: 'jsdf',      name: 'JSDF',       fullName: 'Japan Self-Defense Forces',         type: 'STATE',        mapKey: 'JAPAN',     cssVar: 'var(--cyber)',   colorRgb: [160,100,220], affiliation: 'NEUTRAL',  mapGroup: 'Observer' },
+    { id: 'un',        name: 'UN',         fullName: 'United Nations',                    type: 'ORGANIZATION', mapKey: 'UN',        cssVar: 'var(--t3)',      colorRgb: [150,150,150], affiliation: 'NEUTRAL',  mapGroup: 'Observer' },
   ];
 
   for (const a of NEW_ACTORS) {
@@ -238,6 +235,35 @@ async function main() {
       },
     });
     console.log(`   ✓ ${a.name} (new map actor)`);
+  }
+
+  // Seperate Actor Snapshots (optional override)
+  if (ACTOR_SNAPSHOTS.length > 0) {
+    console.log('3b. Extra actor snapshots...');
+    for (const snap of ACTOR_SNAPSHOTS) {
+      await prisma.actorDaySnapshot.upsert({
+        where: { actorId_day: { actorId: snap.actorId, day: new Date(snap.day + 'T00:00:00Z') } },
+        update: {
+          activityLevel: snap.activityLevel,
+          activityScore: snap.activityScore,
+          stance: snap.stance,
+          saying: snap.saying,
+          doing: snap.doing,
+          assessment: snap.assessment,
+        },
+        create: {
+          actorId: snap.actorId,
+          day: new Date(snap.day + 'T00:00:00Z'),
+          activityLevel: snap.activityLevel,
+          activityScore: snap.activityScore,
+          stance: snap.stance,
+          saying: snap.saying,
+          doing: snap.doing,
+          assessment: snap.assessment,
+        },
+      });
+    }
+    console.log(`   ✓ ${ACTOR_SNAPSHOTS.length} extra snapshots`);
   }
 
   // ─── 4. Events + Sources + Actor Responses ──────────────────────────────────

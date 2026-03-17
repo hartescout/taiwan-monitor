@@ -27,7 +27,7 @@ export const PHAROS_RUNTIME_POLICY = {
   preferUpdateOverCreate: true,
   scriptsOnly: true,
   prodOnly: true,
-  dayTimezoneDefault: 'Europe/Stockholm',
+  dayTimezoneDefault: 'Asia/Taipei',
   newDayBootstrapAllowsSnapshotAndActorSnapshotsOnly: true,
 } as const;
 
@@ -397,7 +397,7 @@ Enums:
 - ActorResponseStance: SUPPORTING | OPPOSING | NEUTRAL | UNKNOWN
 - SignificanceLevel: BREAKING | HIGH | STANDARD
 - PostType: XPOST | NEWS_ARTICLE | OFFICIAL_STATEMENT | PRESS_RELEASE | ANALYSIS
-- MAP_ACTOR_KEYS: US | ISRAEL | IRAN | IRGC | HOUTHI | NATO | USIL | HEZBOLLAH | PMF
+- MAP_ACTOR_KEYS: US | TAIWAN | CHINA | JAPAN | NATO | UN
 
 POST /events: {id, timestamp, severity, type, title, location, summary, fullContent, sources?[], actorResponses?[]}
 POST /events/{id}/sources: {sources: [{name, tier, reliability, url?}]}

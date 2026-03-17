@@ -61,7 +61,7 @@ export function ActorDossier({ actor, tab, onTabChange, currentDay, compact = fa
       {/* Header */}
       <div className={cn('border-b border-[var(--bd)] bg-[var(--bg-2)] shrink-0', compact ? (pageScroll ? 'safe-px py-2' : 'px-3 py-2') : 'px-5 py-3')}>
         <div className="label text-[8px] text-[var(--t3)] mb-2">
-          ACTOR INTELLIGENCE DOSSIER // PHAROS THREAT ANALYSIS // OPERATION EPIC FURY
+          ACTOR INTELLIGENCE DOSSIER // PHAROS THREAT ANALYSIS // TAIWAN STRAIT CRISIS
         </div>
         <div className="flex items-start gap-3.5 mb-2.5">
           {actor.countryCode && <Flag code={actor.countryCode} size={36} />}

@@ -1,7 +1,7 @@
 const FAQ_ITEMS = [
   {
-    q: 'What is Conflicts.app?',
-    a: 'Conflicts.app is a free, open-source intelligence dashboard for tracking the Iran conflict in real time. Built under the project name Pharos, it combines an interactive strike map, AI-generated situation briefs, escalation scoring, actor tracking, and an OSINT signal feed into one interface.',
+    q: 'What is Taiwan Monitor?',
+    a: 'Taiwan Monitor is a free, open-source intelligence dashboard for tracking the Taiwan conflict in real time. Built under the project name Pharos, it combines an interactive strike map, AI-generated situation briefs, escalation scoring, actor tracking, and an OSINT signal feed into one interface.',
   },
   {
     q: 'Is it free?',
@@ -9,7 +9,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Where does the data come from?',
-    a: "Conflicts.app monitors 30+ RSS feeds spanning Western, Iranian, Israeli, Arab, Russian, and Chinese media outlets. An AI agent pipeline processes incoming articles, extracts structured events, scores severity, identifies actors, and generates intelligence briefs. It's not just raw feeds, it's processed intelligence.",
+    a: "Taiwan Monitor monitors 30+ RSS feeds spanning Western, Chinese, Taiwanese, Arab, Russian, and Chinese media outlets. An AI agent pipeline processes incoming articles, extracts structured events, scores severity, identifies actors, and generates intelligence briefs. It's not just raw feeds, it's processed intelligence.",
   },
   {
     q: 'What is the escalation score?',
@@ -21,7 +21,7 @@ const FAQ_ITEMS = [
   },
   {
     q: 'Who built this?',
-    a: 'Conflicts.app was built by Julius Olsson as an open-source project. The goal was to make conflict intelligence accessible to everyone, not just people with access to expensive OSINT platforms.',
+    a: 'Taiwan Monitor was built by hartescout as an open-source project. The goal was to make conflict intelligence accessible to everyone, not just people with access to expensive OSINT platforms.',
   },
   {
     q: 'What tech stack is it built with?',

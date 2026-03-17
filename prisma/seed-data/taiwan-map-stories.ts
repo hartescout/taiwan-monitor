@@ -1,0 +1,85 @@
+import type { MapStory } from '@/types/domain';
+
+export const MAP_STORIES: MapStory[] = [
+  {
+    id: 'silicon-siege',
+    title: 'The Silicon Siege',
+    tagline: 'Taiwan severed from the global internet in 15 minutes',
+    iconName: 'Zap',
+    category: 'INTEL',
+    narrative:
+      'In a coordinated undersea operation, PLA special forces and specialized vessels severed 14 major fiber-optic cables connecting Taiwan to the global internet. Simultaneously, a state-sponsored cyberattack targeted Taipower\'s industrial control systems, plunging 70% of the island into darkness. This "Black Sky" opening was designed to paralyze Taiwanese command and control and create a information vacuum before the first missiles impacted.',
+    highlightStrikeIds: [],
+    highlightMissileIds: [],
+    highlightTargetIds: ['tg-tw-001', 'tg-tw-002'],
+    highlightAssetIds: [],
+    viewState: { longitude: 121.0, latitude: 24.0, zoom: 7.0 },
+    keyFacts: [
+      '14 undersea cables severed near Matsu and Kinmen',
+      '70% of Taiwan power grid offline within 15 minutes',
+      'TSMC facilities shifted to emergency islanded power',
+      'Global internet latency spiked 300% in East Asia',
+    ],
+    timestamp: '2026-03-01T04:15:00Z',
+    events: [
+      { time: '2026-03-01T03:45:00Z', label: 'Unusual maritime activity detected near cable landing stations', type: 'INTEL' },
+      { time: '2026-03-01T04:00:00Z', label: 'First cable severance reported near Matsu Islands', type: 'INTEL' },
+      { time: '2026-03-01T04:10:00Z', label: 'Taipower backbone suffers catastrophic ICS failure', type: 'INTEL' },
+      { time: '2026-03-01T04:15:00Z', label: 'Taiwan effectively dark — emergency satellite comms activated', type: 'INTEL' },
+    ],
+  },
+  {
+    id: 'island-chain-surge',
+    title: 'First Island Chain Surge',
+    tagline: 'US CSG-5 and CSG-7 move to intercept positions',
+    iconName: 'Ship',
+    category: 'NAVAL',
+    narrative:
+      'Within six hours of the blockade declaration, the United States activated "Operation Formosa Shield." Carrier Strike Group 5 (USS Ronald Reagan) departed the Philippine Sea heading for the Luzon Strait, while CSG-7 (USS George Washington) surged from Yokosuka. This represents the most significant US naval concentration in the Western Pacific in decades, aimed at breaking the PLA\'s maritime encirclement and securing the Philippine Sea approach.',
+    highlightStrikeIds: [],
+    highlightMissileIds: [],
+    highlightTargetIds: [],
+    highlightAssetIds: ['as-tw-001', 'as-tw-002'],
+    viewState: { longitude: 125.0, latitude: 22.0, zoom: 5.0 },
+    keyFacts: [
+      'Two US Carrier Strike Groups mobilized within 6 hours',
+      'CSG-5 moving to secure the Luzon Strait chokepoint',
+      'Japan Air Self-Defense Force providing combat air patrol over Okinawa',
+      'US 7th Fleet at "Maximum Readiness" posture',
+    ],
+    timestamp: '2026-03-01T10:00:00Z',
+    events: [
+      { time: '2026-03-01T04:30:00Z', label: 'INDOPACOM orders immediate sortie of all forward-deployed assets', type: 'NAVAL' },
+      { time: '2026-03-01T06:00:00Z', label: 'CSG-5 confirms movement toward Luzon Strait', type: 'NAVAL' },
+      { time: '2026-03-01T08:00:00Z', label: 'CSG-7 departs Yokosuka under heavy air escort', type: 'NAVAL' },
+      { time: '2026-03-01T10:00:00Z', label: 'US establishes "Freedom of Navigation" corridor east of Taiwan', type: 'NAVAL' },
+    ],
+  },
+  {
+    id: 'joint-sword-opening',
+    title: 'Joint Sword Opening',
+    tagline: 'PLA missile barrage suppresses Taiwan air defense',
+    iconName: 'Zap',
+    category: 'STRIKE',
+    narrative:
+      'The PLA Eastern Theater Command launched over 150 short and medium-range ballistic missiles in the first 60 minutes of "Joint Sword-2026A." The strike package utilized DF-17 hypersonic glide vehicles to bypass Taiwan\'s PAC-3 batteries and target hardened early-warning radars. Impact sites across Hsinchu and Tainan airbases have severely limited ROCAF\'s ability to contest the airspace in the opening hours.',
+    highlightStrikeIds: ['sa-tw-001'],
+    highlightMissileIds: ['mt-tw-001'],
+    highlightTargetIds: ['tg-tw-001'],
+    highlightAssetIds: [],
+    viewState: { longitude: 119.5, latitude: 24.5, zoom: 6.5 },
+    keyFacts: [
+      '150+ missiles launched in first 60 minutes',
+      'DF-17 hypersonic missiles used for first time in combat',
+      '7 major ROCAF airbases sustained runway and hangar damage',
+      'Early warning radar on Leshan Mountain reported damaged',
+    ],
+    timestamp: '2026-03-01T05:00:00Z',
+    events: [
+      { time: '2026-03-01T04:00:00Z', label: 'Massive missile launches detected from Fujian and Zhejiang', type: 'STRIKE' },
+      { time: '2026-03-01T04:05:00Z', label: 'DF-17 impacts reported at Leshan radar facility', type: 'STRIKE' },
+      { time: '2026-03-01T04:12:00Z', label: 'Hsinchu Air Base runway cratered by DF-15 wave', type: 'STRIKE' },
+      { time: '2026-03-01T05:00:00Z', label: 'PLA declares air superiority over the Taiwan Strait', type: 'INTEL' },
+    ],
+  },
+];

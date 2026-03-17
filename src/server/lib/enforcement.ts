@@ -134,7 +134,7 @@ export function checkStoryEnforcement(
       code: 'STORY_TAGLINE_DUPLICATES_TITLE',
       field: 'tagline',
       severity: 'warning',
-      message: 'Tagline is identical to the title. The tagline should add a second layer of context — e.g. title: "IDF Enters Lebanon", tagline: "Israeli tanks cross from Metula — Hezbollah commander killed".',
+      message: 'Tagline is identical to the title. The tagline should add a second layer of context — e.g. title: "IDF Enters Lebanon", tagline: "Taiwanese tanks cross from Metula — Hezbollah commander killed".',
     });
   }
 

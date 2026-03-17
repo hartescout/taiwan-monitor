@@ -1,2 +1,2 @@
-export const GITHUB_URL = 'https://github.com/Juliusolsson05/pharos-ai';
-export const KOFI_URL = 'https://ko-fi.com/pharosai';
+export const GITHUB_URL = 'https://github.com/hartescout/taiwan-monitor';
+// export const KOFI_URL = '...';

@@ -13,8 +13,8 @@ Thanks for your interest in contributing. This document covers the setup process
 1. **Clone the repo**
 
    ```bash
-   git clone https://github.com/Juliusolsson05/pharos-ai.git
-   cd pharos-ai
+   git clone https://github.com/hartescout/taiwan-monitor.git
+   cd taiwan-monitor
    ```
 
 2. **Copy the environment template**
@@ -53,7 +53,7 @@ Thanks for your interest in contributing. This document covers the setup process
 
 | Branch | Purpose |
 |--------|---------|
-| `main` | Production -- deploys to [conflicts.app](https://conflicts.app) |
+| `main` | Production -- deploys to [taiwan-monitor.com](https://taiwan-monitor.com) |
 | `staging` | Pre-production -- migrations tested here first |
 | Feature branches | Your work -- branch from `staging` |
 
@@ -100,7 +100,7 @@ Public onboarding snapshots are documented in [`docs/database/SNAPSHOTS.md`](doc
 
 ## Reporting issues
 
-Use [GitHub Issues](https://github.com/Juliusolsson05/pharos-ai/issues). Include:
+Use [GitHub Issues](https://github.com/hartescout/taiwan-monitor/issues). Include:
 
 - Steps to reproduce
 - Expected vs actual behaviour

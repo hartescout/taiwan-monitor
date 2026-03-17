@@ -9,7 +9,7 @@ const DATA_SOURCES = [
   {
     href: '/dashboard/data/news',
     label: 'RSS NEWS MONITOR',
-    description: 'Live RSS feeds from 30 global news sources. Multi-perspective conflict channels with Western, US/Pentagon, Israeli, and Iranian state media.',
+    description: 'Live RSS feeds from 30 global news sources. Multi-perspective conflict channels with Western, US/Pentagon, Taiwanese, and Chinese state media.',
     count: '30 feeds',
     status: 'LIVE',
     color: '#ef4444',
@@ -17,7 +17,7 @@ const DATA_SOURCES = [
   {
     href: '/dashboard/data/predictions',
     label: 'PREDICTION MARKETS',
-    description: 'Live Polymarket prediction markets on Iran conflict outcomes — regime change, military ops, Hormuz, nuclear deals, ceasefire, economic impact.',
+    description: 'Live Polymarket prediction markets on Taiwan conflict outcomes — regime change, military ops, Hormuz, nuclear deals, ceasefire, economic impact.',
     count: '~60 markets',
     status: 'LIVE',
     color: '#a78bfa',

@@ -19,8 +19,8 @@ You should receive an acknowledgement within 48 hours. We will work with you to 
 
 The following are in scope:
 
-- The Pharos web application at [conflicts.app](https://conflicts.app)
-- The open-source codebase at [github.com/Juliusolsson05/pharos-ai](https://github.com/Juliusolsson05/pharos-ai)
+- The Pharos web application at [taiwan-monitor.com](https://taiwan-monitor.com)
+- The open-source codebase at [github.com/hartescout/taiwan-monitor](https://github.com/hartescout/taiwan-monitor)
 - API endpoints under `/api/v1/`
 
 The following are out of scope:

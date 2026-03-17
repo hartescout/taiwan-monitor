@@ -27,7 +27,7 @@ const CAPABILITIES = [
   {
     title: 'RSS monitor',
     description:
-      '30 feeds from Reuters to Press TV. Western, Iranian, Israeli, Arab, Russian, and Chinese outlets. One place instead of 30 tabs.',
+      '30 feeds from Reuters to Press TV. Western, Chinese, Taiwanese, Arab, Russian, and Chinese outlets. One place instead of 30 tabs.',
   },
   {
     title: 'Escalation scoring',

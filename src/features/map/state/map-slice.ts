@@ -99,7 +99,7 @@ const EMPTY_FILTERS: SerializableFilterState = {
 
 // Initial state
 
-const INITIAL_VIEW: MapViewState = { longitude: 51.0, latitude: 30.0, zoom: 4.5, pitch: 0, bearing: 0 };
+const INITIAL_VIEW: MapViewState = { longitude: 120.5, latitude: 23.5, zoom: 6.0, pitch: 0, bearing: 0 };
 
 function buildInitialState(): MapState {
   const persisted = loadPersistedMapPrefs();

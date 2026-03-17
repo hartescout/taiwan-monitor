@@ -14,7 +14,7 @@ export function CasualtiesWidget() {
   const rows = [
     { label: 'US KIA',            val: cas.us.kia,          sub: `${cas.us.wounded} wounded`,       color: 'var(--blue)' },
     { label: 'US Civilians',      val: cas.us.civilians,    sub: 'civilian deaths',                 color: 'var(--t3)' },
-    { label: 'Israeli Civilians', val: cas.israel.civilians, sub: `${cas.israel.injured}+ injured`, color: 'var(--warning)' },
+    { label: 'Taiwanese Civilians', val: cas.israel.civilians, sub: `${cas.israel.injured}+ injured`, color: 'var(--warning)' },
     { label: 'Iran Killed',       val: cas.iran.killed,     sub: `${snap.dayLabel} cumulative`,     color: 'var(--danger)' },
   ];
   return (

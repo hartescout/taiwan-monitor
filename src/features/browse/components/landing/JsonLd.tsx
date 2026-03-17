@@ -1,11 +1,11 @@
 const STRUCTURED_DATA = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Conflicts.app',
+  name: 'Taiwan Monitor',
   alternateName: 'Pharos',
-  url: 'https://www.conflicts.app',
+  url: 'https://www.taiwan-monitor.com',
   description:
-    'Free open-source dashboard tracking the Iran conflict in real time. Interactive strike map, AI intelligence briefs, escalation scoring, and actor tracking across 10+ factions.',
+    'Free open-source dashboard tracking the Taiwan conflict in real time. Interactive strike map, AI intelligence briefs, escalation scoring, and actor tracking across 10+ factions.',
   applicationCategory: 'NewsApplication',
   operatingSystem: 'Web',
   offers: {
@@ -26,12 +26,12 @@ const STRUCTURED_DATA = {
   ],
   author: {
     '@type': 'Person',
-    name: 'Julius Olsson',
+    name: 'hartescout',
   },
   sourceOrganization: {
     '@type': 'Organization',
     name: 'Pharos',
-    url: 'https://www.conflicts.app',
+    url: 'https://www.taiwan-monitor.com',
   },
 } as const;
 
@@ -41,10 +41,10 @@ const FAQ_SCHEMA = {
   mainEntity: [
     {
       '@type': 'Question',
-      name: 'What is Conflicts.app?',
+      name: 'What is Taiwan Monitor?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Conflicts.app is a free, open-source intelligence dashboard for tracking the Iran conflict in real time. Built under the project name Pharos, it combines an interactive strike map, AI-generated situation briefs, escalation scoring, actor tracking, and an OSINT signal feed into one interface.',
+        text: 'Taiwan Monitor is a free, open-source intelligence dashboard for tracking the Taiwan conflict in real time. Built under the project name Pharos, it combines an interactive strike map, AI-generated situation briefs, escalation scoring, actor tracking, and an OSINT signal feed into one interface.',
       },
     },
     {
@@ -60,7 +60,7 @@ const FAQ_SCHEMA = {
       name: 'Where does the data come from?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Conflicts.app monitors 30+ RSS feeds spanning Western, Iranian, Israeli, Arab, Russian, and Chinese media outlets. An AI agent pipeline processes incoming articles, extracts structured events, scores severity, identifies actors, and generates intelligence briefs. It's not just raw feeds, it's processed intelligence.",
+        text: "Taiwan Monitor monitors 30+ RSS feeds spanning Western, Chinese, Taiwanese, Arab, Russian, and Chinese media outlets. An AI agent pipeline processes incoming articles, extracts structured events, scores severity, identifies actors, and generates intelligence briefs. It's not just raw feeds, it's processed intelligence.",
       },
     },
     {
@@ -84,7 +84,7 @@ const FAQ_SCHEMA = {
       name: 'Who built this?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Conflicts.app was built by Julius Olsson as an open-source project. The goal was to make conflict intelligence accessible to everyone, not just people with access to expensive OSINT platforms.',
+        text: 'Taiwan Monitor was built by hartescout as an open-source project. The goal was to make conflict intelligence accessible to everyone, not just people with access to expensive OSINT platforms.',
       },
     },
   ],

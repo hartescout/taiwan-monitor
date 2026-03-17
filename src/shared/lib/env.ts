@@ -16,10 +16,10 @@ export function getRequiredEnv(name: string): string {
 
 // Accessed via literal so Next.js can inline at build time.
 export const publicConflictId: string =
-  process.env.NEXT_PUBLIC_CONFLICT_ID ?? 'iran-2026';
+  process.env.NEXT_PUBLIC_CONFLICT_ID ?? 'taiwan-2026';
 
 export const publicAppUrl: string =
-  process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.conflicts.app';
+  process.env.NEXT_PUBLIC_APP_URL ?? 'https://www.taiwan-monitor.com';
 
 export const publicPosthogKey: string | undefined =
   process.env.NEXT_PUBLIC_POSTHOG_KEY ?? process.env.NEXT_PUBLIC_POSTHOG_TOKEN;

@@ -61,7 +61,7 @@ export function IntelMap() {
       {/* Title Bar */}
       <div style={{ height: 36, background: 'var(--bg-app)', borderBottom: '1px solid var(--bd)', display: 'flex', alignItems: 'center', padding: '0 12px', gap: 8, flexShrink: 0 }}>
         <span style={{ color: 'var(--blue)', fontWeight: 700, fontSize: 11, fontFamily: 'monospace' }}>◈ INTEL MAP</span>
-        <span style={{ color: 'var(--t3)', fontSize: 9, fontFamily: 'monospace', marginLeft: 4 }}>OPERATION EPIC FURY</span>
+        <span style={{ color: 'var(--t3)', fontSize: 9, fontFamily: 'monospace', marginLeft: 4 }}>TAIWAN MONITOR</span>
         <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--success)', display: 'inline-block', marginLeft: 4 }} />
         <span style={{ color: 'var(--success)', fontSize: 9, fontFamily: 'monospace' }}>LIVE</span>
 

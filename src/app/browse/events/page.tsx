@@ -35,15 +35,15 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     ? 'Filtered Iran Conflict Events'
     : page > 1 ? `Iran Conflict Events Timeline - Page ${page}` : 'Iran Conflict Events Timeline';
   const description = isFiltered
-    ? buildDescription('Filtered Iran conflict events by severity and date. Browse airstrikes, diplomacy, intelligence operations, and humanitarian incidents with source-backed summaries.')
-    : buildDescription('Track Iran conflict events in a searchable timeline covering airstrikes, diplomacy, intelligence operations, and humanitarian incidents with severity scoring and sources.');
+    ? buildDescription('Filtered Taiwan conflict events by severity and date. Browse airstrikes, diplomacy, intelligence operations, and humanitarian incidents with source-backed summaries.')
+    : buildDescription('Track Taiwan conflict events in a searchable timeline covering airstrikes, diplomacy, intelligence operations, and humanitarian incidents with severity scoring and sources.');
 
   return buildBrowseMetadata({
     title,
     description,
     path,
     robots: { isIndexable: !isFiltered },
-    image: { alt: 'Iran conflict events timeline on Conflicts.app' },
+    image: { alt: 'Taiwan conflict events timeline on Taiwan Monitor' },
   });
 }
 
@@ -77,7 +77,7 @@ export default async function BrowseEventsPage({ searchParams }: Props) {
     ]),
     buildCollectionPageJsonLd({
       name: 'Iran Conflict Events Timeline',
-      description: 'Searchable timeline of Iran conflict events with source-backed summaries and severity scoring.',
+      description: 'Searchable timeline of Taiwan conflict events with source-backed summaries and severity scoring.',
       path: canonicalPath,
     }),
     buildItemListJsonLd({
@@ -100,7 +100,7 @@ export default async function BrowseEventsPage({ searchParams }: Props) {
         <h1 className="text-lg font-bold text-[var(--t1)] mb-1">Events</h1>
         <p className="text-xs text-[var(--t3)]">
           {total > PAGE_SIZE ? `Showing ${from}–${to} of ${total} events` : `${total} events`}
-          {severity || date ? ' matching filters' : ' tracked across the Iran conflict'}
+          {severity || date ? ' matching filters' : ' tracked across the Taiwan conflict'}
         </p>
       </header>
       <EventList events={events} page={page} filterBar={<EventFilterBar eventDates={eventDates} />} />

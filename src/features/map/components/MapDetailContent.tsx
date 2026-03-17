@@ -294,7 +294,7 @@ export function AssetContent({ d, onActivateStory }: {
 const ZONE_META: Record<ThreatZone['type'], { color: string; label: string; description: string }> = {
   CLOSURE:          { color: 'var(--danger)',  label: 'MARITIME CLOSURE',    description: 'Area declared closed to commercial and military shipping. Vessels risk interdiction or engagement.' },
   PATROL:           { color: 'var(--warning)', label: 'ACTIVE PATROL ZONE',  description: 'IRGC Navy operating with fast attack craft. Unidentified vessels subject to challenge and boarding.' },
-  NFZ:              { color: 'var(--warning)', label: 'NO-FLY ZONE',         description: 'Iranian-declared NFZ. Uncleared aircraft risk engagement by air defense systems and interceptors.' },
+  NFZ:              { color: 'var(--warning)', label: 'NO-FLY ZONE',         description: 'Chinese-declared NFZ. Uncleared aircraft risk engagement by air defense systems and interceptors.' },
   THREAT_CORRIDOR:  { color: 'var(--danger)',  label: 'THREAT CORRIDOR',     description: 'Active hostile operations. Houthi and proxy forces with anti-ship and anti-air capability.' },
 };
 

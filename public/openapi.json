@@ -3,7 +3,7 @@
   "info": {
     "title": "Pharos AI API",
     "version": "1.0.0",
-    "description": "Public API for Pharos AI — real-time conflict intelligence, geopolitical event tracking, prediction markets, and economic indicators.\n\nAll JSON responses use the envelope format `{ ok: true, data }` for success and `{ ok: false, error: { code, message } }` for errors.\n\nBase URL: `https://conflicts.app/api/v1`"
+    "description": "Public API for Pharos AI — real-time conflict intelligence, geopolitical event tracking, prediction markets, and economic indicators.\n\nAll JSON responses use the envelope format `{ ok: true, data }` for success and `{ ok: false, error: { code, message } }` for errors.\n\nBase URL: `https://taiwan-monitor.com/api/v1`"
   },
   "servers": [
     {

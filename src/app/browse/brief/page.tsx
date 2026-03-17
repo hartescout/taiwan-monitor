@@ -25,13 +25,13 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const page = Math.max(1, Number(params.page) || 1);
   const path = getCanonicalListPath('/browse/brief', page);
   const title = page > 1 ? `Iran Conflict Daily Briefs - Page ${page}` : 'Iran Conflict Daily Briefs';
-  const description = buildDescription('Read daily Iran conflict briefs with escalation scoring, key facts, casualties, economic impact, and scenario analysis updated throughout the crisis.');
+  const description = buildDescription('Read daily Taiwan conflict briefs with escalation scoring, key facts, casualties, economic impact, and scenario analysis updated throughout the crisis.');
 
   return buildBrowseMetadata({
     title,
     description,
     path,
-    image: { alt: 'Iran conflict daily briefs on Conflicts.app' },
+    image: { alt: 'Taiwan conflict daily briefs on Taiwan Monitor' },
   });
 }
 
@@ -51,7 +51,7 @@ export default async function BrowseBriefPage({ searchParams }: Props) {
     ]),
     buildCollectionPageJsonLd({
       name: 'Iran Conflict Daily Briefs',
-      description: 'Daily intelligence briefs covering escalation, casualties, economic impact, and scenario analysis across the Iran conflict.',
+      description: 'Daily intelligence briefs covering escalation, casualties, economic impact, and scenario analysis across the Taiwan conflict.',
       path: canonicalPath,
     }),
     buildItemListJsonLd({
@@ -73,7 +73,7 @@ export default async function BrowseBriefPage({ searchParams }: Props) {
         <p className="label mb-2">Intelligence briefs</p>
         <h1 className="text-lg font-bold text-[var(--t1)] mb-1">Daily Briefs</h1>
         <p className="text-xs text-[var(--t3)]">
-          {total > PAGE_SIZE ? `Showing ${from}–${to} of ${total} briefs` : `${total} briefs`} covering the Iran conflict
+          {total > PAGE_SIZE ? `Showing ${from}–${to} of ${total} briefs` : `${total} briefs`} covering the Taiwan conflict
         </p>
       </header>
       <BriefList briefs={briefs} />

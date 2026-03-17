@@ -1,7 +1,7 @@
 const STEPS = [
   {
     step: 1,
-    title: 'Open conflicts.app/dashboard.',
+    title: 'Open taiwan-monitor.com/dashboard.',
     description: 'No account needed.',
   },
   {

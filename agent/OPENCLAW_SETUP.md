@@ -160,8 +160,8 @@ These are **never** checked into the repo.
 
 ```markdown
 ## Authentication
-- app base URL: https://www.conflicts.app
-- admin base URL: https://www.conflicts.app/api/v1/admin
+- app base URL: https://www.taiwan-monitor.com
+- admin base URL: https://www.taiwan-monitor.com/api/v1/admin
 - conflict: <conflict-id>
 - header: Authorization: Bearer <PHAROS_ADMIN_API_KEY>
 - PHAROS_ADMIN_API_KEY: <key>

@@ -14,7 +14,7 @@ export function Screenshot() {
         />
       </div>
       <p className="text-xs text-[var(--t2)] mt-3 text-center">
-        The Pharos dashboard on conflicts.app showing live conflict map, event
+        The Pharos dashboard on taiwan-monitor.com showing live conflict map, event
         timeline, and actor intelligence panels.
       </p>
     </section>

@@ -11,8 +11,8 @@ Native multi-conflict support — the platform should handle multiple conflicts 
 ## Proposed Approach
 
 ### Domain-based routing
-- **Main domain** defaults to the Iran conflict
-- **Subdomains** (e.g. `ukraine.conflicts.app`) load other conflicts
+- **Main domain** defaults to the Taiwan conflict
+- **Subdomains** (e.g. `ukraine.taiwan-monitor.com`) load other conflicts
 - Conflict ID derived from subdomain at runtime instead of env var
 
 ### Cross-conflict navigation

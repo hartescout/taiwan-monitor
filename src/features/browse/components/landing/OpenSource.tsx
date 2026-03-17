@@ -20,7 +20,7 @@ export function OpenSource() {
 
       <div className="flex flex-col gap-4">
         <p className="text-sm text-[var(--t2)] leading-relaxed">
-          Pharos is the open-source project behind conflicts.app. The entire
+          Pharos is the open-source project behind taiwan-monitor.com. The entire
           codebase is public on GitHub. Dashboard, API routes, data pipelines,
           AI brief generation. Licensed under AGPL-3.0.
         </p>

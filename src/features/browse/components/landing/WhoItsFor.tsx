@@ -6,7 +6,7 @@ export function WhoItsFor() {
       </h2>
 
       <p className="text-sm text-[var(--t2)] leading-relaxed">
-        Conflicts.app is used by OSINT analysts, journalists, researchers,
+        Taiwan Monitor is used by OSINT analysts, journalists, researchers,
         policy students, and people in the region who want to understand
         what&apos;s actually happening. Not another news aggregator. An
         intelligence dashboard that turns raw information into something

@@ -68,7 +68,7 @@ export async function GET(
   const reqUrl = new URL(req.url);
   const baseUrl = `${reqUrl.protocol}//${reqUrl.host}`;
   const adminBaseUrl = `${baseUrl}/api/v1/admin`;
-  const dashboardUrl = 'https://www.conflicts.app/dashboard';
+  const dashboardUrl = 'https://www.taiwan-monitor.com/dashboard';
 
   const markdown = buildPharosInstructionsMarkdown({
     conflictId,

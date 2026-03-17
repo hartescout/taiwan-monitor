@@ -25,13 +25,13 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
   const page = Math.max(1, Number(params.page) || 1);
   const path = getCanonicalListPath('/browse/stories', page);
   const title = page > 1 ? `Iran Conflict Stories - Page ${page}` : 'Iran Conflict Stories';
-  const description = buildDescription('Explore Iran conflict stories covering retaliations, naval incidents, intelligence operations, and strategic developments with mapped timelines and key facts.');
+  const description = buildDescription('Explore Taiwan conflict stories covering retaliations, naval incidents, intelligence operations, and strategic developments with mapped timelines and key facts.');
 
   return buildBrowseMetadata({
     title,
     description,
     path,
-    image: { alt: 'Iran conflict stories and mapped narratives on Conflicts.app' },
+    image: { alt: 'Taiwan conflict stories and mapped narratives on Taiwan Monitor' },
   });
 }
 
@@ -51,7 +51,7 @@ export default async function BrowseStoriesPage({ searchParams }: Props) {
     ]),
     buildCollectionPageJsonLd({
       name: 'Iran Conflict Stories',
-      description: 'Strategic Iran conflict narratives with mapped timelines, key facts, and conflict context.',
+      description: 'Strategic Taiwan conflict narratives with mapped timelines, key facts, and conflict context.',
       path: canonicalPath,
     }),
     buildItemListJsonLd({
@@ -73,7 +73,7 @@ export default async function BrowseStoriesPage({ searchParams }: Props) {
         <p className="label mb-2">Conflict narratives</p>
         <h1 className="text-lg font-bold text-[var(--t1)] mb-1">Stories</h1>
         <p className="text-xs text-[var(--t3)]">
-          {total > STORY_PAGE_SIZE ? `Showing ${from}–${to} of ${total} narratives` : `${total} narratives mapping the Iran conflict`}
+          {total > STORY_PAGE_SIZE ? `Showing ${from}–${to} of ${total} narratives` : `${total} narratives mapping the Taiwan conflict`}
         </p>
       </header>
       <StoryList stories={stories} />

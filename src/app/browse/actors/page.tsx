@@ -34,15 +34,15 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     ? 'Filtered Iran Conflict Actors'
     : page > 1 ? `Iran Conflict Actors - Page ${page}` : 'Iran Conflict Actors';
   const description = isFiltered
-    ? buildDescription('Filtered Iran conflict actors by type and affiliation. Browse state and non-state entities with activity scores, stances, and intelligence assessments.')
-    : buildDescription('Browse Iran conflict actors across state and non-state entities with activity scores, affiliations, stances, and intelligence assessments.');
+    ? buildDescription('Filtered Taiwan conflict actors by type and affiliation. Browse state and non-state entities with activity scores, stances, and intelligence assessments.')
+    : buildDescription('Browse Taiwan conflict actors across state and non-state entities with activity scores, affiliations, stances, and intelligence assessments.');
 
   return buildBrowseMetadata({
     title,
     description,
     path,
     robots: { isIndexable: !isFiltered },
-    image: { alt: 'Iran conflict actor intelligence profiles on Conflicts.app' },
+    image: { alt: 'Taiwan conflict actor intelligence profiles on Taiwan Monitor' },
   });
 }
 
@@ -72,7 +72,7 @@ export default async function BrowseActorsPage({ searchParams }: Props) {
     ]),
     buildCollectionPageJsonLd({
       name: 'Iran Conflict Actors',
-      description: 'State and non-state actors in the Iran conflict with affiliations, activity scores, and intelligence assessments.',
+      description: 'State and non-state actors in the Taiwan conflict with affiliations, activity scores, and intelligence assessments.',
       path: canonicalPath,
     }),
     buildItemListJsonLd({
@@ -94,7 +94,7 @@ export default async function BrowseActorsPage({ searchParams }: Props) {
         <p className="label mb-2">Intelligence profiles</p>
         <h1 className="text-lg font-bold text-[var(--t1)] mb-1">Actors</h1>
         <p className="text-xs text-[var(--t3)]">
-          {total > PAGE_SIZE ? `Showing ${from}–${to} of ${total} actors` : `${total} actors`} tracked in the Iran conflict
+          {total > PAGE_SIZE ? `Showing ${from}–${to} of ${total} actors` : `${total} actors`} tracked in the Taiwan conflict
         </p>
       </header>
       <ActorGrid actors={actors} />

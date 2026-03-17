@@ -12,25 +12,25 @@ import { StatsBar } from '@/features/browse/components/landing/StatsBar';
 import { WhoItsFor } from '@/features/browse/components/landing/WhoItsFor';
 
 export const metadata: Metadata = {
-  title: 'Conflicts.app — Free Open-Source Iran Conflict Dashboard | Pharos',
+  title: 'Taiwan Monitor — Free Open-Source Iran Conflict Dashboard | Pharos',
   description:
-    'Free open-source dashboard tracking the Iran conflict in real time. Interactive strike map, AI intelligence briefs, escalation scoring, and actor tracking across 10+ factions. No signup required.',
+    'Free open-source dashboard tracking the Taiwan conflict in real time. Interactive strike map, AI intelligence briefs, escalation scoring, and actor tracking across 10+ factions. No signup required.',
   openGraph: {
-    title: 'Conflicts.app — Free Open-Source Iran Conflict Dashboard',
+    title: 'Taiwan Monitor — Free Open-Source Iran Conflict Dashboard',
     description:
-      'Track the Iran conflict in real time. Interactive strike map, AI briefs, escalation scoring, actor intelligence. Free and open source.',
-    url: 'https://www.conflicts.app/browse',
+      'Track the Taiwan conflict in real time. Interactive strike map, AI briefs, escalation scoring, actor intelligence. Free and open source.',
+    url: 'https://www.taiwan-monitor.com/browse',
     images: [{ url: '/og-image-1200x630.jpg', width: 1200, height: 630 }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Conflicts.app — Free Open-Source Iran Conflict Dashboard',
+    title: 'Taiwan Monitor — Free Open-Source Iran Conflict Dashboard',
     description:
-      'Track the Iran conflict in real time. Interactive strike map, AI briefs, escalation scoring, actor intelligence. Free and open source.',
+      'Track the Taiwan conflict in real time. Interactive strike map, AI briefs, escalation scoring, actor intelligence. Free and open source.',
     images: ['/og-image-1200x630.jpg'],
   },
   alternates: {
-    canonical: 'https://www.conflicts.app/browse',
+    canonical: 'https://www.taiwan-monitor.com/browse',
   },
 };
 

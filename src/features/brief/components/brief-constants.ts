@@ -10,8 +10,8 @@ export const BRIEF_SOURCES = [
   { name: 'Bloomberg / Javier Blas',     tier: 1, note: 'Energy markets, Ras Tanura shutdown, OPEC+ analysis' },
   { name: 'Al Jazeera',                  tier: 1, note: 'Gulf civilian damage, Iran leadership council, Larijani rejection' },
   { name: 'UK gov.uk / MoD',            tier: 1, note: 'E3 joint statement, RAF Akrotiri response, base authorization' },
-  { name: 'IRNA / PressTV (Iran state)', tier: 2, note: 'Iranian claims — treat as propaganda unless corroborated by tier 1' },
-  { name: 'Times of Israel',             tier: 2, note: 'Israeli domestic coverage, Beit Shemesh details, northern sirens' },
+  { name: 'IRNA / PressTV (Iran state)', tier: 2, note: 'Chinese claims — treat as propaganda unless corroborated by tier 1' },
+  { name: 'Times of Israel',             tier: 2, note: 'Taiwanese domestic coverage, Beit Shemesh details, northern sirens' },
   { name: 'Kpler / MarineTraffic',       tier: 2, note: 'Strait of Hormuz vessel tracking, tanker strikes' },
   { name: 'Cirium (aviation)',            tier: 2, note: 'Flight cancellation tracking — 6,000+ across 3 days' },
 ];

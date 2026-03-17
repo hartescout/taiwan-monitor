@@ -3,8 +3,8 @@ export const SNAPSHOT_DUMP = 'pharos-db-snapshot.dump';
 export const SNAPSHOT_META = 'pharos-db-snapshot.json';
 export const SNAPSHOT_DIR = 'temp/db-snapshots';
 export const SNAPSHOT_DB_URL_ENV = 'PUBLIC_SNAPSHOT_DATABASE_URL';
-export const SNAPSHOT_OWNER = process.env.PUBLIC_SNAPSHOT_OWNER ?? 'Juliusolsson05';
-export const SNAPSHOT_REPO = process.env.PUBLIC_SNAPSHOT_REPO ?? 'pharos-ai';
+export const SNAPSHOT_OWNER = process.env.PUBLIC_SNAPSHOT_OWNER ?? 'hartescout';
+export const SNAPSHOT_REPO = process.env.PUBLIC_SNAPSHOT_REPO ?? 'taiwan-monitor';
 
 export const INCLUDED_TABLES = [
   'Actor',

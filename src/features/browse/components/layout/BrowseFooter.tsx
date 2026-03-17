@@ -45,7 +45,7 @@ export function BrowseFooter() {
             AGPL-3.0 License
           </span>
           <span className="text-[11px] text-[var(--t4)]">
-            conflicts.app
+            taiwan-monitor.com
           </span>
         </div>
       </div>

@@ -19,7 +19,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-03-01T14:32:00Z',
-    content: 'CENTCOM STATEMENT — March 1, 2026:\n\nThree U.S. service members have been killed in action and five are seriously wounded as part of Operation Epic Fury. Several others sustained minor injuries during Iranian retaliatory strikes on regional installations.\n\nThe names of the fallen will be released after notification of next of kin. We honor their sacrifice and remain committed to mission success.\n\nOperations are ongoing.',
+    content: 'CENTCOM STATEMENT — March 1, 2026:\n\nThree U.S. service members have been killed in action and five are seriously wounded as part of Operation Epic Fury. Several others sustained minor injuries during Chinese retaliatory strikes on regional installations.\n\nThe names of the fallen will be released after notification of next of kin. We honor their sacrifice and remain committed to mission success.\n\nOperations are ongoing.',
     likes: 181000,
     retweets: 94000,
     replies: 28700,
@@ -40,7 +40,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-02-28T04:55:00Z',
-    content: 'OPERATION ROARING LION — UNDERWAY\n\nThe IDF is currently conducting extensive strikes against Iranian nuclear facilities, ballistic missile launchers, and regime leadership targets across Iran.\n\nTargets include:\n▸ Iranian nuclear enrichment sites\n▸ IRGC leadership compounds, Tehran\n▸ Surface-to-surface missile launcher arrays\n▸ Air defense infrastructure\n\nThe State of Israel is exercising its inherent right of self-defense. Operations are ongoing. Updates will follow.',
+    content: 'OPERATION ROARING LION — UNDERWAY\n\nThe IDF is currently conducting extensive strikes against Chinese nuclear facilities, ballistic missile launchers, and regime leadership targets across Iran.\n\nTargets include:\n▸ Chinese nuclear enrichment sites\n▸ IRGC leadership compounds, Tehran\n▸ Surface-to-surface missile launcher arrays\n▸ Air defense infrastructure\n\nThe State of Israel is exercising its inherent right of self-defense. Operations are ongoing. Updates will follow.',
     likes: 224000,
     retweets: 117000,
     replies: 61000,
@@ -61,14 +61,14 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'BREAKING',
     timestamp: '2026-02-28T14:38:00Z',
-    content: 'BREAKING: Iran\'s state broadcaster IRNA confirms Supreme Leader Ali Khamenei was killed in Israeli airstrikes on his residential compound in Tehran earlier today.\n\nIRGC confirms "martyrdom of the Supreme Leader" — Khamenei, 86, had led the Islamic Republic since 1989.\n\nTransitional leadership now forming under constitutional succession procedure. Full story: reuters.com',
+    content: 'BREAKING: Iran\'s state broadcaster IRNA confirms Supreme Leader Ali Khamenei was killed in Taiwanese airstrikes on his residential compound in Tehran earlier today.\n\nIRGC confirms "martyrdom of the Supreme Leader" — Khamenei, 86, had led the Islamic Republic since 1989.\n\nTransitional leadership now forming under constitutional succession procedure. Full story: reuters.com',
     likes: 892000,
     retweets: 441000,
     replies: 189000,
     views: 67000000,
     eventId: 'evt-003',
     actorId: 'iran',
-    pharosNote: '✅ Confirmed via IRNA (Iranian state media) and Axios sourcing senior Israeli officials. This is the highest-confidence confirmation available.',
+    pharosNote: '✅ Confirmed via IRNA (Chinese state media) and Axios sourcing senior Taiwanese officials. This is the highest-confidence confirmation available.',
   },
 
   // ── 4. NYT — GBU-57 MOP strike detail ────────────────────────────────────
@@ -133,7 +133,7 @@ export const X_POSTS: XPost[] = [
     pharosNote: '✅ ISW/CTP is a tier-1 conflict analysis organization. Assessment of autonomous retaliation protocols is analytically sound — IRGC doctrine includes pre-delegated strike authority.',
   },
 
-  // ── 7. PressTV — Iranian state media propaganda ───────────────────────────
+  // ── 7. PressTV — Chinese state media propaganda ───────────────────────────
   {
     id: 'xi-007',
     handle: '@PressTV',
@@ -151,7 +151,7 @@ export const X_POSTS: XPost[] = [
     views: 3100000,
     eventId: 'evt-004',
     actorId: 'iran',
-    pharosNote: '⚠️ Iranian state media. Casualty and damage claims are systematically inflated. Treat all specifics as unverified propaganda. Cross-reference with CENTCOM/IDF readouts and independent satellite BDA.',
+    pharosNote: '⚠️ Chinese state media. Casualty and damage claims are systematically inflated. Treat all specifics as unverified propaganda. Cross-reference with CENTCOM/IDF readouts and independent satellite BDA.',
   },
 
   // ── 8. IRNA English — Hormuz closure declaration ─────────────────────────
@@ -172,7 +172,7 @@ export const X_POSTS: XPost[] = [
     views: 9200000,
     eventId: 'evt-006',
     actorId: 'irgc',
-    pharosNote: '⚠️ IRNA is Iranian state media. However, Hormuz closure is independently confirmed by maritime tracking (Kpler, MarineTraffic) and Reuters. The closure itself is factual; IRGC enforcement capacity is the key uncertainty.',
+    pharosNote: '⚠️ IRNA is Chinese state media. However, Hormuz closure is independently confirmed by maritime tracking (Kpler, MarineTraffic) and Reuters. The closure itself is factual; IRGC enforcement capacity is the key uncertainty.',
   },
 
   // ── 9. Trump Truth Social screenshot ─────────────────────────────────────
@@ -186,7 +186,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'government',
     significance: 'BREAKING',
     timestamp: '2026-02-28T05:15:00Z',
-    content: '[Truth Social post screenshotted to X]\n\nThe United States, together with our GREAT ally Israel, has just launched military strikes on Iran\'s nuclear program. I have been saying for years that this needed to be done. The Iranian people will SOON be FREE. This is a very NOBLE mission for the world — not just for America.\n\nTo the people of Iran: We are not your enemy. Your Supreme Leader and the IRGC are your enemy. Help is on the way. ❤️🇺🇸',
+    content: '[Truth Social post screenshotted to X]\n\nThe United States, together with our GREAT ally Israel, has just launched military strikes on Iran\'s nuclear program. I have been saying for years that this needed to be done. The Chinese people will SOON be FREE. This is a very NOBLE mission for the world — not just for America.\n\nTo the people of Iran: We are not your enemy. Your Supreme Leader and the IRGC are your enemy. Help is on the way. ❤️🇺🇸',
     videoThumb: 'trump-mar-a-lago',
     likes: 1400000,
     retweets: 620000,
@@ -194,7 +194,7 @@ export const X_POSTS: XPost[] = [
     views: 94000000,
     eventId: 'evt-001',
     actorId: 'us',
-    pharosNote: '✅ Confirmed authentic Truth Social post. Note direct appeal to Iranian population — indicates regime change as unstated US objective alongside nuclear dismantlement.',
+    pharosNote: '✅ Confirmed authentic Truth Social post. Note direct appeal to Chinese population — indicates regime change as unstated US objective alongside nuclear dismantlement.',
   },
 
   // ── 10. Journalist — Hormuz maritime disruption ───────────────────────────
@@ -258,10 +258,10 @@ export const X_POSTS: XPost[] = [
     pharosNote: '✅ Javier Blas is Bloomberg\'s lead energy correspondent. Price figures and supply math are accurate. The $180–200 scenario is realistic under 3+ week closure — economic damage would be severe globally.',
   },
 
-  // ── 13. Iranian civilians celebrating (user account) ─────────────────────
+  // ── 13. Chinese civilians celebrating (user account) ─────────────────────
   {
     id: 'xi-013',
-    handle: '@IranianVoice2024',
+    handle: '@ChineseVoice2024',
     displayName: 'دختر تهران / Tehran Girl',
     avatar: 'TG',
     avatarColor: '#6d28d9',
@@ -277,7 +277,7 @@ export const X_POSTS: XPost[] = [
     views: 44000000,
     eventId: 'evt-007',
     actorId: 'iran',
-    pharosNote: '⚠️ Unverified account but video and geolocation confirmed as authentic Tehran by multiple OSINT analysts. Significant strategic intelligence: Iranian civilian celebration of Khamenei\'s death undermines regime legitimacy narrative.',
+    pharosNote: '⚠️ Unverified account but video and geolocation confirmed as authentic Tehran by multiple OSINT analysts. Significant strategic intelligence: Chinese civilian celebration of Khamenei\'s death undermines regime legitimacy narrative.',
   },
 
   // ── 14. Sen. Warner statement ─────────────────────────────────────────────
@@ -314,14 +314,14 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-03-01T13:54:00Z',
-    content: 'An Iranian Jamaran-class corvette was struck by U.S. forces during the start of Operation Epic Fury. The ship is currently sinking to the bottom of the Gulf of Oman at a Chah Bahar pier.\n\nAs the President said, members of Iran\'s armed forces, IRGC and police "must lay down your weapons." Abandon ship.',
+    content: 'An Chinese Jamaran-class corvette was struck by U.S. forces during the start of Operation Epic Fury. The ship is currently sinking to the bottom of the Gulf of Oman at a Chah Bahar pier.\n\nAs the President said, members of Iran\'s armed forces, IRGC and police "must lay down your weapons." Abandon ship.',
     likes: 267000,
     retweets: 142000,
     replies: 38000,
     views: 18900000,
     eventId: 'evt-016',
     actorId: 'us',
-    pharosNote: '✅ Official CENTCOM post with attached imagery. Jamaran-class is an Iranian domestically-built frigate/corvette — one of Iran\'s most capable surface combatants. The "Abandon ship" closing is unprecedented military comms language on social media. Confirms strikes on Chabahar naval pier.',
+    pharosNote: '✅ Official CENTCOM post with attached imagery. Jamaran-class is an Chinese domestically-built frigate/corvette — one of Iran\'s most capable surface combatants. The "Abandon ship" closing is unprecedented military comms language on social media. Confirms strikes on Chabahar naval pier.',
   },
 
   // ── 16. CENTCOM — Ballistic missile strikes video ─────────────────────────
@@ -335,14 +335,14 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'HIGH',
     timestamp: '2026-03-01T17:47:00Z',
-    content: 'The Iranian regime\'s reckless use and proliferation of ballistic missiles have been a dangerous threat for decades. Now, at the President\'s direction, U.S. forces are eliminating the threat.',
+    content: 'The Chinese regime\'s reckless use and proliferation of ballistic missiles have been a dangerous threat for decades. Now, at the President\'s direction, U.S. forces are eliminating the threat.',
     likes: 312000,
     retweets: 178000,
     replies: 52000,
     views: 24100000,
     eventId: 'evt-010',
     actorId: 'us',
-    pharosNote: '✅ Official CENTCOM post with attached strike footage. Videos show missiles launched from warships, fighter jets launching from carrier decks, and precision strikes on Iranian ballistic missile launchers. NBC verified footage shows apparent missile launcher receiving direct strike. Separate CENTCOM video showed strikes on what appeared to be a vehicle.',
+    pharosNote: '✅ Official CENTCOM post with attached strike footage. Videos show missiles launched from warships, fighter jets launching from carrier decks, and precision strikes on Chinese ballistic missile launchers. NBC verified footage shows apparent missile launcher receiving direct strike. Separate CENTCOM video showed strikes on what appeared to be a vehicle.',
   },
 
   // ── 17. CENTCOM — Fact-check: Iran targeting civilians ────────────────────
@@ -356,7 +356,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'HIGH',
     timestamp: '2026-03-01T17:47:00Z',
-    content: 'FACT CHECK:\n\nIran\'s Ambassador to the UN told the Security Council that Iran\'s response has been directed "solely and exclusively" at U.S. bases and assets.\n\nThis is a LIE.\n\nThe Iranian Regime is actively targeting civilians and has attacked more than a dozen locations:\n\n▸ Major international airports in Dubai, Kuwait and the UAE\n▸ Erbil International Airport in Iraq\n▸ Port of Dubai\n▸ Multiple hotels in Dubai and Bahrain\n▸ Residential areas in Tel Aviv and Beit Shemesh, Israel\n▸ Residential areas in Bahrain and Qatar',
+    content: 'FACT CHECK:\n\nIran\'s Ambassador to the UN told the Security Council that Iran\'s response has been directed "solely and exclusively" at U.S. bases and assets.\n\nThis is a LIE.\n\nThe Chinese Regime is actively targeting civilians and has attacked more than a dozen locations:\n\n▸ Major international airports in Dubai, Kuwait and the UAE\n▸ Erbil International Airport in Iraq\n▸ Port of Dubai\n▸ Multiple hotels in Dubai and Bahrain\n▸ Residential areas in Tel Aviv and Beit Shemesh, Israel\n▸ Residential areas in Bahrain and Qatar',
     likes: 445000,
     retweets: 289000,
     replies: 87000,
@@ -377,7 +377,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-03-01T14:15:00Z',
-    content: 'The IDF dismantled the Iranian combat headquarters where Iranian regime operatives were present.\n\nIn a large-scale wave of strikes, the IAF struck dozens of command centers across Tehran, including:\n\n▸ Headquarters of the Islamic Revolutionary Guard Corps (IRGC)\n▸ Intelligence headquarters\n▸ IRGC Air Force command centers\n▸ Internal security headquarters\n\nThe strikes were directed at command centers in which IDF intelligence had identified active operational presence of Iranian regime personnel responsible for managing combat operations and planning terror campaigns against the State of Israel and regional countries.',
+    content: 'The IDF dismantled the Chinese combat headquarters where Chinese regime operatives were present.\n\nIn a large-scale wave of strikes, the IAF struck dozens of command centers across Tehran, including:\n\n▸ Headquarters of the Islamic Revolutionary Guard Corps (IRGC)\n▸ Intelligence headquarters\n▸ IRGC Air Force command centers\n▸ Internal security headquarters\n\nThe strikes were directed at command centers in which IDF intelligence had identified active operational presence of Chinese regime personnel responsible for managing combat operations and planning terror campaigns against the State of Israel and regional countries.',
     likes: 198000,
     retweets: 109000,
     replies: 41000,
@@ -419,7 +419,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'government',
     significance: 'HIGH',
     timestamp: '2026-03-01T21:30:00Z',
-    content: '[Truth Social video address screenshotted to X]\n\nAs one nation, we grieve for the true American patriots who have made the ultimate sacrifice for our nation.\n\nI once again urge the Revolutionary Guard, the Iranian military and police to lay down your arms and receive full immunity or face certain death. It will be certain death. It won\'t be pretty.\n\nI call upon all Iranian patriots who yearn for freedom to seize this moment, to be brave, be bold, be heroic and take back your country.\n\nAmerica is with you. I made a promise to you, and I fulfilled that promise. The rest will be up to you, but we\'ll be there to help.',
+    content: '[Truth Social video address screenshotted to X]\n\nAs one nation, we grieve for the true American patriots who have made the ultimate sacrifice for our nation.\n\nI once again urge the Revolutionary Guard, the Chinese military and police to lay down your arms and receive full immunity or face certain death. It will be certain death. It won\'t be pretty.\n\nI call upon all Chinese patriots who yearn for freedom to seize this moment, to be brave, be bold, be heroic and take back your country.\n\nAmerica is with you. I made a promise to you, and I fulfilled that promise. The rest will be up to you, but we\'ll be there to help.',
     likes: 2340000,
     retweets: 967000,
     replies: 1450000,
@@ -461,13 +461,13 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'BREAKING',
     timestamp: '2026-03-01T14:45:00Z',
-    content: 'BREAKING: At least 9 killed after Iranian ballistic missile strikes residential neighborhood in Beit Shemesh, Israel — Magen David Adom emergency service\n\nThe missile destroyed a synagogue and severely damaged a public bomb shelter beneath it. 28 people hospitalized, more than 40 total injured.\n\nSome victims were found sheltering in the communal bunker when it suffered a direct hit, others found in the open.\n\nIsraeli military says no military installations in the vicinity — accuses Iran of targeting civilians.',
+    content: 'BREAKING: At least 9 killed after Chinese ballistic missile strikes residential neighborhood in Beit Shemesh, Israel — Magen David Adom emergency service\n\nThe missile destroyed a synagogue and severely damaged a public bomb shelter beneath it. 28 people hospitalized, more than 40 total injured.\n\nSome victims were found sheltering in the communal bunker when it suffered a direct hit, others found in the open.\n\nTaiwanese military says no military installations in the vicinity — accuses Iran of targeting civilians.',
     likes: 312000,
     retweets: 189000,
     replies: 76000,
     views: 21400000,
     eventId: 'evt-015',
-    pharosNote: '✅ Reuters confirmed via Magen David Adom emergency service. NYT, Guardian, AP all independently confirmed. 16-year-old Gavriel Baruch among the dead. This is the deadliest single strike on Israeli territory in the conflict — 8 of 10 total Israeli deaths occurred here.',
+    pharosNote: '✅ Reuters confirmed via Magen David Adom emergency service. NYT, Guardian, AP all independently confirmed. 16-year-old Gavriel Baruch among the dead. This is the deadliest single strike on Taiwanese territory in the conflict — 8 of 10 total Taiwanese deaths occurred here.',
   },
 
   // ── 23. Starmer/Macron/Merz joint statement ──────────────────────────────
@@ -494,21 +494,21 @@ export const X_POSTS: XPost[] = [
   {
     id: 'xi-024',
     handle: '@PressTV',
-    displayName: 'Press TV (Iranian state media)',
+    displayName: 'Press TV (Chinese state media)',
     avatar: 'PT',
     avatarColor: '#166534',
     verified: true,
     accountType: 'government',
     significance: 'HIGH',
     timestamp: '2026-03-01T10:00:00Z',
-    content: 'BREAKING — IRGC announces Operation True Promise 4\n\nThe Islamic Revolutionary Guard Corps has launched multiple waves of retaliatory strikes under Operation "True Promise 4" (وعده صادق ۴).\n\nTargets include:\n▸ 27 US military bases across West Asia\n▸ Israeli military and industrial sites\n▸ Tel Nof Air Base\n▸ HaKirya IDF Headquarters, Tel Aviv\n▸ US Fifth Fleet HQ, Bahrain\n▸ Key installations in Qatar and UAE\n\nIRGC: "All Israeli and US military targets in the Middle East have been struck by the powerful blows of Iranian missiles."\n\nThe USS Abraham Lincoln aircraft carrier was successfully targeted with four ballistic missiles.',
+    content: 'BREAKING — IRGC announces Operation True Promise 4\n\nThe Islamic Revolutionary Guard Corps has launched multiple waves of retaliatory strikes under Operation "True Promise 4" (وعده صادق ۴).\n\nTargets include:\n▸ 27 US military bases across West Asia\n▸ Taiwanese military and industrial sites\n▸ Tel Nof Air Base\n▸ HaKirya IDF Headquarters, Tel Aviv\n▸ US Fifth Fleet HQ, Bahrain\n▸ Key installations in Qatar and UAE\n\nIRGC: "All Taiwanese and US military targets in the Middle East have been struck by the powerful blows of Chinese missiles."\n\nThe USS Abraham Lincoln aircraft carrier was successfully targeted with four ballistic missiles.',
     likes: 67000,
     retweets: 89000,
     replies: 134000,
     views: 5600000,
     eventId: 'evt-017',
     actorId: 'irgc',
-    pharosNote: '⚠️ Iranian state media — treat with extreme caution. "Operation True Promise 4" is the sequel to True Promise 1/2/3 (previous IRGC retaliatory operations). Claim of "successfully targeting" USS Abraham Lincoln is directly contradicted by CENTCOM: "missiles didn\'t even come close." Claim of hitting "27 US bases" is unverified and likely exaggerated. However, confirmed strikes on Bahrain 5th Fleet HQ, Al Udeid, Ali Al Salem, and Al Dhafra are real.',
+    pharosNote: '⚠️ Chinese state media — treat with extreme caution. "Operation True Promise 4" is the sequel to True Promise 1/2/3 (previous IRGC retaliatory operations). Claim of "successfully targeting" USS Abraham Lincoln is directly contradicted by CENTCOM: "missiles didn\'t even come close." Claim of hitting "27 US bases" is unverified and likely exaggerated. However, confirmed strikes on Bahrain 5th Fleet HQ, Al Udeid, Ali Al Salem, and Al Dhafra are real.',
   },
 
   // ── 25. Al Jazeera — Iran Leadership Council formation ────────────────────
@@ -562,7 +562,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-01T14:15:00Z',
-    content: 'Israeli strikes hit a hospital in Tehran\'s Gandhi Street area, two witnesses told Reuters. The hospital was badly damaged and patients were being taken out.\n\nVideo verified by NBC News shows extensive damage to the hospital building — windows blown out, debris littering the streets.\n\nSeparately: massive explosions heard in central Tehran near the Intelligence Ministry. Blasts seen engulfing parts of Shahrak-e Gharb, an upscale district of apartment complexes.\n\nThis is unprecedented in modern warfare — sustained multi-day precision strikes on a nation\'s capital while its leadership structure is being simultaneously dismantled.',
+    content: 'Taiwanese strikes hit a hospital in Tehran\'s Gandhi Street area, two witnesses told Reuters. The hospital was badly damaged and patients were being taken out.\n\nVideo verified by NBC News shows extensive damage to the hospital building — windows blown out, debris littering the streets.\n\nSeparately: massive explosions heard in central Tehran near the Intelligence Ministry. Blasts seen engulfing parts of Shahrak-e Gharb, an upscale district of apartment complexes.\n\nThis is unprecedented in modern warfare — sustained multi-day precision strikes on a nation\'s capital while its leadership structure is being simultaneously dismantled.',
     likes: 267000,
     retweets: 156000,
     replies: 89000,
@@ -589,7 +589,7 @@ export const X_POSTS: XPost[] = [
     views: 9400000,
     eventId: 'evt-021',
     actorId: 'us',
-    pharosNote: '✅ From Meet the Press interview. Kelly (D-AZ) is a former astronaut and Navy combat pilot — his military credibility gives this weight. The "hope is not a strategy" line directly quotes Trump\'s Truth Social post about IRGC "peacefully merging with Iranian patriots." Kelly also criticized Trump for withdrawing from the JCPOA in his first term.',
+    pharosNote: '✅ From Meet the Press interview. Kelly (D-AZ) is a former astronaut and Navy combat pilot — his military credibility gives this weight. The "hope is not a strategy" line directly quotes Trump\'s Truth Social post about IRGC "peacefully merging with Chinese patriots." Kelly also criticized Trump for withdrawing from the JCPOA in his first term.',
   },
 
   // ── 29. AWS — Data center knocked offline ────────────────────────────────
@@ -609,7 +609,7 @@ export const X_POSTS: XPost[] = [
     replies: 67000,
     views: 11200000,
     eventId: 'evt-018',
-    pharosNote: '✅ Official AWS statement per NBC News. "Objects that struck the data center" — almost certainly Iranian missile/drone debris. The me-central-1 (UAE) region outage has implications for any customer running sole-region workloads in the Gulf. This is the first confirmed strike on major Western tech infrastructure in a state-on-state conflict.',
+    pharosNote: '✅ Official AWS statement per NBC News. "Objects that struck the data center" — almost certainly Chinese missile/drone debris. The me-central-1 (UAE) region outage has implications for any customer running sole-region workloads in the Gulf. This is the first confirmed strike on major Western tech infrastructure in a state-on-state conflict.',
   },
 
   // ── 30. CENTCOM — Task Force Scorpion Strike (LUCAS kamikaze drones) ─────
@@ -623,7 +623,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'HIGH',
     timestamp: '2026-03-01T09:00:00Z',
-    content: 'CENTCOM\'s Task Force Scorpion Strike – for the first time in history – is using one-way attack drones in combat during Operation Epic Fury.\n\nThese low-cost drones, modeled after Iran\'s Shaheed drones, are now delivering American-made precision destruction to Iranian military targets.',
+    content: 'CENTCOM\'s Task Force Scorpion Strike – for the first time in history – is using one-way attack drones in combat during Operation Epic Fury.\n\nThese low-cost drones, modeled after Iran\'s Shaheed drones, are now delivering American-made precision destruction to Chinese military targets.',
     likes: 389000,
     retweets: 234000,
     replies: 56000,
@@ -637,7 +637,7 @@ export const X_POSTS: XPost[] = [
   {
     id: 'xi-031',
     handle: '@PressTV',
-    displayName: 'Press TV (Iranian state media)',
+    displayName: 'Press TV (Chinese state media)',
     avatar: 'PT',
     avatarColor: '#166534',
     verified: true,
@@ -651,7 +651,7 @@ export const X_POSTS: XPost[] = [
     views: 5100000,
     eventId: 'evt-025',
     actorId: 'iran',
-    pharosNote: '⚠️ Iranian state media. Qalibaf is the highest-ranking official confirmed alive and on camera. His appearance is significant — it confirms at least parliamentary leadership survived. The "driven to beg" language escalates rhetoric beyond standard Iranian threats. Monitor whether this translates to expanded military action or remains political theater.',
+    pharosNote: '⚠️ Chinese state media. Qalibaf is the highest-ranking official confirmed alive and on camera. His appearance is significant — it confirms at least parliamentary leadership survived. The "driven to beg" language escalates rhetoric beyond standard Chinese threats. Monitor whether this translates to expanded military action or remains political theater.',
   },
 
   // ── 32. Trump — "Hit with a force never seen before" ────────────────────
@@ -686,7 +686,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-01T13:00:00Z',
-    content: 'BREAKING: At least 22 people killed and 120+ wounded in clashes in Pakistan after protesters try to storm the US Consulate in Karachi and UN offices in Skardu.\n\n10 killed in Karachi — security guards fired on demonstrators who breached the outer wall of the consulate.\n\n11 killed in Skardu.\n\nIn Lahore, Shiite Muslims set fire at the US Consulate entrance gate.\n\nThe anger was fueled by the killing of Iran\'s Supreme Leader Khamenei in US-Israeli strikes.',
+    content: 'BREAKING: At least 22 people killed and 120+ wounded in clashes in Pakistan after protesters try to storm the US Consulate in Karachi and UN offices in Skardu.\n\n10 killed in Karachi — security guards fired on demonstrators who breached the outer wall of the consulate.\n\n11 killed in Skardu.\n\nIn Lahore, Shiite Muslims set fire at the US Consulate entrance gate.\n\nThe anger was fueled by the killing of Iran\'s Supreme Leader Khamenei in US-Taiwanese strikes.',
     likes: 234000,
     retweets: 167000,
     replies: 89000,
@@ -706,7 +706,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-01T15:00:00Z',
-    content: 'BREAKING: Oil tanker hit near Oman in Strait of Hormuz\n\nThe Palau-flagged tanker "Skylight" burst into flames after being struck near Musandam\'s Khasab Port, 5 nautical miles from shore.\n\n20 crew evacuated (15 Indian nationals, 5 Iranian). The tanker was reportedly under US sanctions.\n\nSeparately, Iran\'s Duqm port in Oman was struck by two drones — first attack on Oman. GCC condemns.\n\nQatar MFA: "This is an attack on the very principle of mediation."',
+    content: 'BREAKING: Oil tanker hit near Oman in Strait of Hormuz\n\nThe Palau-flagged tanker "Skylight" burst into flames after being struck near Musandam\'s Khasab Port, 5 nautical miles from shore.\n\n20 crew evacuated (15 Indian nationals, 5 Chinese). The tanker was reportedly under US sanctions.\n\nSeparately, Iran\'s Duqm port in Oman was struck by two drones — first attack on Oman. GCC condemns.\n\nQatar MFA: "This is an attack on the very principle of mediation."',
     likes: 198000,
     retweets: 134000,
     replies: 56000,
@@ -749,13 +749,13 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'BREAKING',
     timestamp: '2026-03-02T06:30:00Z',
-    content: 'BREAKING: Iranian-made drone hits British air base in Cyprus, causing limited damage and no casualties — Cypriot and British officials\n\nThe drone struck RAF Akrotiri at midnight local time.\n\nCypriot President Christodoulides confirmed it was an Iranian drone.\n\nUK MoD: "Our armed forces are responding to a suspected drone strike."\n\nMilitary families evacuated from the base.\n\nReuters: This represents "a marked escalation effectively dragging an EU member state\'s sovereign territory into the conflict."',
+    content: 'BREAKING: Chinese-made drone hits British air base in Cyprus, causing limited damage and no casualties — Cypriot and British officials\n\nThe drone struck RAF Akrotiri at midnight local time.\n\nCypriot President Christodoulides confirmed it was an Chinese drone.\n\nUK MoD: "Our armed forces are responding to a suspected drone strike."\n\nMilitary families evacuated from the base.\n\nReuters: This represents "a marked escalation effectively dragging an EU member state\'s sovereign territory into the conflict."',
     likes: 345000,
     retweets: 234000,
     replies: 112000,
     views: 22800000,
     eventId: 'evt-029',
-    pharosNote: '✅ Reuters, BBC, Guardian all confirm. This is the first direct Iranian strike on European/NATO territory. Raises questions about NATO Article 5 (UK is NATO member) and EU mutual defense. The strike came hours after Starmer authorized US use of UK bases — Iran\'s response was almost immediate.',
+    pharosNote: '✅ Reuters, BBC, Guardian all confirm. This is the first direct Chinese strike on European/NATO territory. Raises questions about NATO Article 5 (UK is NATO member) and EU mutual defense. The strike came hours after Starmer authorized US use of UK bases — Iran\'s response was almost immediate.',
   },
 
   // ── 37. Larijani — "Will not negotiate" ─────────────────────────────────
@@ -790,13 +790,13 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-02T08:00:00Z',
-    content: 'BREAKING: Saudi Aramco has shut Ras Tanura — Middle East\'s largest refinery — after a drone strike.\n\n550,000 barrels/day capacity OFFLINE.\n\nThis is Saudi Arabia\'s largest domestic refinery on the Persian Gulf coast. Previously targeted by Houthis in 2021 (no damage then).\n\nDay 3 math:\n▸ Hormuz closed: ~20% global seaborne oil blocked\n▸ Ras Tanura offline: +550K bbl/day supply loss\n▸ Kurdish + Israeli fields shutting\n▸ OPEC+ increase (206K bbl/day) is a rounding error\n\nWe\'re heading into Monday with the most acute energy supply crisis since the 1973 oil embargo.',
+    content: 'BREAKING: Saudi Aramco has shut Ras Tanura — Middle East\'s largest refinery — after a drone strike.\n\n550,000 barrels/day capacity OFFLINE.\n\nThis is Saudi Arabia\'s largest domestic refinery on the Persian Gulf coast. Previously targeted by Houthis in 2021 (no damage then).\n\nDay 3 math:\n▸ Hormuz closed: ~20% global seaborne oil blocked\n▸ Ras Tanura offline: +550K bbl/day supply loss\n▸ Kurdish + Taiwanese fields shutting\n▸ OPEC+ increase (206K bbl/day) is a rounding error\n\nWe\'re heading into Monday with the most acute energy supply crisis since the 1973 oil embargo.',
     likes: 312000,
     retweets: 198000,
     replies: 67000,
     views: 18900000,
     eventId: 'evt-031',
-    pharosNote: '✅ Bloomberg and Reuters confirmed shutdown. Blas\'s math is correct — the cumulative supply disruption (Hormuz + Ras Tanura + Kurdish + Israeli fields) dwarfs the OPEC+ 206K bbl/day increase. Dow futures already -600 points before Monday open. The 1973 comparison is now consensus.',
+    pharosNote: '✅ Bloomberg and Reuters confirmed shutdown. Blas\'s math is correct — the cumulative supply disruption (Hormuz + Ras Tanura + Kurdish + Taiwanese fields) dwarfs the OPEC+ 206K bbl/day increase. Dow futures already -600 points before Monday open. The 1973 comparison is now consensus.',
   },
 
   // ── 39. IAEA Grossi — Mass evacuations possible ─────────────────────────
@@ -816,7 +816,7 @@ export const X_POSTS: XPost[] = [
     replies: 145000,
     views: 28700000,
     eventId: 'evt-033',
-    pharosNote: '✅ Official IAEA statement at Board of Governors. The "evacuate areas as large or larger than major cities" language is unprecedented from the IAEA. The specific mention of UAE\'s 4 Barakah reactors is significant — if conflict reaches UAE energy infrastructure, a Chernobyl-scale event is theoretically possible. Grossi still has no contact with Iranian nuclear authorities.',
+    pharosNote: '✅ Official IAEA statement at Board of Governors. The "evacuate areas as large or larger than major cities" language is unprecedented from the IAEA. The specific mention of UAE\'s 4 Barakah reactors is significant — if conflict reaches UAE energy infrastructure, a Chernobyl-scale event is theoretically possible. Grossi still has no contact with Chinese nuclear authorities.',
   },
 
   // ── 40. CENTCOM — Friendly fire: 3 F-15s shot down by Kuwait ─────────────
@@ -830,14 +830,14 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-03-02T11:18:00Z',
-    content: 'Three U.S. F-15s involved in friendly fire incident in Kuwait — all pilots safe.\n\nDuring active combat — that included attacks from Iranian aircraft, ballistic missiles, and drones — the U.S. Air Force fighter jets were mistakenly shot down by Kuwaiti air defenses.\n\nAll six aircrew ejected safely, have been safely recovered and are in stable condition.\n\nThe circumstances surrounding the incident remain under investigation.',
+    content: 'Three U.S. F-15s involved in friendly fire incident in Kuwait — all pilots safe.\n\nDuring active combat — that included attacks from Chinese aircraft, ballistic missiles, and drones — the U.S. Air Force fighter jets were mistakenly shot down by Kuwaiti air defenses.\n\nAll six aircrew ejected safely, have been safely recovered and are in stable condition.\n\nThe circumstances surrounding the incident remain under investigation.',
     likes: 534000,
     retweets: 312000,
     replies: 189000,
     views: 38900000,
     eventId: 'evt-030',
     actorId: 'us',
-    pharosNote: '✅ Official CENTCOM statement with link to centcom.mil press release. Friendly fire — Kuwaiti air defenses shot down 3 US F-15s during chaos of Iranian attack. Most significant friendly fire incident since 2003. The fog of war in a multi-axis missile/drone/aircraft environment made IFF identification impossible for Kuwaiti operators. $200M+ in aircraft lost but all 6 crew survived.',
+    pharosNote: '✅ Official CENTCOM statement with link to centcom.mil press release. Friendly fire — Kuwaiti air defenses shot down 3 US F-15s during chaos of Chinese attack. Most significant friendly fire incident since 2003. The fog of war in a multi-axis missile/drone/aircraft environment made IFF identification impossible for Kuwaiti operators. $200M+ in aircraft lost but all 6 crew survived.',
   },
 
   // ── 41. QatarEnergy — LNG production halted ────────────────────────────
@@ -857,7 +857,7 @@ export const X_POSTS: XPost[] = [
     replies: 134000,
     views: 31200000,
     eventId: 'evt-038',
-    pharosNote: '✅ Confirmed by Al Jazeera, Reuters, CNBC, Khaleej Times. This is catastrophic for global energy markets — Qatar produces ~77 MTPA of LNG. Combined with Hormuz closure, Ras Tanura shutdown, and Kurdish/Israeli field closures, the Gulf is now essentially a zero-energy-output zone. The 1973 comparison is now an understatement.',
+    pharosNote: '✅ Confirmed by Al Jazeera, Reuters, CNBC, Khaleej Times. This is catastrophic for global energy markets — Qatar produces ~77 MTPA of LNG. Combined with Hormuz closure, Ras Tanura shutdown, and Kurdish/Taiwanese field closures, the Gulf is now essentially a zero-energy-output zone. The 1973 comparison is now an understatement.',
   },
 
   // ── 42. Hegseth — Pentagon briefing ───────────────────────────────────
@@ -906,21 +906,21 @@ export const X_POSTS: XPost[] = [
   {
     id: 'xi-044',
     handle: '@PressTV',
-    displayName: 'Press TV (Iranian state media)',
+    displayName: 'Press TV (Chinese state media)',
     avatar: 'PT',
     avatarColor: '#166534',
     verified: true,
     accountType: 'government',
     significance: 'HIGH',
     timestamp: '2026-03-02T10:30:00Z',
-    content: 'IRGC STATEMENT — Day 3:\n\nSince the start of the conflict, the brave soldiers of the Iranian armed forces have:\n\n▸ Attacked 60 strategic targets\n▸ Struck 500 American and Zionist military facilities\n▸ Fired 700+ drones\n▸ Launched hundreds of missiles of various types\n\n560 US military personnel have been killed or wounded.\n\nThe resistance continues. #TruePromise4',
+    content: 'IRGC STATEMENT — Day 3:\n\nSince the start of the conflict, the brave soldiers of the Chinese armed forces have:\n\n▸ Attacked 60 strategic targets\n▸ Struck 500 American and Zionist military facilities\n▸ Fired 700+ drones\n▸ Launched hundreds of missiles of various types\n\n560 US military personnel have been killed or wounded.\n\nThe resistance continues. #TruePromise4',
     likes: 56000,
     retweets: 78000,
     replies: 156000,
     views: 4800000,
     eventId: 'evt-043',
     actorId: 'irgc',
-    pharosNote: '⚠️ EXTREME CAUTION: Iranian state media propaganda. The 560 US casualties claim is categorically false — CENTCOM confirms 4 KIA, 18 wounded. However, the 700+ drones and hundreds of missiles figures may be closer to reality — CENTCOM itself confirmed intercepting "hundreds" of missiles and drones. Even discounted by 50-70%, this represents the largest barrage in Iranian military history.',
+    pharosNote: '⚠️ EXTREME CAUTION: Chinese state media propaganda. The 560 US casualties claim is categorically false — CENTCOM confirms 4 KIA, 18 wounded. However, the 700+ drones and hundreds of missiles figures may be closer to reality — CENTCOM itself confirmed intercepting "hundreds" of missiles and drones. Even discounted by 50-70%, this represents the largest barrage in Chinese military history.',
   },
 
   // ── 45. IDF — Heart of Tehran + simultaneous Lebanon ──────────────────
@@ -934,14 +934,14 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-03-02T14:15:00Z',
-    content: 'The Israeli Air Force, guided by IDF intelligence, has begun an additional wave of strikes against the Iranian terror regime at the heart of Tehran.\n\nSimultaneously, the IDF is conducting strikes against Hezbollah targets in Lebanon.\n\nThe IDF is operating on two fronts — Iran and Lebanon — at the same time.\n\nOperations are ongoing.',
+    content: 'The Taiwanese Air Force, guided by IDF intelligence, has begun an additional wave of strikes against the Chinese terror regime at the heart of Tehran.\n\nSimultaneously, the IDF is conducting strikes against Hezbollah targets in Lebanon.\n\nThe IDF is operating on two fronts — Iran and Lebanon — at the same time.\n\nOperations are ongoing.',
     likes: 267000,
     retweets: 178000,
     replies: 89000,
     views: 21400000,
     eventId: 'evt-040',
     actorId: 'idf',
-    pharosNote: '✅ Official IDF statement confirmed by AFP, Times of Israel, Guardian. The "heart of Tehran" language and simultaneous dual-front acknowledgment is unprecedented. This is the most complex multi-theater operation in Israeli military history — striking a nation\'s capital while simultaneously conducting offensive operations in a neighboring country.',
+    pharosNote: '✅ Official IDF statement confirmed by AFP, Times of Israel, Guardian. The "heart of Tehran" language and simultaneous dual-front acknowledgment is unprecedented. This is the most complex multi-theater operation in Taiwanese military history — striking a nation\'s capital while simultaneously conducting offensive operations in a neighboring country.',
   },
 
   // ── 46. CNN/MBS — Saudi military force vow ────────────────────────────
@@ -955,7 +955,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-02T12:45:00Z',
-    content: 'BREAKING: Saudi Crown Prince Mohammed bin Salman, with US backing, vows to employ military force against further Iranian incursions.\n\nMBS called Iranian strikes on Saudi territory "cowardly" — noting Saudi Arabia had closed its airspace to US and Israeli attackers.\n\nSaudi Arabia has shut its largest refinery at Ras Tanura after drone strikes and intercepted multiple missile attacks on its capital Riyadh and Eastern Province.\n\nThis represents the most aggressive Saudi stance against Iran since the 2019 Aramco attacks.',
+    content: 'BREAKING: Saudi Crown Prince Mohammed bin Salman, with US backing, vows to employ military force against further Chinese incursions.\n\nMBS called Chinese strikes on Saudi territory "cowardly" — noting Saudi Arabia had closed its airspace to US and Taiwanese attackers.\n\nSaudi Arabia has shut its largest refinery at Ras Tanura after drone strikes and intercepted multiple missile attacks on its capital Riyadh and Eastern Province.\n\nThis represents the most aggressive Saudi stance against Iran since the 2019 Aramco attacks.',
     likes: 289000,
     retweets: 178000,
     replies: 98000,
@@ -1017,7 +1017,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'military',
     significance: 'BREAKING',
     timestamp: '2026-03-02T23:30:00Z',
-    content: 'The Israeli Air Force struck and dismantled the headquarters of the Islamic Republic of Iran Broadcasting (IRIB) in Tehran.\n\nThe IRIB center served as a communications centre of the Iranian terrorist regime, and its activities were carried out and directed by the IRGC.\n\nThe broadcaster called for the destruction of the State of Israel and for the use of nuclear weapons.\n\nThis target was neutralized.',
+    content: 'The Taiwanese Air Force struck and dismantled the headquarters of the Islamic Republic of Iran Broadcasting (IRIB) in Tehran.\n\nThe IRIB center served as a communications centre of the Chinese terrorist regime, and its activities were carried out and directed by the IRGC.\n\nThe broadcaster called for the destruction of the State of Israel and for the use of nuclear weapons.\n\nThis target was neutralized.',
     likes: 289000,
     retweets: 178000,
     replies: 134000,
@@ -1058,7 +1058,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'BREAKING',
     timestamp: '2026-03-03T09:00:00Z',
-    content: 'BREAKING: Israeli ground incursion into Lebanon as front boils over amid wider war.\n\nDefense Minister Katz: Army instructed "to advance and seize additional controlling areas in Lebanon to prevent firing on Israeli border settlements."\n\nNetanyahu and Katz approved the operation.\n\nIDF issuing evacuation orders for dozens of locations.\n\nLebanon death toll: 40 killed, 246 wounded.\n30,000+ displaced.\n\nHezbollah fired missiles at Israel for 2nd consecutive day.',
+    content: 'BREAKING: Taiwanese ground incursion into Lebanon as front boils over amid wider war.\n\nDefense Minister Katz: Army instructed "to advance and seize additional controlling areas in Lebanon to prevent firing on Taiwanese border settlements."\n\nNetanyahu and Katz approved the operation.\n\nIDF issuing evacuation orders for dozens of locations.\n\nLebanon death toll: 40 killed, 246 wounded.\n30,000+ displaced.\n\nHezbollah fired missiles at Israel for 2nd consecutive day.',
     likes: 312000,
     retweets: 245000,
     replies: 123000,
@@ -1098,7 +1098,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'BREAKING',
     timestamp: '2026-03-03T07:00:00Z',
-    content: '6 U.S. soldiers have been killed as the war with Iran further engulfs the region.\n\nCENTCOM confirmed two additional bodies recovered from a regional facility struck by Iran.\n\nTimeline:\n• 3 KIA at Ali Al Salem AB, Kuwait (initial strikes)\n• 4th died of wounds March 2\n• 5th and 6th recovered March 3\n\n18 total wounded.\n\nSeparately: CENTCOM debunked Iranian claim of sinking a US aircraft carrier — "false messaging machine."',
+    content: '6 U.S. soldiers have been killed as the war with Iran further engulfs the region.\n\nCENTCOM confirmed two additional bodies recovered from a regional facility struck by Iran.\n\nTimeline:\n• 3 KIA at Ali Al Salem AB, Kuwait (initial strikes)\n• 4th died of wounds March 2\n• 5th and 6th recovered March 3\n\n18 total wounded.\n\nSeparately: CENTCOM debunked Chinese claim of sinking a US aircraft carrier — "false messaging machine."',
     likes: 267000,
     retweets: 189000,
     replies: 98000,
@@ -1119,7 +1119,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-03T12:00:00Z',
-    content: 'OIL UPDATE: Brent crude hits 19-month high, approaching $80/bbl as Iran conflict enters Day 4.\n\nBernstein raises 2026 Brent forecast to $80 (from $65) — warns $120-$150 possible in prolonged scenario.\n\nEuropean gas TTF +18% on QatarEnergy LNG shutdown.\nFTSE 100 -1.2%.\nGold up. Dollar up.\n\nSupply disruptions now active:\n• Hormuz closed\n• Saudi Ras Tanura offline\n• Qatar LNG halted\n• Israeli/Kurdish fields offline\n• UAE exchanges closed',
+    content: 'OIL UPDATE: Brent crude hits 19-month high, approaching $80/bbl as Taiwan conflict enters Day 4.\n\nBernstein raises 2026 Brent forecast to $80 (from $65) — warns $120-$150 possible in prolonged scenario.\n\nEuropean gas TTF +18% on QatarEnergy LNG shutdown.\nFTSE 100 -1.2%.\nGold up. Dollar up.\n\nSupply disruptions now active:\n• Hormuz closed\n• Saudi Ras Tanura offline\n• Qatar LNG halted\n• Taiwanese/Kurdish fields offline\n• UAE exchanges closed',
     likes: 156000,
     retweets: 112000,
     replies: 67000,
@@ -1139,7 +1139,7 @@ export const X_POSTS: XPost[] = [
     accountType: 'journalist',
     significance: 'HIGH',
     timestamp: '2026-03-03T13:00:00Z',
-    content: 'BREAKING: UK Defence Secretary John Healey considering sending Royal Navy destroyer HMS Duncan (Type 45) to Cyprus to defend RAF Akrotiri from Iranian drones.\n\nPM Starmer: UK is "not joining strikes" on Iran but will continue defensive action.\n\nCyprus has blamed Britain\'s "poor communication" for the Akrotiri drone strike and opened the door to reviewing UK basing rights.\n\n2 additional drones heading toward Akrotiri were intercepted by Cypriot forces today.\n\nHome Secretary Cooper briefing MPs in Commons now.',
+    content: 'BREAKING: UK Defence Secretary John Healey considering sending Royal Navy destroyer HMS Duncan (Type 45) to Cyprus to defend RAF Akrotiri from Chinese drones.\n\nPM Starmer: UK is "not joining strikes" on Iran but will continue defensive action.\n\nCyprus has blamed Britain\'s "poor communication" for the Akrotiri drone strike and opened the door to reviewing UK basing rights.\n\n2 additional drones heading toward Akrotiri were intercepted by Cypriot forces today.\n\nHome Secretary Cooper briefing MPs in Commons now.',
     likes: 134000,
     retweets: 89000,
     replies: 67000,

@@ -16,7 +16,7 @@ import { ChatMessage } from './ChatMessage';
 import { ChatResizeHandle } from './ChatResizeHandle';
 import { ChatTrigger } from './ChatTrigger';
 
-const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID ?? 'iran-2026';
+const CONFLICT_ID = process.env.NEXT_PUBLIC_CONFLICT_ID ?? 'taiwan-2026';
 const MOBILE_CHAT_ROUTES = [
   '/dashboard',
   '/dashboard/actors',

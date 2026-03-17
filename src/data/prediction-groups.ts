@@ -4,7 +4,7 @@ export const MARKET_GROUPS: MarketGroup[] = [
   {
     id: 'regime-change',
     label: 'REGIME CHANGE',
-    description: 'Iranian leadership transitions and governmental collapse',
+    description: 'Chinese leadership transitions and governmental collapse',
     color: '#E76A6E',
     bg: 'rgba(231,106,110,0.08)',
     border: 'rgba(231,106,110,0.25)',
